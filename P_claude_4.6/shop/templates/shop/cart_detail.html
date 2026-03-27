@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+
+{% block title %}Shopping Cart — PhoneGear{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1 class="page-title">Shopping Cart</h1>
+
+    {% if cart|length > 0 %}
+    <div class="cart-layout">
+        <div class="cart-items">
+            {% for item in cart %}
+            <div class="cart-item">
+                <div class="cart-item-image">
+                    {% if item.product.image %}
+                        <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}">
+                    {% else %}
+                        <div class="product-image-placeholder small">
+                            <span>📱</span>
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="cart-item-details">
+                    <h3 class="cart-item-name">{{ item.product.name }}</h3>
+                    <span class="cart-item-price">${{ item.price }}</span>
+                </div>
+                <div class="cart-item-quantity">
+                    <form action="{% url 'shop:cart_add' item.product.id %}" method="post">
+                        {% csrf_token %}
+                        {{ item.update_quantity_form.quantity }}
+                        {{ item.update_quantity_form.override }}
+                        <button type="submit" class="btn btn-sm btn-secondary">Update</button>
+                    </form>
+                </div>
+                <div class="cart-item-total">
+                    <span>${{ item.total_price }}</span>
+                </div>
+                <div class="cart-item-remove">
+                    <form action="{% url 'shop:cart_remove' item.product.id %}" method="post">
+                        {% csrf_token %}
+                        <button type="submit" class="btn-icon btn-remove" title="Remove">✕</button>
+                    </form>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <div class="cart-summary">
+            <div class="summary-card">
+                <h3>Order Summary</h3>
+                <div class="summary-row">
+                    <span>Items ({{ cart|length }})</span>
+                    <span>${{ cart.get_total_price }}</span>
+                </div>
+                <div class="summary-row">
+                    <span>Shipping</span>
+                    <span class="free-shipping">FREE</span>
+                </div>
+                <hr class="summary-divider">
+                <div class="summary-row total-row">
+                    <span>Total</span>
+                    <span>${{ cart.get_total_price }}</span>
+                </div>
+                <a href="{% url 'orders:checkout' %}" class="btn btn-primary btn-block" id="checkout-btn">
+                    Proceed to Checkout
+                </a>
+                <a href="{% url 'shop:product_list' %}" class="btn btn-outline btn-block">
+                    Continue Shopping
+                </a>
+            </div>
+        </div>
+    </div>
+    {% else %}
+    <div class="empty-state">
+        <span class="empty-icon">🛒</span>
+        <h3>Your cart is empty</h3>
+        <p>Looks like you haven't added any items yet.</p>
+        <a href="{% url 'shop:product_list' %}" class="btn btn-primary">Start Shopping</a>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

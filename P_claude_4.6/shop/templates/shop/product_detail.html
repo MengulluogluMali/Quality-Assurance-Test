@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block title %}{{ product.name }} — PhoneGear{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="breadcrumb">
+        <a href="{% url 'shop:product_list' %}">Shop</a>
+        <span class="breadcrumb-sep">›</span>
+        <a href="{% url 'shop:product_list_by_category' product.category.slug %}">{{ product.category.name }}</a>
+        <span class="breadcrumb-sep">›</span>
+        <span>{{ product.name }}</span>
+    </div>
+
+    <div class="product-detail">
+        <div class="product-detail-image">
+            {% if product.image %}
+                <img src="{{ product.image.url }}" alt="{{ product.name }}">
+            {% else %}
+                <div class="product-image-placeholder large">
+                    <span>📱</span>
+                </div>
+            {% endif %}
+        </div>
+        <div class="product-detail-info">
+            <span class="product-category">{{ product.category.name }}</span>
+            <h1 class="product-detail-name">{{ product.name }}</h1>
+            <span class="product-detail-price">${{ product.price }}</span>
+
+            {% if product.description %}
+                <p class="product-description">{{ product.description }}</p>
+            {% endif %}
+
+            <div class="product-meta">
+                {% if product.stock > 0 %}
+                    <span class="stock-badge in-stock">✓ In Stock ({{ product.stock }} available)</span>
+                {% else %}
+                    <span class="stock-badge out-of-stock">✕ Out of Stock</span>
+                {% endif %}
+            </div>
+
+            {% if product.stock > 0 %}
+            <form action="{% url 'shop:cart_add' product.id %}" method="post" class="add-to-cart-form">
+                {% csrf_token %}
+                {{ cart_product_form.quantity }}
+                {{ cart_product_form.override }}
+                <button type="submit" class="btn btn-primary btn-lg" id="add-to-cart-btn">
+                    🛒 Add to Cart
+                </button>
+            </form>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

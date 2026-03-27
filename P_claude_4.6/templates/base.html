@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="PhoneGear — Premium mobile phone accessories. Cases, chargers, headphones and more.">
+    <title>{% block title %}PhoneGear — Premium Phone Accessories{% endblock %}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container nav-container">
+            <a href="{% url 'shop:product_list' %}" class="logo">
+                <span class="logo-icon">📱</span>
+                <span class="logo-text">Phone<span class="logo-accent">Gear</span></span>
+            </a>
+            <div class="nav-links">
+                <a href="{% url 'shop:product_list' %}" class="nav-link">Shop</a>
+                <a href="{% url 'shop:cart_detail' %}" class="nav-link cart-link">
+                    🛒 Cart
+                    {% if cart|length > 0 %}
+                        <span class="cart-badge">{{ cart|length }}</span>
+                    {% endif %}
+                </a>
+                {% if user.is_authenticated %}
+                    <span class="nav-user">Hi, {{ user.first_name|default:user.username }}</span>
+                    {% if user.is_staff %}
+                        <a href="{% url 'admin:index' %}" class="nav-link admin-link">Admin</a>
+                    {% endif %}
+                    <form method="post" action="{% url 'accounts:logout' %}" class="logout-form">
+                        {% csrf_token %}
+                        <button type="submit" class="nav-link btn-logout">Logout</button>
+                    </form>
+                {% else %}
+                    <a href="{% url 'accounts:login' %}" class="nav-link">Login</a>
+                    <a href="{% url 'accounts:register' %}" class="btn btn-primary btn-sm">Sign Up</a>
+                {% endif %}
+            </div>
+        </div>
+    </nav>
+
+    {% if messages %}
+    <div class="container">
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}">
+            {{ message }}
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <main class="main-content">
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <span class="logo-icon">📱</span>
+                    <span class="logo-text">Phone<span class="logo-accent">Gear</span></span>
+                    <p class="footer-desc">Premium mobile accessories for every device. Quality you can trust.</p>
+                </div>
+                <div class="footer-links-section">
+                    <h4>Quick Links</h4>
+                    <a href="{% url 'shop:product_list' %}">All Products</a>
+                    <a href="{% url 'shop:cart_detail' %}">Shopping Cart</a>
+                </div>
+                <div class="footer-links-section">
+                    <h4>Account</h4>
+                    {% if user.is_authenticated %}
+                        <a href="{% url 'accounts:logout' %}">Logout</a>
+                    {% else %}
+                        <a href="{% url 'accounts:login' %}">Login</a>
+                        <a href="{% url 'accounts:register' %}">Register</a>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 PhoneGear. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

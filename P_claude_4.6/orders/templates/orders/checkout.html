@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+
+{% block title %}Checkout — PhoneGear{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1 class="page-title">Checkout</h1>
+
+    <div class="checkout-layout">
+        <div class="checkout-form-section">
+            <div class="checkout-card">
+                <h2 class="checkout-section-title">Shipping Information</h2>
+                <form method="post" class="checkout-form" id="checkout-form">
+                    {% csrf_token %}
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="id_first_name" class="form-label">First Name</label>
+                            {{ form.first_name }}
+                        </div>
+                        <div class="form-group">
+                            <label for="id_last_name" class="form-label">Last Name</label>
+                            {{ form.last_name }}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="id_email" class="form-label">Email</label>
+                        {{ form.email }}
+                    </div>
+                    <div class="form-group">
+                        <label for="id_address" class="form-label">Address</label>
+                        {{ form.address }}
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="id_city" class="form-label">City</label>
+                            {{ form.city }}
+                        </div>
+                        <div class="form-group">
+                            <label for="id_phone" class="form-label">Phone</label>
+                            {{ form.phone }}
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block btn-lg" id="place-order-btn">
+                        🔒 Place Order — ${{ cart.get_total_price }}
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <div class="checkout-summary">
+            <div class="summary-card">
+                <h3>Order Summary</h3>
+                {% for item in cart %}
+                <div class="summary-item">
+                    <span class="summary-item-name">{{ item.product.name }} × {{ item.quantity }}</span>
+                    <span>${{ item.total_price }}</span>
+                </div>
+                {% endfor %}
+                <hr class="summary-divider">
+                <div class="summary-row total-row">
+                    <span>Total</span>
+                    <span>${{ cart.get_total_price }}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

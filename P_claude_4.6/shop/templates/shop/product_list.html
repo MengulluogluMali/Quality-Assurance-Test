@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+    {% if category %}{{ category.name }} — {% endif %}Shop — PhoneGear
+{% endblock %}
+
+{% block content %}
+<section class="hero-section">
+    <div class="container">
+        <div class="hero-content">
+            <h1 class="hero-title">Premium Phone <span class="gradient-text">Accessories</span></h1>
+            <p class="hero-subtitle">Discover top-quality cases, chargers, headphones and more for your device.</p>
+        </div>
+    </div>
+</section>
+
+<div class="container shop-layout">
+    <aside class="sidebar">
+        <div class="sidebar-card">
+            <h3 class="sidebar-title">Categories</h3>
+            <a href="{% url 'shop:product_list' %}"
+               class="category-link {% if not category %}active{% endif %}">
+                All Products
+            </a>
+            {% for c in categories %}
+            <a href="{% url 'shop:product_list_by_category' c.slug %}"
+               class="category-link {% if category.slug == c.slug %}active{% endif %}">
+                {{ c.name }}
+            </a>
+            {% endfor %}
+        </div>
+    </aside>
+
+    <section class="products-section">
+        {% if category %}
+            <h2 class="section-title">{{ category.name }}</h2>
+        {% else %}
+            <h2 class="section-title">All Products</h2>
+        {% endif %}
+
+        {% if products %}
+        <div class="product-grid">
+            {% for product in products %}
+            <a href="{{ product.get_absolute_url }}" class="product-card">
+                <div class="product-image-wrap">
+                    {% if product.image %}
+                        <img src="{{ product.image.url }}" alt="{{ product.name }}" class="product-image">
+                    {% else %}
+                        <div class="product-image-placeholder">
+                            <span>📱</span>
+                        </div>
+                    {% endif %}
+                    {% if product.stock <= 3 and product.stock > 0 %}
+                        <span class="badge badge-warning">Only {{ product.stock }} left</span>
+                    {% elif product.stock == 0 %}
+                        <span class="badge badge-danger">Out of Stock</span>
+                    {% endif %}
+                </div>
+                <div class="product-info">
+                    <span class="product-category">{{ product.category.name }}</span>
+                    <h3 class="product-name">{{ product.name }}</h3>
+                    <span class="product-price">${{ product.price }}</span>
+                </div>
+            </a>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="empty-state">
+            <span class="empty-icon">📦</span>
+            <h3>No products found</h3>
+            <p>Check back soon for new arrivals!</p>
+        </div>
+        {% endif %}
+    </section>
+</div>
+{% endblock %}
