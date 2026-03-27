@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block title %}Sign In — PhoneStore{% endblock %}
+
+{% block content %}
+<div class="auth-page">
+  <div class="auth-card">
+    <div class="auth-logo">⚡ PhoneStore</div>
+    <h1 class="auth-title">Welcome back</h1>
+    <p class="auth-subtitle">Sign in to your account</p>
+
+    <form method="POST" action="{{ url_for('auth.login') }}" id="login-form">
+      <input type="hidden" name="next" value="{{ request.args.get('next', '') }}" />
+      <div class="form-group">
+        <label class="form-label" for="email">Email Address</label>
+        <input type="email" id="email" name="email" class="form-control"
+               placeholder="john@example.com" required autofocus />
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="password">Password</label>
+        <input type="password" id="password" name="password" class="form-control"
+               placeholder="Your password" required />
+      </div>
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;">
+        <label style="display:flex;align-items:center;gap:8px;cursor:pointer;font-size:0.875rem;color:var(--text-secondary);">
+          <input type="checkbox" name="remember" id="remember" /> Remember me
+        </label>
+      </div>
+      <button type="submit" class="btn btn-primary btn-full">Sign In →</button>
+    </form>
+
+    <div class="divider">or</div>
+
+    <a href="{{ url_for('auth.register') }}" class="btn btn-secondary btn-full">Create New Account</a>
+
+    <div class="auth-footer" style="margin-top:16px;">
+      Don't have an account? <a href="{{ url_for('auth.register') }}">Get Started Free</a>
+    </div>
+  </div>
+</div>
+{% endblock %}

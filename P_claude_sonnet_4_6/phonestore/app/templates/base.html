@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{% block title %}PhoneStore — Premium Mobile Accessories{% endblock %}</title>
+  <meta name="description" content="{% block meta_description %}Shop the best mobile phone accessories — cases, chargers, earphones, screen protectors and more.{% endblock %}" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+  {% block head %}{% endblock %}
+</head>
+<body>
+
+<!-- ── Navbar ──────────────────────────────────────────────────────────────── -->
+<nav class="navbar" role="navigation" aria-label="Main navigation">
+  <div class="navbar-inner">
+    <a href="{{ url_for('store.home') }}" class="navbar-brand">⚡ PhoneStore</a>
+
+    <ul class="navbar-nav" id="navbar-nav">
+      <li><a href="{{ url_for('store.home') }}" {% if request.endpoint == 'store.home' %}class="active"{% endif %}>Home</a></li>
+      <li><a href="{{ url_for('store.products') }}" {% if request.endpoint == 'store.products' %}class="active"{% endif %}>Shop</a></li>
+      {% if current_user.is_authenticated %}
+        <li>
+          <a href="{{ url_for('store.cart') }}" class="cart-link">
+            🛒 Cart
+            {% set cart_count = current_user.cart_items | length %}
+            <span id="cart-count" class="cart-badge" style="{{ 'display:none' if cart_count == 0 else '' }}">{{ cart_count }}</span>
+          </a>
+        </li>
+        <li><a href="{{ url_for('store.orders') }}">My Orders</a></li>
+        {% if current_user.is_admin %}
+          <li><a href="{{ url_for('admin.dashboard') }}" class="btn btn-outline btn-sm">⚙️ Admin</a></li>
+        {% endif %}
+        <li><a href="{{ url_for('auth.logout') }}" class="btn btn-secondary btn-sm">Sign Out</a></li>
+      {% else %}
+        <li>
+          <a href="{{ url_for('store.cart') }}" class="cart-link">
+            🛒 Cart
+            <span id="cart-count" class="cart-badge" style="display:none">0</span>
+          </a>
+        </li>
+        <li><a href="{{ url_for('auth.login') }}" class="btn btn-secondary btn-sm">Sign In</a></li>
+        <li><a href="{{ url_for('auth.register') }}" class="btn btn-primary btn-sm">Get Started</a></li>
+      {% endif %}
+    </ul>
+
+    <button class="navbar-mobile-toggle" id="mobile-toggle" aria-label="Toggle menu">☰</button>
+  </div>
+</nav>
+
+<!-- ── Flash Messages ──────────────────────────────────────────────────────── -->
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    <div style="max-width:1280px;margin:16px auto;padding:0 24px;">
+      {% for category, message in messages %}
+        <div class="alert alert-{{ category }}" data-auto-dismiss>
+          {% if category == 'success' %}✅{% elif category == 'danger' %}❌{% elif category == 'warning' %}⚠️{% else %}ℹ️{% endif %}
+          {{ message }}
+        </div>
+      {% endfor %}
+    </div>
+  {% endif %}
+{% endwith %}
+
+<!-- ── Main Content ────────────────────────────────────────────────────────── -->
+<main>
+  {% block content %}{% endblock %}
+</main>
+
+<!-- ── Footer ─────────────────────────────────────────────────────────────── -->
+<footer class="footer">
+  <div class="footer-grid">
+    <div>
+      <div class="footer-brand">⚡ PhoneStore</div>
+      <p class="footer-desc">Your one-stop destination for premium mobile phone accessories. Quality products, fast shipping.</p>
+    </div>
+    <div>
+      <div class="footer-heading">Shop</div>
+      <ul class="footer-links">
+        <li><a href="{{ url_for('store.products') }}">All Products</a></li>
+        <li><a href="{{ url_for('store.products') }}?category=1">Cases</a></li>
+        <li><a href="{{ url_for('store.products') }}?category=2">Chargers</a></li>
+        <li><a href="{{ url_for('store.products') }}?category=3">Earphones</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-heading">Account</div>
+      <ul class="footer-links">
+        {% if current_user.is_authenticated %}
+          <li><a href="{{ url_for('store.orders') }}">My Orders</a></li>
+          <li><a href="{{ url_for('store.cart') }}">My Cart</a></li>
+          <li><a href="{{ url_for('auth.logout') }}">Sign Out</a></li>
+        {% else %}
+          <li><a href="{{ url_for('auth.login') }}">Sign In</a></li>
+          <li><a href="{{ url_for('auth.register') }}">Create Account</a></li>
+        {% endif %}
+      </ul>
+    </div>
+    <div>
+      <div class="footer-heading">Support</div>
+      <ul class="footer-links">
+        <li><a href="#">Shipping Policy</a></li>
+        <li><a href="#">Returns</a></li>
+        <li><a href="#">Contact Us</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 PhoneStore. All rights reserved.</span>
+    <span>Made with ❤️ for mobile lovers</span>
+  </div>
+</footer>
+
+<script src="{{ url_for('static', filename='js/main.js') }}"></script>
+{% block scripts %}{% endblock %}
+</body>
+</html>

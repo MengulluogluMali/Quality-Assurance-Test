@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block title %}Order Confirmed — PhoneStore{% endblock %}
+
+{% block content %}
+<div class="success-page">
+  <div style="text-align:center;max-width:560px;margin:0 auto;">
+    <div class="success-icon">🎉</div>
+    <h1 style="font-size:2.2rem;margin-bottom:12px;">Order Confirmed!</h1>
+    <p style="color:var(--text-secondary);font-size:1.05rem;margin-bottom:40px;">
+      Thank you for your purchase, <strong>{{ order.user.name }}</strong>! An order confirmation has been sent to <strong>{{ order.user.email }}</strong>.
+    </p>
+
+    <div class="glass" style="padding:32px;text-align:left;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;">
+        <h2 style="font-size:1.1rem;">Order #{{ order.id }}</h2>
+        <span class="badge badge-success">{{ order.status.capitalize() }}</span>
+      </div>
+
+      {% for item in order.items %}
+      <div style="display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid var(--border);">
+        <div>
+          <div style="font-weight:600;">{{ item.product.name }}</div>
+          <div style="font-size:0.85rem;color:var(--text-muted);">Qty: {{ item.quantity }} × ${{ '%.2f' % item.unit_price }}</div>
+        </div>
+        <div style="font-weight:700;color:var(--accent-light);">${{ '%.2f' % item.subtotal }}</div>
+      </div>
+      {% endfor %}
+
+      <div style="display:flex;justify-content:space-between;align-items:center;padding-top:16px;font-size:1.1rem;font-weight:700;">
+        <span>Total</span>
+        <span style="color:var(--accent-light);">{{ order.formatted_total }}</span>
+      </div>
+
+      <div style="margin-top:24px;padding-top:20px;border-top:1px solid var(--border);">
+        <div style="font-size:0.85rem;color:var(--text-muted);">Shipping to</div>
+        <div style="margin-top:4px;">
+          {{ order.shipping_name }}<br>
+          {{ order.shipping_address }}<br>
+          {{ order.shipping_city }}, {{ order.shipping_country }}
+        </div>
+      </div>
+    </div>
+
+    <div style="display:flex;gap:16px;justify-content:center;margin-top:32px;flex-wrap:wrap;">
+      <a href="{{ url_for('store.orders') }}" class="btn btn-secondary">View All Orders</a>
+      <a href="{{ url_for('store.products') }}" class="btn btn-primary">Continue Shopping →</a>
+    </div>
+  </div>
+</div>
+{% endblock %}

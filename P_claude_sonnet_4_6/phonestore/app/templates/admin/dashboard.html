@@ -1,0 +1,98 @@
+{% extends "admin/base_admin.html" %}
+{% block title %}Dashboard — Admin{% endblock %}
+
+{% block content %}
+<div class="admin-header">
+  <h1>Dashboard</h1>
+  <p>Welcome back! Here's your store overview.</p>
+</div>
+
+<!-- Stats -->
+<div class="stats-grid">
+  <div class="stat-card">
+    <div class="stat-icon">📦</div>
+    <div class="stat-value">{{ total_products }}</div>
+    <div class="stat-label">Active Products</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-icon">🛍️</div>
+    <div class="stat-value">{{ total_orders }}</div>
+    <div class="stat-label">Total Orders</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-icon">💰</div>
+    <div class="stat-value">${{ '%.2f' % total_revenue }}</div>
+    <div class="stat-label">Total Revenue</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-icon">👥</div>
+    <div class="stat-value">{{ total_users }}</div>
+    <div class="stat-label">Registered Users</div>
+  </div>
+</div>
+
+<!-- Quick Actions -->
+<div style="display:flex;gap:12px;margin-bottom:36px;flex-wrap:wrap;">
+  <a href="{{ url_for('admin.add_product') }}" class="btn btn-primary">➕ Add Product</a>
+  <a href="{{ url_for('admin.orders') }}" class="btn btn-secondary">🛍️ View Orders</a>
+  <a href="{{ url_for('store.home') }}" target="_blank" class="btn btn-outline">🌐 Open Store</a>
+</div>
+
+<!-- Low Stock Warning -->
+{% if low_stock %}
+<div class="alert alert-warning" style="margin-bottom:24px;">
+  ⚠️ <strong>Low Stock Alert:</strong> {{ low_stock | length }} product(s) with 5 or fewer items remaining.
+</div>
+<div class="data-table-wrap" style="margin-bottom:36px;">
+  <table class="data-table">
+    <thead><tr><th>Product</th><th>Category</th><th>Stock</th><th>Action</th></tr></thead>
+    <tbody>
+      {% for p in low_stock %}
+      <tr>
+        <td style="color:var(--text-primary);font-weight:500;">{{ p.name }}</td>
+        <td>{{ p.category.name if p.category else '—' }}</td>
+        <td><span class="badge {% if p.stock == 0 %}badge-danger{% else %}badge-warning{% endif %}">{{ p.stock }}</span></td>
+        <td><a href="{{ url_for('admin.edit_product', product_id=p.id) }}" class="btn btn-sm btn-secondary">Edit</a></td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endif %}
+
+<!-- Recent Orders -->
+<h2 style="font-size:1.2rem;margin-bottom:20px;">Recent Orders</h2>
+{% if recent_orders %}
+<div class="data-table-wrap">
+  <table class="data-table">
+    <thead>
+      <tr><th>#</th><th>Customer</th><th>Items</th><th>Total</th><th>Status</th><th>Date</th><th>Action</th></tr>
+    </thead>
+    <tbody>
+      {% for order in recent_orders %}
+      <tr>
+        <td style="color:var(--text-primary);font-weight:600;">#{{ order.id }}</td>
+        <td>{{ order.user.name }}<div style="font-size:0.78rem;color:var(--text-muted);">{{ order.user.email }}</div></td>
+        <td>{{ order.items | length }} item(s)</td>
+        <td style="color:var(--accent-light);font-weight:600;">{{ order.formatted_total }}</td>
+        <td><span class="badge {{ order.status_badge }}">{{ order.status.capitalize() }}</span></td>
+        <td style="font-size:0.85rem;">{{ order.created_at.strftime('%b %d, %Y') }}</td>
+        <td>
+          <form method="POST" action="{{ url_for('admin.update_order_status', order_id=order.id) }}" style="display:inline;">
+            <select name="status" class="form-control" style="font-size:0.8rem;padding:4px 8px;"
+                    onchange="this.form.submit()">
+              {% for s in ['pending','paid','shipped','cancelled'] %}
+                <option value="{{ s }}" {% if s == order.status %}selected{% endif %}>{{ s.capitalize() }}</option>
+              {% endfor %}
+            </select>
+          </form>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% else %}
+<div class="empty-state"><div class="empty-icon">📭</div><h3>No orders yet</h3></div>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{% block title %}Admin — PhoneStore{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+</head>
+<body>
+<div class="admin-layout">
+
+  <!-- Sidebar -->
+  <aside class="admin-sidebar">
+    <div class="admin-sidebar-logo">
+      <a href="{{ url_for('admin.dashboard') }}">⚡ PhoneStore <span style="font-size:0.7rem;color:var(--text-muted);font-family:'Inter',sans-serif;font-weight:400;-webkit-text-fill-color:var(--text-muted);">Admin</span></a>
+    </div>
+    <div class="admin-sidebar-section">Overview</div>
+    <ul class="admin-sidebar-nav">
+      <li>
+        <a href="{{ url_for('admin.dashboard') }}"
+           class="{% if request.endpoint == 'admin.dashboard' %}active{% endif %}">
+          📊 Dashboard
+        </a>
+      </li>
+    </ul>
+    <div class="admin-sidebar-section">Catalog</div>
+    <ul class="admin-sidebar-nav">
+      <li>
+        <a href="{{ url_for('admin.products') }}"
+           class="{% if 'admin.products' in request.endpoint or 'admin.add_product' in request.endpoint or 'admin.edit_product' in request.endpoint %}active{% endif %}">
+          📦 Products
+        </a>
+      </li>
+      <li>
+        <a href="{{ url_for('admin.add_product') }}"
+           class="{% if request.endpoint == 'admin.add_product' %}active{% endif %}">
+          ➕ Add Product
+        </a>
+      </li>
+    </ul>
+    <div class="admin-sidebar-section">Sales</div>
+    <ul class="admin-sidebar-nav">
+      <li>
+        <a href="{{ url_for('admin.orders') }}"
+           class="{% if request.endpoint == 'admin.orders' %}active{% endif %}">
+          🛍️ Orders
+        </a>
+      </li>
+    </ul>
+    <div class="admin-sidebar-section">Store</div>
+    <ul class="admin-sidebar-nav">
+      <li><a href="{{ url_for('store.home') }}" target="_blank">🌐 View Store</a></li>
+      <li><a href="{{ url_for('auth.logout') }}">🚪 Sign Out</a></li>
+    </ul>
+  </aside>
+
+  <!-- Main Content -->
+  <div class="admin-content">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, message in messages %}
+          <div class="alert alert-{{ category }}" data-auto-dismiss>{{ message }}</div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+
+    {% block content %}{% endblock %}
+  </div>
+</div>
+<script src="{{ url_for('static', filename='js/main.js') }}"></script>
+{% block scripts %}{% endblock %}
+</body>
+</html>

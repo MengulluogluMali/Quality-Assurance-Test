@@ -1,0 +1,124 @@
+{% extends "base.html" %}
+{% block title %}{{ product.name }} — PhoneStore{% endblock %}
+{% block meta_description %}{{ product.description[:155] }}{% endblock %}
+
+{% block content %}
+<div class="container section">
+
+  <!-- Breadcrumb -->
+  <nav style="font-size:0.85rem;color:var(--text-muted);margin-bottom:32px;">
+    <a href="{{ url_for('store.home') }}" style="color:var(--text-muted)">Home</a> /
+    <a href="{{ url_for('store.products') }}" style="color:var(--text-muted)">Shop</a> /
+    {% if product.category %}
+      <a href="{{ url_for('store.products', category=product.category_id) }}" style="color:var(--text-muted)">{{ product.category.name }}</a> /
+    {% endif %}
+    <span style="color:var(--text-primary)">{{ product.name }}</span>
+  </nav>
+
+  <!-- Product Detail -->
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start;" class="product-detail-grid">
+
+    <!-- Image -->
+    <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-xl);overflow:hidden;aspect-ratio:1;">
+      {% if product.image_filename and product.image_filename != 'default_product.png' %}
+        <img src="{{ url_for('static', filename='uploads/' + product.image_filename) }}"
+             alt="{{ product.name }}" style="width:100%;height:100%;object-fit:cover;" />
+      {% else %}
+        <div class="img-placeholder" style="height:100%;font-size:6rem;">📱</div>
+      {% endif %}
+    </div>
+
+    <!-- Info -->
+    <div>
+      {% if product.category %}
+        <div style="color:var(--accent-light);font-size:0.85rem;font-weight:600;text-transform:uppercase;letter-spacing:1px;margin-bottom:12px;">
+          {{ product.category.name }}
+        </div>
+      {% endif %}
+
+      <h1 style="font-size:clamp(1.5rem,3vw,2.2rem);margin-bottom:16px;">{{ product.name }}</h1>
+
+      {% if product.is_featured %}
+        <span class="badge badge-purple" style="margin-bottom:16px;display:inline-block;">⭐ Featured</span>
+      {% endif %}
+
+      <div style="font-size:2.4rem;font-weight:800;font-family:'Outfit',sans-serif;color:var(--accent-light);margin-bottom:20px;">
+        {{ product.formatted_price }}
+      </div>
+
+      <!-- Stock Badge -->
+      {% if product.stock == 0 %}
+        <span class="badge badge-danger" style="margin-bottom:24px;display:inline-block;">Out of Stock</span>
+      {% elif product.stock <= 5 %}
+        <span class="badge badge-warning" style="margin-bottom:24px;display:inline-block;">⚠️ Only {{ product.stock }} left</span>
+      {% else %}
+        <span class="badge badge-success" style="margin-bottom:24px;display:inline-block;">✅ In Stock ({{ product.stock }})</span>
+      {% endif %}
+
+      <p style="color:var(--text-secondary);line-height:1.8;margin-bottom:32px;">{{ product.description }}</p>
+
+      <!-- Add to Cart -->
+      {% if product.in_stock %}
+        {% if current_user.is_authenticated %}
+          <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap;">
+            <div class="qty-control">
+              <button class="qty-btn" type="button" onclick="changeQty(-1)">−</button>
+              <input type="number" id="qty-{{ product.id }}" class="qty-input" value="1" min="1" max="{{ product.stock }}" />
+              <button class="qty-btn" type="button" onclick="changeQty(1)">+</button>
+            </div>
+            <button class="btn btn-primary btn-lg"
+                    data-add-to-cart
+                    data-product-id="{{ product.id }}"
+                    style="flex:1;justify-content:center;">
+              🛒 Add to Cart
+            </button>
+          </div>
+          <a href="{{ url_for('store.cart') }}" class="btn btn-secondary btn-full" style="margin-top:12px;">View Cart</a>
+        {% else %}
+          <a href="{{ url_for('auth.login') }}" class="btn btn-primary btn-lg btn-full">Sign In to Purchase</a>
+        {% endif %}
+      {% else %}
+        <button class="btn btn-secondary btn-lg btn-full" disabled>Out of Stock</button>
+      {% endif %}
+
+      <!-- Meta info -->
+      <div style="margin-top:32px;padding-top:24px;border-top:1px solid var(--border);display:flex;flex-direction:column;gap:12px;">
+        <div style="display:flex;gap:12px;font-size:0.875rem;color:var(--text-muted);">
+          <span>🚚</span><span>Free shipping on orders over $50</span>
+        </div>
+        <div style="display:flex;gap:12px;font-size:0.875rem;color:var(--text-muted);">
+          <span>🔒</span><span>Secure payment via Stripe</span>
+        </div>
+        <div style="display:flex;gap:12px;font-size:0.875rem;color:var(--text-muted);">
+          <span>↩️</span><span>30-day easy returns</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Related Products -->
+  {% if related %}
+  <div style="margin-top:80px;">
+    <div class="section-header"><h2>You Might Also Like</h2></div>
+    <div class="product-grid">
+      {% for product in related %}{% include "store/partials/product_card.html" %}{% endfor %}
+    </div>
+  </div>
+  {% endif %}
+</div>
+
+<style>
+  @media (max-width: 768px) {
+    .product-detail-grid { grid-template-columns: 1fr !important; }
+  }
+</style>
+
+<script>
+  function changeQty(delta) {
+    const input = document.getElementById('qty-{{ product.id }}');
+    const max = {{ product.stock }};
+    let val = parseInt(input.value) + delta;
+    input.value = Math.min(max, Math.max(1, val));
+  }
+</script>
+{% endblock %}

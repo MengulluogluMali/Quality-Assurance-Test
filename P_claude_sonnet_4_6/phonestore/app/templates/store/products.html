@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+{% block title %}Shop All Products — PhoneStore{% endblock %}
+
+{% block content %}
+<div class="container section">
+
+  <!-- Header -->
+  <div class="section-header" style="margin-bottom:32px;">
+    <h1>Shop All Products</h1>
+    <p style="color:var(--text-secondary);">
+      {% if query %}Results for "<strong>{{ query }}</strong>"{% else %}Browse our full collection{% endif %}
+    </p>
+  </div>
+
+  <!-- Search + Sort Bar -->
+  <form method="GET" id="filter-form">
+    <div class="search-bar">
+      <div class="search-input-wrap">
+        <span class="search-icon">🔍</span>
+        <input type="text" name="q" value="{{ query }}" class="form-control"
+               placeholder="Search products..." id="search-input" />
+      </div>
+      <select name="sort" class="form-control" style="max-width:180px;" onchange="this.form.submit()" id="sort-select">
+        <option value="newest" {% if sort == 'newest' %}selected{% endif %}>Newest First</option>
+        <option value="price_asc" {% if sort == 'price_asc' %}selected{% endif %}>Price: Low to High</option>
+        <option value="price_desc" {% if sort == 'price_desc' %}selected{% endif %}>Price: High to Low</option>
+      </select>
+      {% if current_category %}<input type="hidden" name="category" value="{{ current_category }}" />{% endif %}
+      <button type="submit" class="btn btn-primary">Search</button>
+    </div>
+  </form>
+
+  <!-- Category Filter -->
+  <div class="category-grid" style="margin-bottom:36px;">
+    <a href="{{ url_for('store.products', q=query, sort=sort) }}"
+       class="category-pill {% if not current_category %}active{% endif %}">All</a>
+    {% for cat in categories %}
+      <a href="{{ url_for('store.products', category=cat.id, q=query, sort=sort) }}"
+         class="category-pill {% if current_category == cat.id %}active{% endif %}">{{ cat.name }}</a>
+    {% endfor %}
+  </div>
+
+  <!-- Product Grid -->
+  {% if products %}
+    <div class="product-grid">
+      {% for product in products %}
+        {% include "store/partials/product_card.html" %}
+      {% endfor %}
+    </div>
+
+    <!-- Pagination -->
+    {% if pagination.pages > 1 %}
+    <div class="pagination">
+      <a href="{{ url_for('store.products', page=pagination.prev_num, q=query, sort=sort, category=current_category) }}"
+         class="page-btn {% if not pagination.has_prev %}disabled{% endif %}">← Prev</a>
+      {% for p in pagination.iter_pages(left_edge=2, right_edge=2, left_current=2, right_current=3) %}
+        {% if p %}
+          <a href="{{ url_for('store.products', page=p, q=query, sort=sort, category=current_category) }}"
+             class="page-btn {% if p == pagination.page %}active{% endif %}">{{ p }}</a>
+        {% else %}
+          <span class="page-btn disabled">…</span>
+        {% endif %}
+      {% endfor %}
+      <a href="{{ url_for('store.products', page=pagination.next_num, q=query, sort=sort, category=current_category) }}"
+         class="page-btn {% if not pagination.has_next %}disabled{% endif %}">Next →</a>
+    </div>
+    {% endif %}
+
+  {% else %}
+    <div class="empty-state">
+      <div class="empty-icon">🔍</div>
+      <h3>No products found</h3>
+      <p>Try a different search term or browse all categories.</p>
+      <a href="{{ url_for('store.products') }}" class="btn btn-primary" style="margin-top:20px;">Clear Filters</a>
+    </div>
+  {% endif %}
+</div>
+{% endblock %}

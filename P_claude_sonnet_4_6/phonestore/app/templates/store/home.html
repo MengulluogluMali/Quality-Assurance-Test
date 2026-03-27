@@ -1,0 +1,111 @@
+{% extends "base.html" %}
+
+{% block title %}PhoneStore — Premium Mobile Accessories{% endblock %}
+
+{% block content %}
+
+<!-- ── Hero ────────────────────────────────────────────────────────────────── -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="container">
+    <div class="hero-content">
+      <div class="hero-eyebrow">
+        <span>⚡</span> New arrivals just dropped
+      </div>
+      <h1>
+        Elevate Your
+        <span class="hero-gradient-text">Mobile Experience</span>
+      </h1>
+      <p>Discover premium phone accessories — cases, chargers, earphones and more. Built for the way you live.</p>
+      <div class="hero-actions">
+        <a href="{{ url_for('store.products') }}" class="btn btn-primary btn-lg">Shop Now →</a>
+        <a href="{{ url_for('store.products') }}?sort=newest" class="btn btn-secondary btn-lg">New Arrivals</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Categories ──────────────────────────────────────────────────────────── -->
+<section class="section" style="padding-top: 48px; padding-bottom: 0;">
+  <div class="container">
+    <div class="category-grid">
+      <a href="{{ url_for('store.products') }}" class="category-pill active">All Products</a>
+      {% for cat in categories %}
+        <a href="{{ url_for('store.products') }}?category={{ cat.id }}" class="category-pill">{{ cat.name }}</a>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- ── Featured Products ────────────────────────────────────────────────────── -->
+{% if featured %}
+<section class="section">
+  <div class="container">
+    <div class="section-header">
+      <h2>⭐ Featured Products</h2>
+      <p>Hand-picked accessories for maximum style and performance.</p>
+    </div>
+    <div class="product-grid">
+      {% for product in featured %}
+        {% include "store/partials/product_card.html" %}
+      {% endfor %}
+    </div>
+    <div style="text-align:center;margin-top:36px;">
+      <a href="{{ url_for('store.products') }}" class="btn btn-outline">View All Products →</a>
+    </div>
+  </div>
+</section>
+{% endif %}
+
+<!-- ── Trust Badges ─────────────────────────────────────────────────────────── -->
+<section style="padding: 48px 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
+  <div class="container">
+    <div style="display:flex;justify-content:center;gap:48px;flex-wrap:wrap;text-align:center;">
+      {% for icon, title, desc in [
+          ('🚚', 'Fast Shipping', 'Most orders ship in 24 hours'),
+          ('🔒', 'Secure Payments', 'Powered by Stripe encryption'),
+          ('↩️', 'Easy Returns', '30-day hassle-free returns'),
+          ('💬', '24/7 Support', 'We\'re always here to help')
+      ] %}
+      <div>
+        <div style="font-size:2rem;margin-bottom:8px;">{{ icon }}</div>
+        <div style="font-family:'Outfit',sans-serif;font-weight:600;margin-bottom:4px;">{{ title }}</div>
+        <div style="font-size:0.85rem;color:var(--text-muted);">{{ desc }}</div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- ── New Arrivals ─────────────────────────────────────────────────────────── -->
+{% if new_arrivals %}
+<section class="section">
+  <div class="container">
+    <div class="section-header" style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;">
+      <div>
+        <h2>🆕 New Arrivals</h2>
+        <p>The latest additions to our collection.</p>
+      </div>
+      <a href="{{ url_for('store.products') }}?sort=newest" class="btn btn-secondary">See All</a>
+    </div>
+    <div class="product-grid">
+      {% for product in new_arrivals %}
+        {% include "store/partials/product_card.html" %}
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
+
+<!-- ── CTA ─────────────────────────────────────────────────────────────────── -->
+{% if not current_user.is_authenticated %}
+<section style="padding: 80px 24px; text-align:center; background: linear-gradient(135deg, rgba(124,58,237,0.1), rgba(6,182,212,0.05)); border-top: 1px solid var(--border);">
+  <div class="container">
+    <h2 style="font-size:clamp(1.6rem,3vw,2.4rem);margin-bottom:16px;">Join PhoneStore Today</h2>
+    <p style="color:var(--text-secondary);max-width:480px;margin:0 auto 32px;">Create an account to save your cart, track orders, and get exclusive deals.</p>
+    <a href="{{ url_for('auth.register') }}" class="btn btn-primary btn-lg">Create Free Account →</a>
+  </div>
+</section>
+{% endif %}
+
+{% endblock %}

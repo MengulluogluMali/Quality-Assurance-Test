@@ -1,0 +1,117 @@
+{% extends "base.html" %}
+{% block title %}Your Cart — PhoneStore{% endblock %}
+
+{% block content %}
+<div class="container section">
+  <div class="section-header">
+    <h1>🛒 Your Cart</h1>
+  </div>
+
+  {% if items %}
+  <div style="display:grid;grid-template-columns:1fr 340px;gap:40px;align-items:start;" class="cart-layout">
+
+    <!-- Items Table -->
+    <div class="data-table-wrap">
+      <table class="cart-table">
+        <thead>
+          <tr>
+            <th colspan="2">Product</th>
+            <th>Price</th>
+            <th>Quantity</th>
+            <th>Subtotal</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody id="cart-body">
+          {% for item in items %}
+          <tr data-item-id="{{ item.id }}">
+            <td style="width:80px;">
+              <a href="{{ url_for('store.product_detail', product_id=item.product.id) }}">
+                {% if item.product.image_filename and item.product.image_filename != 'default_product.png' %}
+                  <img src="{{ url_for('static', filename='uploads/' + item.product.image_filename) }}"
+                       class="cart-item-thumb" alt="{{ item.product.name }}" />
+                {% else %}
+                  <div class="cart-item-thumb img-placeholder" style="font-size:1.5rem;">📱</div>
+                {% endif %}
+              </a>
+            </td>
+            <td>
+              <a href="{{ url_for('store.product_detail', product_id=item.product.id) }}"
+                 style="font-weight:600;color:var(--text-primary);">{{ item.product.name }}</a>
+              {% if item.product.category %}
+                <div style="font-size:0.8rem;color:var(--text-muted);margin-top:2px;">{{ item.product.category.name }}</div>
+              {% endif %}
+            </td>
+            <td style="color:var(--accent-light);font-weight:600;">{{ item.product.formatted_price }}</td>
+            <td>
+              <div class="qty-control">
+                <button class="qty-btn" data-qty-btn="down">−</button>
+                <input class="qty-input" type="number" value="{{ item.quantity }}" min="0" max="{{ item.product.stock }}" />
+                <button class="qty-btn" data-qty-btn="up">+</button>
+              </div>
+            </td>
+            <td><span data-subtotal style="font-weight:600;">${{ '%.2f' % item.subtotal }}</span></td>
+            <td>
+              <button class="btn btn-sm" data-remove-item="{{ item.id }}"
+                      style="color:var(--danger);background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.2);"
+                      title="Remove">✕</button>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Summary -->
+    <div class="cart-summary">
+      <h3 style="margin-bottom:24px;font-size:1.1rem;">Order Summary</h3>
+      <div class="cart-summary-row">
+        <span style="color:var(--text-secondary);">Subtotal</span>
+        <span id="cart-total" class="cart-summary-total">${{ '%.2f' % total }}</span>
+      </div>
+      <div class="cart-summary-row">
+        <span style="color:var(--text-secondary);">Shipping</span>
+        <span style="color:var(--success);font-size:0.875rem;">Free</span>
+      </div>
+      <div class="cart-summary-row" style="margin-top:8px;">
+        <span style="font-weight:700;">Total</span>
+        <span class="cart-summary-total" id="cart-total-bottom">${{ '%.2f' % total }}</span>
+      </div>
+      <a href="{{ url_for('store.checkout') }}" class="btn btn-primary btn-full" style="margin-top:24px;">
+        Proceed to Checkout →
+      </a>
+      <a href="{{ url_for('store.products') }}" class="btn btn-secondary btn-full" style="margin-top:12px;">
+        ← Continue Shopping
+      </a>
+    </div>
+  </div>
+
+  {% else %}
+  <div class="empty-state">
+    <div class="empty-icon">🛒</div>
+    <h3>Your cart is empty</h3>
+    <p>Browse our collection and add some items!</p>
+    <a href="{{ url_for('store.products') }}" class="btn btn-primary" style="margin-top:20px;">Shop Now →</a>
+  </div>
+  {% endif %}
+</div>
+
+<style>
+  @media (max-width: 900px) { .cart-layout { grid-template-columns: 1fr !important; } }
+</style>
+
+<script>
+  // Keep both total displays in sync
+  const obs = new MutationObserver(() => {
+    const t = document.getElementById('cart-total');
+    const b = document.getElementById('cart-total-bottom');
+    if (t && b) b.textContent = t.textContent;
+  });
+  const cartTotal = document.getElementById('cart-total');
+  if (cartTotal) obs.observe(cartTotal, { childList: true, characterData: true, subtree: true });
+</script>
+{% endblock %}
+
+{% block scripts %}
+  <script src="{{ url_for('static', filename='js/cart.js') }}"></script>
+{% endblock %}

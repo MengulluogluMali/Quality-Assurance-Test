@@ -1,0 +1,228 @@
+{% extends "base.html" %}
+{% block title %}Checkout — PhoneStore{% endblock %}
+
+{% block head %}
+  <script src="https://js.stripe.com/v3/"></script>
+{% endblock %}
+
+{% block content %}
+<div class="container section">
+  <div class="section-header">
+    <h1>Checkout</h1>
+    <p style="color:var(--text-secondary);">Complete your purchase securely.</p>
+  </div>
+
+  <div class="checkout-grid">
+
+    <!-- ── Left: Shipping + Payment ─────────────────────────────────────────── -->
+    <div>
+      <!-- Shipping Details -->
+      <div class="glass" style="padding:32px;margin-bottom:24px;">
+        <h2 style="font-size:1.2rem;margin-bottom:24px;">📦 Shipping Details</h2>
+        <div id="shipping-form">
+          <div class="form-group">
+            <label class="form-label" for="shipping_name">Full Name</label>
+            <input type="text" id="shipping_name" class="form-control" placeholder="John Doe" required />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="shipping_address">Street Address</label>
+            <input type="text" id="shipping_address" class="form-control" placeholder="123 Main St" required />
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+            <div class="form-group">
+              <label class="form-label" for="shipping_city">City</label>
+              <input type="text" id="shipping_city" class="form-control" placeholder="New York" required />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="shipping_country">Country</label>
+              <input type="text" id="shipping_country" class="form-control" placeholder="United States" required />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Payment -->
+      <div class="glass" style="padding:32px;">
+        <h2 style="font-size:1.2rem;margin-bottom:8px;">💳 Payment</h2>
+        <p style="color:var(--text-muted);font-size:0.875rem;margin-bottom:24px;">
+          🔒 Secured by Stripe. Test card: <code style="background:rgba(255,255,255,0.1);padding:2px 6px;border-radius:4px;">4242 4242 4242 4242</code>
+        </p>
+        <div id="payment-element"></div>
+        <div id="payment-message"></div>
+      </div>
+    </div>
+
+    <!-- ── Right: Order Summary ──────────────────────────────────────────────── -->
+    <div>
+      <div class="cart-summary">
+        <h3 style="margin-bottom:24px;">Order Summary</h3>
+        {% for item in items %}
+        <div style="display:flex;gap:14px;align-items:center;margin-bottom:16px;padding-bottom:16px;border-bottom:1px solid var(--border);">
+          <div style="width:56px;height:56px;border-radius:8px;overflow:hidden;flex-shrink:0;background:var(--bg-secondary);">
+            {% if item.product.image_filename and item.product.image_filename != 'default_product.png' %}
+              <img src="{{ url_for('static', filename='uploads/' + item.product.image_filename) }}"
+                   alt="{{ item.product.name }}" style="width:100%;height:100%;object-fit:cover;">
+            {% else %}
+              <div class="img-placeholder" style="height:100%;font-size:1.2rem;">📱</div>
+            {% endif %}
+          </div>
+          <div style="flex:1;">
+            <div style="font-size:0.875rem;font-weight:600;">{{ item.product.name }}</div>
+            <div style="font-size:0.8rem;color:var(--text-muted);">Qty: {{ item.quantity }}</div>
+          </div>
+          <div style="font-weight:700;color:var(--accent-light);">${{ '%.2f' % item.subtotal }}</div>
+        </div>
+        {% endfor %}
+
+        <div class="cart-summary-row">
+          <span style="color:var(--text-secondary);">Subtotal</span>
+          <span style="font-weight:600;">${{ '%.2f' % total }}</span>
+        </div>
+        <div class="cart-summary-row">
+          <span style="color:var(--text-secondary);">Shipping</span>
+          <span style="color:var(--success);">Free</span>
+        </div>
+        <div class="cart-summary-row">
+          <span style="font-weight:700;font-size:1.1rem;">Total</span>
+          <span class="cart-summary-total">${{ '%.2f' % total }}</span>
+        </div>
+
+        <button id="pay-button" class="btn btn-primary btn-full" style="margin-top:24px;font-size:1rem;" disabled>
+          <span id="pay-btn-text">Initialize payment...</span>
+        </button>
+        <p style="text-align:center;font-size:0.78rem;color:var(--text-muted);margin-top:12px;">
+          🔒 256-bit SSL encryption. Your card info never touches our servers.
+        </p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Hidden form for server-side confirmation -->
+<form id="confirm-form" method="POST" action="{{ url_for('store.checkout_confirm') }}" style="display:none;">
+  <input type="hidden" name="payment_intent_id" id="payment_intent_id" />
+  <input type="hidden" name="shipping_name" id="form_shipping_name" />
+  <input type="hidden" name="shipping_address" id="form_shipping_address" />
+  <input type="hidden" name="shipping_city" id="form_shipping_city" />
+  <input type="hidden" name="shipping_country" id="form_shipping_country" />
+</form>
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+const stripePublicKey = "{{ stripe_public_key }}";
+let stripe, elements;
+
+async function initStripe() {
+  if (!stripePublicKey || !stripePublicKey.startsWith('pk_')) {
+    document.getElementById('payment-element').innerHTML =
+      '<div class="alert alert-warning">⚠️ Stripe is not configured. Add your STRIPE_PUBLIC_KEY to .env to enable payments.</div>';
+    document.getElementById('pay-button').innerHTML = 'Pay ${{ "%.2f" % total }}';
+    document.getElementById('pay-button').disabled = false;
+    document.getElementById('pay-button').onclick = handlePayNoStripe;
+    return;
+  }
+
+  stripe = Stripe(stripePublicKey);
+
+  const res = await fetch('/checkout/create-payment-intent', { method: 'POST' });
+  const data = await res.json();
+  if (data.error) {
+    showMsg(data.error);
+    return;
+  }
+
+  elements = stripe.elements({ clientSecret: data.clientSecret, appearance: {
+    theme: 'night',
+    variables: { colorPrimary: '#7C3AED', colorBackground: '#0f0f1a', colorText: '#F0F0FF',
+                 colorDanger: '#EF4444', fontFamily: 'Inter, sans-serif', borderRadius: '8px' }
+  }});
+
+  const paymentElement = elements.create('payment');
+  paymentElement.mount('#payment-element');
+  paymentElement.on('ready', () => {
+    document.getElementById('pay-btn-text').textContent = 'Pay ${{ "%.2f" % total }}';
+    document.getElementById('pay-button').disabled = false;
+  });
+
+  document.getElementById('pay-button').addEventListener('click', handlePay);
+}
+
+async function handlePay() {
+  const btn = document.getElementById('pay-button');
+  if (!validateShipping()) return;
+
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spinner"></span> Processing...';
+  hideMsg();
+
+  const { error, paymentIntent } = await stripe.confirmPayment({
+    elements,
+    redirect: 'if_required',
+    confirmParams: {
+      payment_method_data: {
+        billing_details: { name: document.getElementById('shipping_name').value }
+      }
+    }
+  });
+
+  if (error) {
+    showMsg(error.message);
+    btn.disabled = false;
+    btn.innerHTML = 'Pay ${{ "%.2f" % total }}';
+    return;
+  }
+
+  if (paymentIntent.status === 'succeeded') {
+    copyShippingToForm(paymentIntent.id);
+    document.getElementById('confirm-form').submit();
+  } else {
+    showMsg('Payment incomplete. Please try again.');
+    btn.disabled = false;
+    btn.innerHTML = 'Pay ${{ "%.2f" % total }}';
+  }
+}
+
+function handlePayNoStripe() {
+  if (!validateShipping()) return;
+  copyShippingToForm('demo_no_stripe');
+  document.getElementById('confirm-form').submit();
+}
+
+function validateShipping() {
+  const fields = ['shipping_name','shipping_address','shipping_city','shipping_country'];
+  for (const id of fields) {
+    if (!document.getElementById(id).value.trim()) {
+      document.getElementById(id).style.borderColor = 'var(--danger)';
+      showMsg('Please fill in all shipping fields.');
+      return false;
+    }
+    document.getElementById(id).style.borderColor = '';
+  }
+  return true;
+}
+
+function copyShippingToForm(paymentIntentId) {
+  document.getElementById('payment_intent_id').value = paymentIntentId;
+  document.getElementById('form_shipping_name').value = document.getElementById('shipping_name').value;
+  document.getElementById('form_shipping_address').value = document.getElementById('shipping_address').value;
+  document.getElementById('form_shipping_city').value = document.getElementById('shipping_city').value;
+  document.getElementById('form_shipping_country').value = document.getElementById('shipping_country').value;
+}
+
+function showMsg(msg) {
+  const el = document.getElementById('payment-message');
+  el.textContent = msg;
+  el.style.display = 'block';
+}
+
+function hideMsg() {
+  const el = document.getElementById('payment-message');
+  el.style.display = 'none';
+}
+
+initStripe();
+</script>
+{% endblock %}

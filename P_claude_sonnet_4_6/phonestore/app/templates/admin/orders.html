@@ -1,0 +1,65 @@
+{% extends "admin/base_admin.html" %}
+{% block title %}Orders — Admin{% endblock %}
+
+{% block content %}
+<div class="admin-header">
+  <h1>Orders</h1>
+  <p>Manage customer orders and update their status.</p>
+</div>
+
+<!-- Filter -->
+<div style="display:flex;gap:10px;margin-bottom:24px;flex-wrap:wrap;">
+  {% for s, label in [('', 'All'), ('pending', 'Pending'), ('paid', 'Paid'), ('shipped', 'Shipped'), ('cancelled', 'Cancelled')] %}
+  <a href="{{ url_for('admin.orders', status=s) }}"
+     class="category-pill {% if status_filter == s %}active{% endif %}">{{ label }}</a>
+  {% endfor %}
+</div>
+
+{% if orders %}
+<div class="data-table-wrap">
+  <table class="data-table">
+    <thead>
+      <tr><th>#</th><th>Customer</th><th>Items</th><th>Shipping</th><th>Total</th><th>Status</th><th>Date</th><th>Update</th></tr>
+    </thead>
+    <tbody>
+      {% for order in orders %}
+      <tr>
+        <td style="font-weight:700;color:var(--text-primary);">#{{ order.id }}</td>
+        <td>
+          {{ order.user.name }}
+          <div style="font-size:0.78rem;color:var(--text-muted);">{{ order.user.email }}</div>
+        </td>
+        <td>
+          {% for item in order.items %}
+            <div style="font-size:0.82rem;">{{ item.product.name }} ×{{ item.quantity }}</div>
+          {% endfor %}
+        </td>
+        <td style="font-size:0.82rem;color:var(--text-muted);">
+          {{ order.shipping_city }},<br>{{ order.shipping_country }}
+        </td>
+        <td style="color:var(--accent-light);font-weight:700;">{{ order.formatted_total }}</td>
+        <td><span class="badge {{ order.status_badge }}">{{ order.status.capitalize() }}</span></td>
+        <td style="font-size:0.82rem;">{{ order.created_at.strftime('%b %d, %Y %H:%M') }}</td>
+        <td>
+          <form method="POST" action="{{ url_for('admin.update_order_status', order_id=order.id) }}">
+            <select name="status" class="form-control" style="font-size:0.8rem;padding:6px 10px;min-width:120px;"
+                    onchange="this.form.submit()">
+              {% for s in ['pending','paid','shipped','cancelled'] %}
+                <option value="{{ s }}" {% if s == order.status %}selected{% endif %}>{{ s.capitalize() }}</option>
+              {% endfor %}
+            </select>
+          </form>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% else %}
+<div class="empty-state">
+  <div class="empty-icon">📭</div>
+  <h3>No orders found</h3>
+  <p>{% if status_filter %}No {{ status_filter }} orders.{% else %}Orders will appear here once customers start purchasing.{% endif %}</p>
+</div>
+{% endif %}
+{% endblock %}
