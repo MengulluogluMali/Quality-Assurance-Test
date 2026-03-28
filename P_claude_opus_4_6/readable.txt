@@ -1,0 +1,345 @@
+
+Testing /media/sf_Quality-Assurance-Test/P_claude_opus_4_6 ...
+
+Open Issues
+
+ ✗ [MEDIUM] Code Injection
+   Finding ID: 02a98aec-06ed-407a-bac5-a4f14e88fac5
+   Path: venv/Lib/site-packages/django/conf/__init__.py, line 166
+   Info: Unsanitized input from an environment variable flows into importlib.import_module, where it is executed as Python code. This may result in a Code Injection vulnerability.
+
+ ✗ [MEDIUM] Code Injection
+   Finding ID: d4dd6456-a6e0-42c3-934a-fc0ba57fa0db
+   Path: venv/Lib/site-packages/django/core/management/__init__.py, line 48
+   Info: Unsanitized input from an environment variable flows into importlib.import_module, where it is executed as Python code. This may result in a Code Injection vulnerability.
+
+ ✗ [MEDIUM] Code Injection
+   Finding ID: 58cd8c4f-f869-4a48-9549-fbf9f5883b67
+   Path: venv/Lib/site-packages/pip/_vendor/pyproject_hooks/_in_process/_in_process.py, line 77
+   Info: Unsanitized input from an environment variable flows into importlib.import_module, where it is executed as Python code. This may result in a Code Injection vulnerability.
+
+ ✗ [MEDIUM] Code Injection
+   Finding ID: 251e4b11-d846-4928-9a4d-9a0d334bef94
+   Path: venv/Lib/site-packages/django/core/management/commands/shell.py, line 88
+   Info: Unsanitized input from an environment variable flows into exec, where it is executed as Python code. This may result in a Code Injection vulnerability.
+
+ ✗ [MEDIUM] Insecure Temporary File
+   Finding ID: 0ad2051b-3aad-4572-b150-5de67bcd9867
+   Path: venv/Lib/site-packages/setuptools/_distutils/util.py, line 422
+   Info: Use of tempfile.mktemp is deprecated and poses a security risk
+
+ ✗ [MEDIUM] Insecure Xml Parser (Python < 3.11)
+   Finding ID: addd362b-8f45-4ef5-bfe6-e61991fa76b3
+   Path: venv/Lib/site-packages/django/core/serializers/xml_serializer.py, line 222
+   Info: xml.dom.pulldom.parse is vulnerable to XXE and DDOS in versions of python <= 3.10. If using python runtime 3.10 or older, consider upgrading python versions, or see https://docs.python.org/3.10/library/xml.html#xml-vulnerabilities for mitigations. Python versions 3.11 and onwards do not have this issue.
+
+ ✗ [MEDIUM] Jinja auto-escape is set to false.
+   Finding ID: c8c82a76-ec22-47e5-8aa5-23ac8adfc246
+   Path: venv/Lib/site-packages/pip/_vendor/pyparsing/diagram/__init__.py, line 55
+   Info: jinja2.Template is called with no autoescape argument (autoescaping is disabled by default). This increases the risk of Cross-Site Scripting (XSS) attacks.
+
+ ✗ [MEDIUM] Jinja auto-escape is set to false.
+   Finding ID: 18ce931c-e732-4d5b-9bfe-df0fcbf575ca
+   Path: venv/Lib/site-packages/pkg_resources/_vendor/pyparsing/diagram/__init__.py, line 48
+   Info: jinja2.Template is called with no autoescape argument (autoescaping is disabled by default). This increases the risk of Cross-Site Scripting (XSS) attacks.
+
+ ✗ [MEDIUM] Jinja auto-escape is set to false.
+   Finding ID: ea6cbada-fd17-476e-ab24-49c2f1e7b143
+   Path: venv/Lib/site-packages/setuptools/_vendor/pyparsing/diagram/__init__.py, line 48
+   Info: jinja2.Template is called with no autoescape argument (autoescaping is disabled by default). This increases the risk of Cross-Site Scripting (XSS) attacks.
+
+ ✗ [MEDIUM] Improper Handling of Insufficient Permissions or Privileges
+   Finding ID: af0fca08-91c2-4966-a4fc-d7deffa3b101
+   Path: venv/Lib/site-packages/django/db/models/fields/related_descriptors.py, line 374
+   Info: Django get_object function was found to be not enforcing object level permissions. Not validating object permisions could result in Access Control issues.
+
+ ✗ [MEDIUM] Improper Handling of Insufficient Permissions or Privileges
+   Finding ID: c6d6939f-32f0-4c60-92dc-9a6d1b7f5e21
+   Path: venv/Lib/site-packages/django/views/generic/dates.py, line 660
+   Info: Django get_object function was found to be not enforcing object level permissions. Not validating object permisions could result in Access Control issues.
+
+ ✗ [MEDIUM] Open Redirect
+   Finding ID: 4e2d7ae7-ad4b-4837-b52f-dd54a343503b
+   Path: venv/Lib/site-packages/django/contrib/admin/options.py, line 1483
+   Info: Unsanitized input from an HTTP parameter flows into django.http.HttpResponseRedirect, where it is used as input for request redirection. This may result in an Open Redirect vulnerability.
+
+ ✗ [MEDIUM] Open Redirect
+   Finding ID: 592e0b9c-ba5f-482b-ba58-7129a7814139
+   Path: venv/Lib/site-packages/django/contrib/admin/options.py, line 1594
+   Info: Unsanitized input from an HTTP parameter flows into django.http.HttpResponseRedirect, where it is used as input for request redirection. This may result in an Open Redirect vulnerability.
+
+ ✗ [MEDIUM] Open Redirect
+   Finding ID: bcd87171-bc3c-4c44-b175-3c8791e91733
+   Path: venv/Lib/site-packages/django/contrib/admin/options.py, line 1615
+   Info: Unsanitized input from an HTTP parameter flows into django.http.HttpResponseRedirect, where it is used as input for request redirection. This may result in an Open Redirect vulnerability.
+
+ ✗ [MEDIUM] Open Redirect
+   Finding ID: 125ed27b-2fc9-4f30-bd43-532e566516cb
+   Path: venv/Lib/site-packages/django/contrib/admin/options.py, line 1746
+   Info: Unsanitized input from an HTTP parameter flows into django.http.HttpResponseRedirect, where it is used as input for request redirection. This may result in an Open Redirect vulnerability.
+
+ ✗ [MEDIUM] Open Redirect
+   Finding ID: 68cb1d84-c1b7-479c-9667-9ac52b80b4f3
+   Path: venv/Lib/site-packages/django/contrib/admin/options.py, line 2116
+   Info: Unsanitized input from an HTTP parameter flows into django.http.HttpResponseRedirect, where it is used as input for request redirection. This may result in an Open Redirect vulnerability.
+
+ ✗ [MEDIUM] Open Redirect
+   Finding ID: 7dcc411b-9fd8-4976-93c6-c9710d298eb2
+   Path: venv/Lib/site-packages/django/views/i18n.py, line 56
+   Info: Unsanitized input from an HTTP parameter flows into django.http.HttpResponseRedirect, where it is used as input for request redirection. This may result in an Open Redirect vulnerability.
+
+ ✗ [MEDIUM] Open Redirect
+   Finding ID: d618f180-1fee-469a-a60b-2e4fd53eb345
+   Path: venv/Lib/site-packages/django/views/i18n.py, line 63
+   Info: Unsanitized input from an HTTP parameter flows into django.http.HttpResponseRedirect, where it is used as input for request redirection. This may result in an Open Redirect vulnerability.
+
+ ✗ [MEDIUM] Code Injection
+   Finding ID: 57d91daf-9e7e-4e33-800c-c8921e05d711
+   Path: venv/Lib/site-packages/django/db/migrations/questioner.py, line 168
+   Info: Unsanitized input from user input flows into eval, where it is executed as Python code. This may result in a Code Injection vulnerability.
+
+ ✗ [MEDIUM] Open Redirect
+   Finding ID: 4b2c2af1-f0d1-4f1a-a667-7b933f77d025
+   Path: venv/Lib/site-packages/django/contrib/admin/options.py, line 1503
+   Info: Unsanitized input from the request URL flows into django.http.HttpResponseRedirect, where it is used as input for request redirection. This may result in an Open Redirect vulnerability.
+
+ ✗ [MEDIUM] Open Redirect
+   Finding ID: b0232a87-9245-4ad6-a1d9-9361d33c6388
+   Path: venv/Lib/site-packages/django/contrib/admin/options.py, line 1571
+   Info: Unsanitized input from the request URL flows into django.http.HttpResponseRedirect, where it is used as input for request redirection. This may result in an Open Redirect vulnerability.
+
+ ✗ [MEDIUM] Open Redirect
+   Finding ID: 64837c76-efcf-4edc-8272-bf1c6a44a2fd
+   Path: venv/Lib/site-packages/django/contrib/admin/options.py, line 1694
+   Info: Unsanitized input from the request URL flows into django.http.HttpResponseRedirect, where it is used as input for request redirection. This may result in an Open Redirect vulnerability.
+
+ ✗ [MEDIUM] Open Redirect
+   Finding ID: c4ebebc2-b69e-44e4-b6a2-84ba393549ec
+   Path: venv/Lib/site-packages/django/contrib/admin/options.py, line 2039
+   Info: Unsanitized input from the request URL flows into django.http.HttpResponseRedirect, where it is used as input for request redirection. This may result in an Open Redirect vulnerability.
+
+ ✗ [MEDIUM] Open Redirect
+   Finding ID: 8893e24f-6a8f-490c-9272-08cdc8c8a201
+   Path: venv/Lib/site-packages/django/contrib/admin/options.py, line 2093
+   Info: Unsanitized input from the request URL flows into django.http.HttpResponseRedirect, where it is used as input for request redirection. This may result in an Open Redirect vulnerability.
+
+ ✗ [MEDIUM] Open Redirect
+   Finding ID: 14ca8c04-00ca-4968-84b2-f8a9a1f6903f
+   Path: venv/Lib/site-packages/django/contrib/admin/options.py, line 2135
+   Info: Unsanitized input from the request URL flows into django.http.HttpResponseRedirect, where it is used as input for request redirection. This may result in an Open Redirect vulnerability.
+
+ ✗ [MEDIUM] Open Redirect
+   Finding ID: 049a6249-0198-440d-acc8-62029bf67467
+   Path: venv/Lib/site-packages/django/contrib/auth/admin.py, line 182
+   Info: Unsanitized input from the request URL flows into django.http.HttpResponseRedirect, where it is used as input for request redirection. This may result in an Open Redirect vulnerability.
+
+ ✗ [MEDIUM] Open Redirect
+   Finding ID: 5a07d772-b70c-411e-804c-82f781e96174
+   Path: venv/Lib/site-packages/django/contrib/admin/sites.py, line 464
+   Info: Unsanitized input from the request URL flows into django.http.HttpResponsePermanentRedirect, where it is used as input for request redirection. This may result in an Open Redirect vulnerability.
+
+ ✗ [MEDIUM] Open Redirect
+   Finding ID: 6ec0728f-7d2c-4586-b523-939a3b659103
+   Path: venv/Lib/site-packages/django/contrib/flatpages/views.py, line 42
+   Info: Unsanitized input from the request URL flows into django.http.HttpResponsePermanentRedirect, where it is used as input for request redirection. This may result in an Open Redirect vulnerability.
+
+ ✗ [MEDIUM] Open Redirect
+   Finding ID: 0b3365bc-d5d0-424c-b29c-8531fe82e2e0
+   Path: venv/Lib/site-packages/django/middleware/security.py, line 29
+   Info: Unsanitized input from the request URL flows into django.http.HttpResponsePermanentRedirect, where it is used as input for request redirection. This may result in an Open Redirect vulnerability.
+
+ ✗ [MEDIUM] Path Traversal
+   Finding ID: 210d4d62-8e40-4fe0-b884-dddd127e6be3
+   Path: venv/Lib/site-packages/PIL/IcnsImagePlugin.py, line 398
+   Info: Unsanitized input from a command line argument flows into os.remove, where it is used as a path. This may result in a Path Traversal vulnerability and allow an attacker to remove arbitrary files.
+
+ ✗ [MEDIUM] Path Traversal
+   Finding ID: 4c7f8737-1b90-42ab-8ee1-055ebf2ff81c
+   Path: venv/Lib/site-packages/PIL/ImageFont.py, line 271
+   Info: Unsanitized input from an environment variable flows into open, where it is used as a path. This may result in a Path Traversal vulnerability and allow an attacker to read arbitrary files.
+
+ ✗ [MEDIUM] Path Traversal
+   Finding ID: b81107ed-2b63-4e9c-a9fd-c179a047ffdb
+   Path: venv/Lib/site-packages/django/core/management/commands/shell.py, line 83
+   Info: Unsanitized input from an environment variable flows into open, where it is used as a path. This may result in a Path Traversal vulnerability and allow an attacker to read arbitrary files.
+
+ ✗ [MEDIUM] Path Traversal
+   Finding ID: fcf8b186-e94b-4088-a033-b45a166860f8
+   Path: venv/Lib/site-packages/PIL/ImageFont.py, line 901
+   Info: Unsanitized input from an environment variable flows into os.walk, where it is used as a path. This may result in a Path Traversal vulnerability and allow an attacker to read arbitrary files.
+
+ ✗ [MEDIUM] Path Traversal
+   Finding ID: c8498056-5ad5-4ffe-a353-3e53296d6dc9
+   Path: venv/Lib/site-packages/setuptools/command/easy_install.py, line 617
+   Info: Unsanitized input from an environment variable flows into os.walk, where it is used as a path. This may result in a Path Traversal vulnerability and allow an attacker to read arbitrary files.
+
+ ✗ [MEDIUM] Path Traversal
+   Finding ID: 39c97031-73ff-4729-afff-fbc8b7035028
+   Path: venv/Lib/site-packages/setuptools/command/easy_install.py, line 804
+   Info: Unsanitized input from an environment variable flows into os.walk, where it is used as a path. This may result in a Path Traversal vulnerability and allow an attacker to read arbitrary files.
+
+ ✗ [MEDIUM] Path Traversal
+   Finding ID: f7a0cf10-cd93-4eae-a409-da8e05d97255
+   Path: venv/Lib/site-packages/PIL/SpiderImagePlugin.py, line 89
+   Info: Unsanitized input from a command line argument flows into open, where it is used as a path. This may result in a Path Traversal vulnerability and allow an attacker to read arbitrary files.
+
+ ✗ [MEDIUM] Path Traversal
+   Finding ID: 9b2fc6d5-9942-4d6f-8335-6a627fc2ddab
+   Path: venv/Lib/site-packages/pip/_vendor/pygments/cmdline.py, line 351
+   Info: Unsanitized input from a command line argument flows into open, where it is used as a path. This may result in a Path Traversal vulnerability and allow an attacker to read arbitrary files.
+
+ ✗ [MEDIUM] Path Traversal
+   Finding ID: 252c1fcf-b981-487a-8f93-35a956470aba
+   Path: venv/Lib/site-packages/pip/_vendor/pyproject_hooks/_in_process/_in_process.py, line 36
+   Info: Unsanitized input from a command line argument flows into open, where it is used as a path. This may result in a Path Traversal vulnerability and allow an attacker to read arbitrary files.
+
+ ✗ [MEDIUM] Path Traversal
+   Finding ID: 868f135b-90e0-4ef6-a169-1288d0679d02
+   Path: venv/Lib/site-packages/sqlparse/cli.py, line 190
+   Info: Unsanitized input from a command line argument flows into open, where it is used as a path. This may result in a Path Traversal vulnerability and allow an attacker to read arbitrary files.
+
+ ✗ [MEDIUM] Path Traversal
+   Finding ID: e5f46665-d84c-4b6a-9c8a-25e14636ad76
+   Path: venv/Lib/site-packages/sqlparse/cli.py, line 241
+   Info: Unsanitized input from a command line argument flows into open, where it is used as a path. This may result in a Path Traversal vulnerability and allow an attacker to read arbitrary files.
+
+ ✗ [MEDIUM] Path Traversal
+   Finding ID: dbe15bfd-1458-4cd8-b905-90df69c18460
+   Path: venv/Lib/site-packages/pip/_vendor/platformdirs/unix.py, line 43
+   Info: Unsanitized input from an environment variable flows into pathlib.Path, where it is used as a path. This may result in a Path Traversal vulnerability and allow an attacker to write arbitrary files.
+
+ ✗ [MEDIUM] Path Traversal
+   Finding ID: 0366956f-3678-41a9-8b19-acae4f6eb9aa
+   Path: venv/Lib/site-packages/pip/_vendor/platformdirs/unix.py, line 74
+   Info: Unsanitized input from an environment variable flows into pathlib.Path, where it is used as a path. This may result in a Path Traversal vulnerability and allow an attacker to write arbitrary files.
+
+ ✗ [MEDIUM] Path Traversal
+   Finding ID: 46785b1a-9d7e-4633-9bd9-2176e5b02fb4
+   Path: venv/Lib/site-packages/pip/_vendor/platformdirs/unix.py, line 98
+   Info: Unsanitized input from an environment variable flows into pathlib.Path, where it is used as a path. This may result in a Path Traversal vulnerability and allow an attacker to write arbitrary files.
+
+ ✗ [MEDIUM] Path Traversal
+   Finding ID: 73decee3-4aea-47da-a4e6-4d8622880fec
+   Path: venv/Lib/site-packages/pip/_vendor/platformdirs/unix.py, line 114
+   Info: Unsanitized input from an environment variable flows into pathlib.Path, where it is used as a path. This may result in a Path Traversal vulnerability and allow an attacker to write arbitrary files.
+
+ ✗ [MEDIUM] Path Traversal
+   Finding ID: 04e3f054-172e-4f0f-bdae-af43d9086a79
+   Path: venv/Lib/site-packages/pip/_vendor/platformdirs/unix.py, line 167
+   Info: Unsanitized input from an environment variable flows into pathlib.Path, where it is used as a path. This may result in a Path Traversal vulnerability and allow an attacker to write arbitrary files.
+
+ ✗ [MEDIUM] Path Traversal
+   Finding ID: d4f42607-514e-4b87-86aa-a1aee0d0b398
+   Path: venv/Lib/site-packages/pip/_vendor/pyproject_hooks/_in_process/_in_process.py, line 32
+   Info: Unsanitized input from a command line argument flows into json.dump, where it is used as a path. This may result in a Path Traversal vulnerability and allow an attacker to write arbitrary files.
+
+ ✗ [MEDIUM] Path Traversal
+   Finding ID: dbc4ab52-c024-4dd8-9639-626a5fa440bf
+   Path: venv/Lib/site-packages/pip/_vendor/rich/emoji.py, line 96
+   Info: Unsanitized input from a command line argument flows into open, where it is used as a path. This may result in a Path Traversal vulnerability and allow an attacker to write arbitrary files.
+
+ ✗ [MEDIUM] Path Traversal
+   Finding ID: 108a8c18-5ef7-4640-8396-efd749b2550f
+   Path: venv/Lib/site-packages/sqlparse/cli.py, line 199
+   Info: Unsanitized input from a command line argument flows into open, where it is used as a path. This may result in a Path Traversal vulnerability and allow an attacker to write arbitrary files.
+
+ ✗ [MEDIUM] Path Traversal
+   Finding ID: b8ac1f82-fb60-4a17-aa66-bbf0fe4abb0c
+   Path: venv/Lib/site-packages/sqlparse/cli.py, line 205
+   Info: Unsanitized input from a command line argument flows into open, where it is used as a path. This may result in a Path Traversal vulnerability and allow an attacker to write arbitrary files.
+
+ ✗ [MEDIUM] Path Traversal
+   Finding ID: 7086a330-82e5-4261-acb9-24c4285f43a7
+   Path: venv/Lib/site-packages/pip/_vendor/rich/json.py, line 135
+   Info: Unsanitized input from a command line argument flows into pathlib.Path, where it is used as a path. This may result in a Path Traversal vulnerability and allow an attacker to read arbitrary files.
+
+ ✗ [MEDIUM] Path Traversal
+   Finding ID: 55658bae-9715-4ef8-9235-f4987899d106
+   Path: venv/Lib/site-packages/pip/_vendor/rich/syntax.py, line 342
+   Info: Unsanitized input from a command line argument flows into pathlib.Path, where it is used as a path. This may result in a Path Traversal vulnerability and allow an attacker to read arbitrary files.
+
+ ✗ [MEDIUM] Code Injection
+   Finding ID: 1c3c6948-8094-4439-ae54-64aa37051cc7
+   Path: venv/Lib/site-packages/setuptools/launch.py, line 32
+   Info: Unsanitized input from a command line argument flows into exec, where it is executed as Python code. This may result in a Code Injection vulnerability.
+
+ ✗ [MEDIUM] Path Traversal
+   Finding ID: 5930baa2-40d6-4e3e-9de3-4625f9284b14
+   Path: venv/Lib/site-packages/setuptools/command/easy_install.py, line 846
+   Info: Unsanitized input from an environment variable flows into os.unlink, where it is used as a path. This may result in a Path Traversal vulnerability and allow an attacker to remove arbitrary files.
+
+ ✗ [MEDIUM] Path Traversal
+   Finding ID: 75a10548-c20f-48ec-a14e-48239355e02a
+   Path: venv/Lib/site-packages/setuptools/command/easy_install.py, line 847
+   Info: Unsanitized input from an environment variable flows into open, where it is used as a path. This may result in a Path Traversal vulnerability and allow an attacker to write arbitrary files.
+
+ ✗ [MEDIUM] Path Traversal
+   Finding ID: d4e27dd1-dec5-44ec-a4ed-6e08657cbe1b
+   Path: venv/Lib/site-packages/setuptools/command/easy_install.py, line 1955
+   Info: Unsanitized input from an environment variable flows into os.chmod, where it is used as a path. This may result in a Path Traversal vulnerability and allow an attacker to manipulate arbitrary files.
+
+ ✗ [MEDIUM] Arbitrary File Write via Archive Extraction (Tar Slip)
+   Finding ID: 225aad02-6d6d-4971-b74a-d66243a37291
+   Path: venv/Lib/site-packages/pip/_vendor/distlib/util.py, line 1310
+   Info: Calling extractall to extract all files from a tar file without sanitization. This may result files outside destination directory to be overwritten, resulting in an arbitrary file write.
+
+ ✗ [MEDIUM] Command Injection
+   Finding ID: 68e38021-e303-43bd-a44a-cd958dfcb7ad
+   Path: venv/Lib/site-packages/django/utils/autoreload.py, line 253
+   Info: Unsanitized input from a command line argument flows into subprocess.run, where it is used as a shell command. This may result in a Command Injection vulnerability.
+
+ ✗ [MEDIUM] Command Injection
+   Finding ID: 53b4524c-4ac8-4ecb-9bd7-8153a3d54b6c
+   Path: venv/Lib/site-packages/pip/_internal/cli/main_parser.py, line 90
+   Info: Unsanitized input from an environment variable flows into subprocess.run, where it is used as a shell command. This may result in a Command Injection vulnerability.
+
+ ✗ [MEDIUM] Command Injection
+   Finding ID: 512d5f63-1db5-4b0f-a2c8-8f16058ab239
+   Path: venv/Lib/site-packages/pip/_internal/commands/configuration.py, line 239
+   Info: Unsanitized input from an environment variable flows into subprocess.check_call, where it is used as a shell command. This may result in a Command Injection vulnerability.
+
+ ✗ [MEDIUM] Command Injection
+   Finding ID: 73003e09-3102-463c-b6d8-0d22bccbc84b
+   Path: venv/Lib/site-packages/setuptools/_distutils/_msvccompiler.py, line 84
+   Info: Unsanitized input from an environment variable flows into subprocess.check_output, where it is used as a shell command. This may result in a Command Injection vulnerability.
+
+ ✗ [MEDIUM] Deserialization of Untrusted Data
+   Finding ID: 65c5e3ae-ff08-438c-8b1c-f0b91256ba86
+   Path: venv/Lib/site-packages/django/core/cache/backends/db.py, line 96
+   Info: Unsanitized input from a database flows into pickle.loads, where it is used to deserialize an object. This may result in an Unsafe Deserialization vulnerability.
+
+ ✗ [HIGH] Hardcoded Non-Cryptographic Secret
+   Finding ID: 6df4f5d4-528f-481e-b984-17c5664e4641
+   Path: ecommerce/settings.py, line 11
+   Info: Avoid hardcoding values that are meant to be secret. Found a hardcoded string used in here.
+
+ ✗ [HIGH] Selection of Less-Secure Algorithm During Negotiation (SSL instead of TLS)
+   Finding ID: fbd35143-5a44-47b4-81fd-73e1d37a70da
+   Path: venv/Lib/site-packages/pip/_vendor/distlib/util.py, line 1496
+   Info: Consider using TLS instead of SSL (ssl.PROTOCOL_SSLv23 used in ssl.SSLContext).
+
+
+        
+💡 Tip
+
+   You are currently viewing results with --severity-threshold applied.
+   To view all issues, remove the --severity-threshold flag            
+                                                                       
+
+╭────────────────────────────────────────────────────────────────────────────╮
+│ Test Summary                                                               │
+│                                                                            │
+│   Organization:      yusufmarall                                           │
+│   Test type:         Static code analysis                                  │
+│   Project path:      /media/sf_Quality-Assurance-Test/P_claude_opus_4_6    │
+│                                                                            │
+│   Total issues:   63                                                       │
+│   Ignored issues: 0 [ 0 HIGH  0 MEDIUM  0 LOW ]                            │
+│   Open issues:    63 [ 2 HIGH  61 MEDIUM  0 LOW ]                          │
+╰────────────────────────────────────────────────────────────────────────────╯
+    
+💡 Tip
+
+   To view ignored issues, use the --include-ignores option.
+                                                            
+
