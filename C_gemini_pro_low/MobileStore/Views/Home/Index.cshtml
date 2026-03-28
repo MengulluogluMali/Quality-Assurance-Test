@@ -1,0 +1,24 @@
+@model IEnumerable<MobileStore.Models.Product>
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="hero">
+    <h1>Welcome to MobileStore</h1>
+    <p>The premium destination for your mobile phone accessories.</p>
+</div>
+
+<div class="product-grid">
+    @if(Model != null) {
+        foreach (var item in Model) {
+            <div class="product-card">
+                <h3>@item.Name</h3>
+                <p>@item.Price.ToString("C")</p>
+                <form action="/Cart/Add" method="post">
+                    <input type="hidden" name="id" value="@item.Id" />
+                    <button type="submit" class="btn">Add to Cart</button>
+                </form>
+            </div>
+        }
+    }
+</div>\n
