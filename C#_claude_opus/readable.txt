@@ -1,0 +1,35 @@
+
+Testing /media/sf_Quality-Assurance-Test/C#_claude_opus ...
+
+Open Issues
+
+ ✗ [MEDIUM] DOM-based Cross-site Scripting (XSS)
+   Finding ID: 3f76ac20-09a4-4350-82e5-65908c9e932a
+   Path: MobileShop/wwwroot/js/site.js, line 19
+   Info: Unsanitized input from data from a remote resource flows into innerHTML, where it is used to dynamically construct the HTML page on client side. This may result in a DOM Based Cross-Site Scripting attack (DOMXSS).
+
+
+        
+💡 Tip
+
+   You are currently viewing results with --severity-threshold applied.
+   To view all issues, remove the --severity-threshold flag            
+                                                                       
+
+╭─────────────────────────────────────────────────────────────────────────╮
+│ Test Summary                                                            │
+│                                                                         │
+│   Organization:      yusufmarall                                        │
+│   Test type:         Static code analysis                               │
+│   Project path:      /media/sf_Quality-Assurance-Test/C#_claude_opus    │
+│                                                                         │
+│   Total issues:   1                                                     │
+│   Ignored issues: 0 [ 0 HIGH  0 MEDIUM  0 LOW ]                         │
+│   Open issues:    1 [ 0 HIGH  1 MEDIUM  0 LOW ]                         │
+╰─────────────────────────────────────────────────────────────────────────╯
+    
+💡 Tip
+
+   To view ignored issues, use the --include-ignores option.
+                                                            
+
