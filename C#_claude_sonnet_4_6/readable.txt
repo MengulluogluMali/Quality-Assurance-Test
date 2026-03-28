@@ -1,0 +1,35 @@
+
+Testing /media/sf_Quality-Assurance-Test/C#_claude_sonnet_4_6 ...
+
+Open Issues
+
+ ✗ [HIGH] Path Traversal
+   Finding ID: 20be7a98-daea-4c90-a8bf-e39748e5aa23
+   Path: MobileAccessoriesShop/Areas/Admin/Controllers/ProductsController.cs, line 117
+   Info: Unsanitized input from an HTTP parameter flows into global::System.IO.File.Create, where it is used as a path. This may result in a Path Traversal vulnerability and allow an attacker to write arbitrary files.
+
+
+        
+💡 Tip
+
+   You are currently viewing results with --severity-threshold applied.
+   To view all issues, remove the --severity-threshold flag            
+                                                                       
+
+╭───────────────────────────────────────────────────────────────────────────────╮
+│ Test Summary                                                                  │
+│                                                                               │
+│   Organization:      yusufmarall                                              │
+│   Test type:         Static code analysis                                     │
+│   Project path:      /media/sf_Quality-Assurance-Test/C#_claude_sonnet_4_6    │
+│                                                                               │
+│   Total issues:   1                                                           │
+│   Ignored issues: 0 [ 0 HIGH  0 MEDIUM  0 LOW ]                               │
+│   Open issues:    1 [ 1 HIGH  0 MEDIUM  0 LOW ]                               │
+╰───────────────────────────────────────────────────────────────────────────────╯
+    
+💡 Tip
+
+   To view ignored issues, use the --include-ignores option.
+                                                            
+
