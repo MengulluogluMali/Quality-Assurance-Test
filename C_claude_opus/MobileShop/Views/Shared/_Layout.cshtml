@@ -1,0 +1,207 @@
+@{
+    var isAdmin = User.IsInRole("Admin");
+    var isAuthenticated = User.Identity?.IsAuthenticated == true;
+}
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="MobileShop - Premium mobile phone accessories. Cases, chargers, screen protectors, earphones and more." />
+    <title>@ViewData["Title"] - MobileShop</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="bg-grid"></div>
+
+    <!-- Toast Container for notifications -->
+    <div id="toast-container" class="toast-container-custom"></div>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+        <div class="container">
+            <a class="navbar-brand brand-logo" asp-controller="Home" asp-action="Index">
+                <i class="bi bi-phone-fill"></i>
+                <span>MobileShop</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarContent">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="Home" asp-action="Index">
+                            <i class="bi bi-house-door"></i> Home
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="Products" asp-action="Index">
+                            <i class="bi bi-grid-3x3-gap"></i> Products
+                        </a>
+                    </li>
+                    @if (isAdmin)
+                    {
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                                <i class="bi bi-gear"></i> Admin
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-dark glass-dropdown">
+                                <li><a class="dropdown-item" asp-controller="Admin" asp-action="Dashboard"><i class="bi bi-speedometer2"></i> Dashboard</a></li>
+                                <li><a class="dropdown-item" asp-controller="Admin" asp-action="Products"><i class="bi bi-box-seam"></i> Manage Products</a></li>
+                                <li><a class="dropdown-item" asp-controller="Admin" asp-action="Orders"><i class="bi bi-receipt"></i> Manage Orders</a></li>
+                            </ul>
+                        </li>
+                    }
+                </ul>
+                <ul class="navbar-nav ms-auto align-items-center">
+                    @if (isAuthenticated)
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link cart-link" asp-controller="Cart" asp-action="Index" id="cart-nav-link">
+                                <i class="bi bi-cart3"></i>
+                                <span id="cart-badge" class="cart-badge">0</span>
+                            </a>
+                        </li>
+                        @if (isAdmin)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link notification-bell" href="#" id="notification-bell">
+                                    <i class="bi bi-bell"></i>
+                                    <span id="notification-badge" class="notification-badge" style="display: none;">0</span>
+                                </a>
+                            </li>
+                        }
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle user-nav" href="#" role="button" data-bs-toggle="dropdown">
+                                <i class="bi bi-person-circle"></i>
+                                <span class="d-none d-md-inline">@User.Identity?.Name</span>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end dropdown-menu-dark glass-dropdown">
+                                <li><a class="dropdown-item" asp-controller="Account" asp-action="Orders"><i class="bi bi-bag-check"></i> My Orders</a></li>
+                                <li><hr class="dropdown-divider" /></li>
+                                <li>
+                                    <form asp-controller="Account" asp-action="Logout" method="post">
+                                        <button type="submit" class="dropdown-item"><i class="bi bi-box-arrow-right"></i> Logout</button>
+                                    </form>
+                                </li>
+                            </ul>
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Account" asp-action="Login">
+                                <i class="bi bi-box-arrow-in-right"></i> Login
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="btn btn-glow btn-sm ms-2" asp-controller="Account" asp-action="Register">
+                                Sign Up
+                            </a>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        @if (TempData["Success"] != null)
+        {
+            <div class="alert alert-custom alert-success-custom fade-in">
+                <i class="bi bi-check-circle-fill"></i> @TempData["Success"]
+                <button type="button" class="btn-close btn-close-white" onclick="this.parentElement.remove()"></button>
+            </div>
+        }
+        @if (TempData["Error"] != null)
+        {
+            <div class="alert alert-custom alert-error-custom fade-in">
+                <i class="bi bi-exclamation-triangle-fill"></i> @TempData["Error"]
+                <button type="button" class="btn-close btn-close-white" onclick="this.parentElement.remove()"></button>
+            </div>
+        }
+        @if (TempData["Warning"] != null)
+        {
+            <div class="alert alert-custom alert-warning-custom fade-in">
+                <i class="bi bi-exclamation-circle-fill"></i> @TempData["Warning"]
+                <button type="button" class="btn-close btn-close-white" onclick="this.parentElement.remove()"></button>
+            </div>
+        }
+        @RenderBody()
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-lg-4">
+                    <div class="footer-brand">
+                        <i class="bi bi-phone-fill"></i>
+                        <span>MobileShop</span>
+                    </div>
+                    <p class="footer-desc">Premium mobile phone accessories for every device. Quality products, fast shipping, and exceptional customer service.</p>
+                </div>
+                <div class="col-lg-2 col-md-4">
+                    <h6 class="footer-heading">Shop</h6>
+                    <ul class="footer-links">
+                        <li><a asp-controller="Products" asp-action="Index">All Products</a></li>
+                        <li><a asp-controller="Products" asp-action="Index" asp-route-category="1">Phone Cases</a></li>
+                        <li><a asp-controller="Products" asp-action="Index" asp-route-category="2">Chargers</a></li>
+                        <li><a asp-controller="Products" asp-action="Index" asp-route-category="4">Earphones</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2 col-md-4">
+                    <h6 class="footer-heading">Account</h6>
+                    <ul class="footer-links">
+                        <li><a asp-controller="Account" asp-action="Login">Login</a></li>
+                        <li><a asp-controller="Account" asp-action="Register">Register</a></li>
+                        <li><a asp-controller="Account" asp-action="Orders">My Orders</a></li>
+                        <li><a asp-controller="Cart" asp-action="Index">Cart</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-4 col-md-4">
+                    <h6 class="footer-heading">Newsletter</h6>
+                    <p class="footer-desc">Subscribe for exclusive deals and new arrivals.</p>
+                    <div class="newsletter-form">
+                        <input type="email" placeholder="Enter your email" class="form-control glass-input" />
+                        <button class="btn btn-glow btn-sm">Subscribe</button>
+                    </div>
+                </div>
+            </div>
+            <hr class="footer-divider" />
+            <div class="footer-bottom">
+                <p>&copy; @DateTime.Now.Year MobileShop. All rights reserved.</p>
+                <div class="social-links">
+                    <a href="#"><i class="bi bi-facebook"></i></a>
+                    <a href="#"><i class="bi bi-twitter-x"></i></a>
+                    <a href="#"><i class="bi bi-instagram"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/8.0.0/signalr.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @if (isAdmin)
+    {
+        <script>
+            initSignalR();
+        </script>
+    }
+    @if (isAuthenticated)
+    {
+        <script>
+            updateCartBadge();
+        </script>
+    }
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
