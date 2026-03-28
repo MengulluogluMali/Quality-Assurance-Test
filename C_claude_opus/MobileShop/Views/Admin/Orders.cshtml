@@ -1,0 +1,87 @@
+@model List<MobileShop.Models.Order>
+@{
+    ViewData["Title"] = "Manage Orders";
+}
+
+<div class="page-header">
+    <div class="container">
+        <h1 class="page-title"><i class="bi bi-receipt me-2"></i>Manage Orders</h1>
+        <div class="page-breadcrumb">
+            <a asp-controller="Admin" asp-action="Dashboard">Dashboard</a>
+            <i class="bi bi-chevron-right"></i>
+            <span>Orders</span>
+        </div>
+    </div>
+</div>
+
+<div class="container pb-5">
+    @if (Model.Any())
+    {
+        <div class="glass-card p-4">
+            <div class="table-responsive">
+                <table class="glass-table">
+                    <thead>
+                        <tr>
+                            <th>Order</th>
+                            <th>Customer</th>
+                            <th>Items</th>
+                            <th>Total</th>
+                            <th>Status</th>
+                            <th>Date</th>
+                            <th>Update Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var order in Model)
+                        {
+                            <tr>
+                                <td><strong>#@order.Id</strong></td>
+                                <td>
+                                    <div style="font-weight:600;">@order.FullName</div>
+                                    <div style="font-size:0.8rem; color:var(--text-muted);">@order.User?.Email</div>
+                                </td>
+                                <td>
+                                    @foreach (var item in order.OrderItems)
+                                    {
+                                        <div style="font-size:0.8rem;">@item.Product?.Name × @item.Quantity</div>
+                                    }
+                                </td>
+                                <td style="font-weight:700;">$@order.TotalAmount.ToString("F2")</td>
+                                <td>
+                                    <span class="status-badge status-@order.Status.ToString().ToLower()">
+                                        @order.Status
+                                    </span>
+                                </td>
+                                <td style="font-size:0.85rem; color:var(--text-muted);">
+                                    @order.OrderDate.ToString("MMM dd, yyyy")
+                                    <br />@order.OrderDate.ToString("HH:mm")
+                                </td>
+                                <td>
+                                    <form asp-controller="Admin" asp-action="UpdateOrderStatus" asp-route-id="@order.Id" method="post" class="d-flex gap-1">
+                                        <select name="status" class="form-select glass-select" style="font-size:0.8rem; padding:0.3rem 0.5rem; width:auto;">
+                                            @foreach (MobileShop.Models.OrderStatus status in Enum.GetValues(typeof(MobileShop.Models.OrderStatus)))
+                                            {
+                                                <option value="@status" selected=@(order.Status == status)>@status</option>
+                                            }
+                                        </select>
+                                        <button type="submit" class="btn btn-glow btn-sm" style="padding:0.3rem 0.6rem; font-size:0.8rem;">
+                                            <i class="bi bi-check"></i>
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="empty-state">
+            <div class="empty-state-icon"><i class="bi bi-inbox"></i></div>
+            <h3 class="empty-state-title">No orders yet</h3>
+            <p class="empty-state-desc">Orders will appear here once customers start purchasing.</p>
+        </div>
+    }
+</div>
