@@ -1,0 +1,499 @@
+
+Testing /media/sf_Quality-Assurance-Test/JS_claude_sonnet_4_6 ...
+
+Open Issues
+
+ ✗ [LOW] Sensitive Cookie in HTTPS Session Without 'Secure' Attribute
+   Finding ID: 42c4b55c-d9f0-4290-81cf-9ca1d376ec91
+   Path: mobile-accessories-store/frontend/node_modules/axios/dist/node/axios.cjs, line 3283
+   Info: Cookie misses the Secure attribute (it is false by default). Set it to true to protect the cookie from man-in-the-middle attacks.
+
+ ✗ [LOW] Use of Password Hash With Insufficient Computational Effort
+   Finding ID: cbdf42c2-5937-460d-a5c1-4dd160b44df8
+   Path: mobile-accessories-store/backend/node_modules/uuid/dist/sha1.js, line 19
+   Info: createHash hash (used in createHash) is insecure. Consider changing it to a secure hashing algorithm.
+
+ ✗ [LOW] Hardcoded Non-Cryptographic Secret
+   Finding ID: b487853e-f7a4-4a31-b98f-ef680a3f98ff
+   Path: mobile-accessories-store/frontend/node_modules/@stripe/react-stripe-js/src/components/EmbeddedCheckout.client.test.tsx, line 166
+   Info: Avoid hardcoding values that are meant to be secret. Found a hardcoded string used in here.
+
+ ✗ [LOW] Improper Type Validation
+   Finding ID: 7d3f9d2b-f450-42b9-a704-076462c08060
+   Path: mobile-accessories-store/backend/src/routes/products.js, line 12
+   Info: The type of this object, coming from query and the value of its search property can be controlled by the user. An attacker may craft the properties of the object to crash the application or bypass its logic. Consider checking the type of the object.
+
+ ✗ [LOW] Improper Type Validation
+   Finding ID: b1a96b2b-7a26-4f1e-888e-62f5b8969c46
+   Path: mobile-accessories-store/backend/src/routes/auth.js, line 61
+   Info: The type of this object, coming from body and the value of its toLowerCase property can be controlled by the user. An attacker may craft the properties of the object to crash the application or bypass its logic. Consider checking the type of the object.
+
+ ✗ [LOW] Improper Type Validation
+   Finding ID: 328b1199-f190-4d4f-8b3f-c3246f8e372f
+   Path: mobile-accessories-store/backend/src/routes/auth.js, line 42
+   Info: The type of this object, coming from body and the value of its toLowerCase property can be controlled by the user. An attacker may craft the properties of the object to crash the application or bypass its logic. Consider checking the type of the object.
+
+ ✗ [LOW] Improper Type Validation
+   Finding ID: 6d1d458f-8acb-43b9-8f72-7790925bd8d6
+   Path: mobile-accessories-store/backend/src/routes/auth.js, line 38
+   Info: The type of this object, coming from body and the value of its toLowerCase property can be controlled by the user. An attacker may craft the properties of the object to crash the application or bypass its logic. Consider checking the type of the object.
+
+ ✗ [LOW] Improper Type Validation
+   Finding ID: 6aff8614-ae2e-4ec7-88b0-9065815bca72
+   Path: mobile-accessories-store/backend/src/routes/auth.js, line 36
+   Info: The type of this object, coming from body and the value of its toLowerCase property can be controlled by the user. An attacker may craft the properties of the object to crash the application or bypass its logic. Consider checking the type of the object.
+
+ ✗ [LOW] Improper Type Validation
+   Finding ID: 5e5dba5c-e3a6-4794-b6e4-40206271b469
+   Path: mobile-accessories-store/backend/src/routes/auth.js, line 25
+   Info: The type of this object, coming from body and the value of its toLowerCase property can be controlled by the user. An attacker may craft the properties of the object to crash the application or bypass its logic. Consider checking the type of the object.
+
+ ✗ [LOW] Improper Type Validation
+   Finding ID: ed10d1b1-d563-42ab-b490-6506ab7a8814
+   Path: mobile-accessories-store/backend/src/routes/auth.js, line 18
+   Info: The type of this object, coming from body and the value of its length property can be controlled by the user. An attacker may craft the properties of the object to crash the application or bypass its logic. Consider checking the type of the object.
+
+ ✗ [LOW] Sensitive Cookie in HTTPS Session Without 'Secure' Attribute
+   Finding ID: 1b39f640-b212-4c60-988c-d7d56d91e69d
+   Path: mobile-accessories-store/frontend/node_modules/axios/lib/helpers/cookies.js, line 28
+   Info: Cookie misses the Secure attribute (it is false by default). Set it to true to protect the cookie from man-in-the-middle attacks.
+
+ ✗ [LOW] Sensitive Cookie in HTTPS Session Without 'Secure' Attribute
+   Finding ID: 868f47cc-6903-4ca1-84c1-5773336a9fcd
+   Path: mobile-accessories-store/frontend/node_modules/axios/dist/esm/axios.js, line 2450
+   Info: Cookie misses the Secure attribute (it is false by default). Set it to true to protect the cookie from man-in-the-middle attacks.
+
+ ✗ [LOW] Use of Password Hash With Insufficient Computational Effort
+   Finding ID: 3c5caa1b-6554-4975-9e80-bc46be30e3bb
+   Path: mobile-accessories-store/backend/node_modules/cookie-signature/index.js, line 50
+   Info: crypto.createHash hash (used in crypto.createHash) is insecure. Consider changing it to a secure hashing algorithm.
+
+ ✗ [LOW] Use of Password Hash With Insufficient Computational Effort
+   Finding ID: 72716689-c573-4371-b461-714eedf48b99
+   Path: mobile-accessories-store/backend/node_modules/etag/index.js, line 46
+   Info: crypto.createHash hash (used in crypto.createHash) is insecure. Consider changing it to a secure hashing algorithm.
+
+ ✗ [LOW] Use of Password Hash With Insufficient Computational Effort
+   Finding ID: fd2c1eb4-61ea-44da-9b2c-ae9f05539b64
+   Path: mobile-accessories-store/backend/node_modules/nodemailer/lib/dkim/relaxed-body.js, line 14
+   Info: crypto.createHash hash (used in crypto.createHash) is insecure. Consider changing it to a secure hashing algorithm.
+
+ ✗ [LOW] Use of Password Hash With Insufficient Computational Effort
+   Finding ID: e65b9b19-b47b-4000-ae9c-3aec60570712
+   Path: mobile-accessories-store/frontend/node_modules/react-refresh/cjs/react-refresh-babel.development.js, line 226
+   Info: crypto.createHash hash (used in crypto.createHash) is insecure. Consider changing it to a secure hashing algorithm.
+
+ ✗ [LOW] Use of Password Hash With Insufficient Computational Effort
+   Finding ID: ba96a4d4-b14b-4146-80ff-0d54d75f0f2c
+   Path: mobile-accessories-store/frontend/node_modules/react-refresh/cjs/react-refresh-babel.production.js, line 225
+   Info: crypto.createHash hash (used in crypto.createHash) is insecure. Consider changing it to a secure hashing algorithm.
+
+ ✗ [LOW] Use of Password Hash With Insufficient Computational Effort
+   Finding ID: 20ea6dd8-94f7-4f98-9add-40c3e0818d0f
+   Path: mobile-accessories-store/backend/node_modules/uuid/dist/esm-node/md5.js, line 10
+   Info: crypto.default.createHash hash (used in crypto.default.createHash) is insecure. Consider changing it to a secure hashing algorithm.
+
+ ✗ [LOW] Use of Password Hash With Insufficient Computational Effort
+   Finding ID: 0f039ba2-c9dc-498b-a7d4-66dfd79a55d7
+   Path: mobile-accessories-store/backend/node_modules/uuid/dist/esm-node/sha1.js, line 10
+   Info: crypto.default.createHash hash (used in crypto.default.createHash) is insecure. Consider changing it to a secure hashing algorithm.
+
+ ✗ [LOW] Use of Password Hash With Insufficient Computational Effort
+   Finding ID: 9d45b022-b9da-4d5b-a199-68cf20b506a2
+   Path: mobile-accessories-store/backend/node_modules/uuid/dist/md5.js, line 19
+   Info: createHash hash (used in createHash) is insecure. Consider changing it to a secure hashing algorithm.
+
+ ✗ [LOW] Sensitive Cookie in HTTPS Session Without 'Secure' Attribute
+   Finding ID: 694ea933-26be-46e5-ab36-9857414635fb
+   Path: mobile-accessories-store/frontend/node_modules/axios/dist/browser/axios.cjs, line 2452
+   Info: Cookie misses the Secure attribute (it is false by default). Set it to true to protect the cookie from man-in-the-middle attacks.
+
+ ✗ [LOW] Use of Password Hash With Insufficient Computational Effort
+   Finding ID: b86eaf71-d8dc-4839-a811-1789370a420c
+   Path: mobile-accessories-store/frontend/node_modules/vite/dist/node-cjs/publicUtils.cjs, line 3963
+   Info: createHash hash (used in createHash) is insecure. Consider changing it to a secure hashing algorithm.
+
+ ✗ [LOW] Use of Password Hash With Insufficient Computational Effort
+   Finding ID: a4a3360a-3c3a-4f62-adff-6d694809d731
+   Path: mobile-accessories-store/frontend/node_modules/vite/dist/node/chunks/dep-Dnp7gl8U.js, line 2013
+   Info: createHash hash (used in createHash) is insecure. Consider changing it to a secure hashing algorithm.
+
+ ✗ [LOW] Use of Password Hash With Insufficient Computational Effort
+   Finding ID: 31260d1d-2768-4328-bdd0-2a45c3711342
+   Path: mobile-accessories-store/backend/node_modules/bl/test/test.js, line 511
+   Info: crypto.createHash hash (used in crypto.createHash) is insecure. Consider changing it to a secure hashing algorithm.
+
+ ✗ [LOW] Use of Password Hash With Insufficient Computational Effort
+   Finding ID: a0687ca0-827e-4179-a6fd-7abdae7c8b00
+   Path: mobile-accessories-store/backend/node_modules/bl/test/test.js, line 512
+   Info: crypto.createHash hash (used in crypto.createHash) is insecure. Consider changing it to a secure hashing algorithm.
+
+ ✗ [LOW] Insufficient postMessage Validation
+   Finding ID: d3e85d53-afeb-4de4-9b9c-c79e158420f4
+   Path: mobile-accessories-store/backend/node_modules/axios/dist/axios.js, line 1337
+   Info: The origin of the received message is not checked. This means any site (even malicious) can send message to this window. If you don't expect this, consider checking the origin of sender.
+
+ ✗ [LOW] Insufficient postMessage Validation
+   Finding ID: 2686501c-c06f-43bb-8382-eeef5612091d
+   Path: mobile-accessories-store/backend/node_modules/axios/dist/browser/axios.cjs, line 840
+   Info: The origin of the received message is not checked. This means any site (even malicious) can send message to this window. If you don't expect this, consider checking the origin of sender.
+
+ ✗ [LOW] Insufficient postMessage Validation
+   Finding ID: 283fa93d-2b4c-426b-89a6-a90c73d67496
+   Path: mobile-accessories-store/backend/node_modules/axios/dist/esm/axios.js, line 838
+   Info: The origin of the received message is not checked. This means any site (even malicious) can send message to this window. If you don't expect this, consider checking the origin of sender.
+
+ ✗ [LOW] Insufficient postMessage Validation
+   Finding ID: 9e778183-b05a-4677-b887-991430ae5f2d
+   Path: mobile-accessories-store/backend/node_modules/axios/dist/node/axios.cjs, line 783
+   Info: The origin of the received message is not checked. This means any site (even malicious) can send message to this window. If you don't expect this, consider checking the origin of sender.
+
+ ✗ [LOW] Insufficient postMessage Validation
+   Finding ID: 81a703cc-e101-431e-8a2b-657c7c9d36ac
+   Path: mobile-accessories-store/backend/node_modules/axios/lib/utils.js, line 828
+   Info: The origin of the received message is not checked. This means any site (even malicious) can send message to this window. If you don't expect this, consider checking the origin of sender.
+
+ ✗ [LOW] Insufficient postMessage Validation
+   Finding ID: ed4ecc32-a307-4497-8ed3-020e89e3909c
+   Path: mobile-accessories-store/frontend/node_modules/.vite/deps/axios.js, line 361
+   Info: The origin of the received message is not checked. This means any site (even malicious) can send message to this window. If you don't expect this, consider checking the origin of sender.
+
+ ✗ [LOW] Insufficient postMessage Validation
+   Finding ID: 7fcb931f-8a65-4235-9c24-e9d9f88263e6
+   Path: mobile-accessories-store/frontend/node_modules/.vite/deps_temp_3b0f899b/axios.js, line 361
+   Info: The origin of the received message is not checked. This means any site (even malicious) can send message to this window. If you don't expect this, consider checking the origin of sender.
+
+ ✗ [LOW] Insufficient postMessage Validation
+   Finding ID: 73956f21-529a-4070-ab6a-f2a90684a7aa
+   Path: mobile-accessories-store/frontend/node_modules/axios/dist/axios.js, line 1337
+   Info: The origin of the received message is not checked. This means any site (even malicious) can send message to this window. If you don't expect this, consider checking the origin of sender.
+
+ ✗ [LOW] Insufficient postMessage Validation
+   Finding ID: bd937d8a-ce35-4b6a-b3eb-27093723ec04
+   Path: mobile-accessories-store/frontend/node_modules/axios/dist/browser/axios.cjs, line 840
+   Info: The origin of the received message is not checked. This means any site (even malicious) can send message to this window. If you don't expect this, consider checking the origin of sender.
+
+ ✗ [LOW] Insufficient postMessage Validation
+   Finding ID: 07426255-11d0-43bd-9f5e-e5dac90470fd
+   Path: mobile-accessories-store/frontend/node_modules/axios/dist/esm/axios.js, line 838
+   Info: The origin of the received message is not checked. This means any site (even malicious) can send message to this window. If you don't expect this, consider checking the origin of sender.
+
+ ✗ [LOW] Insufficient postMessage Validation
+   Finding ID: dbf2f153-7e36-474a-942a-cddb09000f7a
+   Path: mobile-accessories-store/frontend/node_modules/axios/dist/node/axios.cjs, line 783
+   Info: The origin of the received message is not checked. This means any site (even malicious) can send message to this window. If you don't expect this, consider checking the origin of sender.
+
+ ✗ [LOW] Insufficient postMessage Validation
+   Finding ID: 91fe91f6-6cc4-407d-8973-30af7ef80144
+   Path: mobile-accessories-store/frontend/node_modules/axios/lib/utils.js, line 828
+   Info: The origin of the received message is not checked. This means any site (even malicious) can send message to this window. If you don't expect this, consider checking the origin of sender.
+
+ ✗ [LOW] Insufficient postMessage Validation
+   Finding ID: fc61ac8c-c07e-4151-91de-67c5c3150dd5
+   Path: mobile-accessories-store/frontend/node_modules/vite/dist/client/client.mjs, line 549
+   Info: The origin of the received message is not checked. This means any site (even malicious) can send message to this window. If you don't expect this, consider checking the origin of sender.
+
+ ✗ [LOW] Sensitive Cookie in HTTPS Session Without 'Secure' Attribute
+   Finding ID: b45e6c5c-144f-4e0c-b08f-ac3f82232483
+   Path: mobile-accessories-store/frontend/node_modules/axios/dist/axios.js, line 2722
+   Info: Cookie misses the Secure attribute (it is false by default). Set it to true to protect the cookie from man-in-the-middle attacks.
+
+ ✗ [LOW] Sensitive Cookie in HTTPS Session Without 'Secure' Attribute
+   Finding ID: e0961719-bcc2-4dbb-b3c1-52ed4eef7537
+   Path: mobile-accessories-store/frontend/node_modules/.vite/deps_temp_3b0f899b/axios.js, line 1476
+   Info: Cookie misses the Secure attribute (it is false by default). Set it to true to protect the cookie from man-in-the-middle attacks.
+
+ ✗ [LOW] Sensitive Cookie in HTTPS Session Without 'Secure' Attribute
+   Finding ID: 956664cc-70ec-4f01-bb31-af8635064cec
+   Path: mobile-accessories-store/frontend/node_modules/.vite/deps/axios.js, line 1476
+   Info: Cookie misses the Secure attribute (it is false by default). Set it to true to protect the cookie from man-in-the-middle attacks.
+
+ ✗ [LOW] Sensitive Cookie in HTTPS Session Without 'Secure' Attribute
+   Finding ID: a0c15f01-2a99-42b4-b0e1-daf1651acae6
+   Path: mobile-accessories-store/backend/node_modules/axios/lib/helpers/cookies.js, line 28
+   Info: Cookie misses the Secure attribute (it is false by default). Set it to true to protect the cookie from man-in-the-middle attacks.
+
+ ✗ [LOW] Sensitive Cookie in HTTPS Session Without 'Secure' Attribute
+   Finding ID: c72755a1-cecb-44dd-bd58-151cdc643f8e
+   Path: mobile-accessories-store/backend/node_modules/axios/dist/node/axios.cjs, line 3283
+   Info: Cookie misses the Secure attribute (it is false by default). Set it to true to protect the cookie from man-in-the-middle attacks.
+
+ ✗ [LOW] Sensitive Cookie in HTTPS Session Without 'Secure' Attribute
+   Finding ID: 90f73067-51de-4f2f-bea4-7f3b457c59bb
+   Path: mobile-accessories-store/backend/node_modules/axios/dist/esm/axios.js, line 2450
+   Info: Cookie misses the Secure attribute (it is false by default). Set it to true to protect the cookie from man-in-the-middle attacks.
+
+ ✗ [LOW] Sensitive Cookie in HTTPS Session Without 'Secure' Attribute
+   Finding ID: 855ff0ee-97b3-4d44-a543-f4811eae940a
+   Path: mobile-accessories-store/backend/node_modules/axios/dist/browser/axios.cjs, line 2452
+   Info: Cookie misses the Secure attribute (it is false by default). Set it to true to protect the cookie from man-in-the-middle attacks.
+
+ ✗ [LOW] Sensitive Cookie in HTTPS Session Without 'Secure' Attribute
+   Finding ID: 4518e94e-d3f8-484d-bf06-fc249848fe0d
+   Path: mobile-accessories-store/backend/node_modules/axios/dist/axios.js, line 2722
+   Info: Cookie misses the Secure attribute (it is false by default). Set it to true to protect the cookie from man-in-the-middle attacks.
+
+ ✗ [MEDIUM] Open Redirect
+   Finding ID: 1f2f950d-0cab-4680-9930-78b1941a3eca
+   Path: mobile-accessories-store/frontend/node_modules/@remix-run/router/dist/router.js, line 2752
+   Info: Unsanitized input from the request URL flows into assign, where it is used as input for request redirection. This may result in an Open Redirect vulnerability.
+
+ ✗ [MEDIUM] Cleartext Transmission - HTTP Instead of HTTPS
+   Finding ID: bc9d14a0-6b89-4c5d-b2e2-943f81875ce0
+   Path: mobile-accessories-store/backend/node_modules/simple-get/index.js, line 49
+   Info: request uses HTTP which is an insecure protocol and should not be used in code due to cleartext transmission of information. Data in cleartext in a communication channel can be sniffed by unauthorized actors. Consider using the https module instead.
+
+ ✗ [MEDIUM] DOM-based Cross-site Scripting (XSS)
+   Finding ID: 92c31d9a-9819-4c48-a9ae-961874456d8f
+   Path: mobile-accessories-store/frontend/src/pages/ProductPage.jsx, line 65
+   Info: Unsanitized input from a React useState value flows into a script 'src' attribute, where it is used to dynamically construct the HTML page on client side. This may result in a DOM Based Cross-Site Scripting attack (DOMXSS).
+
+ ✗ [MEDIUM] Open Redirect
+   Finding ID: 8dcfdd30-55da-436b-b084-275c89575c04
+   Path: mobile-accessories-store/frontend/node_modules/@remix-run/router/dist/router.umd.js, line 3197
+   Info: Unsanitized input from the request URL flows into assign, where it is used as input for request redirection. This may result in an Open Redirect vulnerability.
+
+ ✗ [MEDIUM] Open Redirect
+   Finding ID: 79457495-b638-4908-8ede-cfea906a35f6
+   Path: mobile-accessories-store/frontend/node_modules/@remix-run/router/router.ts, line 2725
+   Info: Unsanitized input from the request URL flows into assign, where it is used as input for request redirection. This may result in an Open Redirect vulnerability.
+
+ ✗ [MEDIUM] Open Redirect
+   Finding ID: 089430ed-e608-4e12-aa17-9ecc18a9f9b5
+   Path: mobile-accessories-store/frontend/node_modules/@remix-run/router/history.ts, line 660
+   Info: Unsanitized input from the document location flows into assign, where it is used as input for request redirection. This may result in an Open Redirect vulnerability.
+
+ ✗ [MEDIUM] Path Traversal
+   Finding ID: db76576f-a8b6-4475-9637-5ee9c61dc1e4
+   Path: mobile-accessories-store/backend/node_modules/better-sqlite3/deps/copy.js, line 30
+   Info: Unsanitized input from a command line argument flows into fs.copyFileSync, where it is used as a path. This may result in a Path Traversal vulnerability and allow an attacker to read arbitrary files.
+
+ ✗ [MEDIUM] Path Traversal
+   Finding ID: 3ccf276b-bb0d-4421-add8-23713aaadeb8
+   Path: mobile-accessories-store/frontend/node_modules/@babel/parser/bin/babel-parser.js, line 11
+   Info: Unsanitized input from a command line argument flows into fs.readFileSync, where it is used as a path. This may result in a Path Traversal vulnerability and allow an attacker to read arbitrary files.
+
+ ✗ [MEDIUM] Path Traversal
+   Finding ID: 9b6e3db6-bd0a-416b-bffb-f532cacb39ac
+   Path: mobile-accessories-store/frontend/node_modules/browserslist/cli.js, line 116
+   Info: Unsanitized input from a command line argument flows into fs.readFileSync, where it is used as a path. This may result in a Path Traversal vulnerability and allow an attacker to read arbitrary files.
+
+ ✗ [MEDIUM] Path Traversal
+   Finding ID: dda1b650-cf40-4900-8510-935546180805
+   Path: mobile-accessories-store/frontend/node_modules/json5/lib/cli.js, line 19
+   Info: Unsanitized input from a command line argument flows into fs.createReadStream, where it is used as a path. This may result in a Path Traversal vulnerability and allow an attacker to read arbitrary files.
+
+ ✗ [MEDIUM] Path Traversal
+   Finding ID: 52eba737-7a6b-4cd4-a179-541024c96e28
+   Path: mobile-accessories-store/frontend/node_modules/loose-envify/cli.js, line 8
+   Info: Unsanitized input from a command line argument flows into fs.createReadStream, where it is used as a path. This may result in a Path Traversal vulnerability and allow an attacker to read arbitrary files.
+
+ ✗ [MEDIUM] Path Traversal
+   Finding ID: 1b8b2f11-615c-40f0-9239-3462c37b38fa
+   Path: mobile-accessories-store/frontend/node_modules/json5/lib/cli.js, line 57
+   Info: Unsanitized input from a command line argument flows into fs.createWriteStream, where it is used as a path. This may result in a Path Traversal vulnerability and allow an attacker to write to arbitrary files.
+
+ ✗ [MEDIUM] Path Traversal
+   Finding ID: ae54a8cc-0528-4cb3-b6cd-4af7b9fa4972
+   Path: mobile-accessories-store/frontend/node_modules/json5/lib/cli.js, line 59
+   Info: Unsanitized input from a command line argument flows into fs.createWriteStream, where it is used as a path. This may result in a Path Traversal vulnerability and allow an attacker to write to arbitrary files.
+
+ ✗ [MEDIUM] Open Redirect
+   Finding ID: 788cf8c2-f0d2-48c8-a3fa-d3c76c9ca0c4
+   Path: mobile-accessories-store/frontend/node_modules/.vite/deps/react-router-dom.js, line 2154
+   Info: Unsanitized input from the request URL flows into assign, where it is used as input for request redirection. This may result in an Open Redirect vulnerability.
+
+ ✗ [MEDIUM] Information Exposure - X-Powered-By Header
+   Finding ID: df3edd30-85d0-44d9-b5fe-49eda159c47e
+   Path: mobile-accessories-store/backend/server.js, line 15
+   Info: Disable X-Powered-By header for your Express app (consider using Helmet middleware), because it exposes information about the used framework to potential attackers.
+
+ ✗ [MEDIUM] Open Redirect
+   Finding ID: e2d867a1-dd91-450b-9159-e1c884431401
+   Path: mobile-accessories-store/frontend/node_modules/@remix-run/router/router.ts, line 2723
+   Info: Unsanitized input from the request URL flows into replace, where it is used as input for request redirection. This may result in an Open Redirect vulnerability.
+
+ ✗ [MEDIUM] Open Redirect
+   Finding ID: 33c949de-befb-4d0b-9dca-f474f3552bc5
+   Path: mobile-accessories-store/frontend/node_modules/@remix-run/router/dist/router.umd.js, line 3195
+   Info: Unsanitized input from the request URL flows into replace, where it is used as input for request redirection. This may result in an Open Redirect vulnerability.
+
+ ✗ [MEDIUM] Open Redirect
+   Finding ID: cbfa2012-48d8-4cc4-a644-942d37d995eb
+   Path: mobile-accessories-store/frontend/node_modules/@remix-run/router/dist/router.js, line 2750
+   Info: Unsanitized input from the request URL flows into replace, where it is used as input for request redirection. This may result in an Open Redirect vulnerability.
+
+ ✗ [MEDIUM] Open Redirect
+   Finding ID: ec94155b-af96-4cab-85bc-1f7509b6382e
+   Path: mobile-accessories-store/frontend/node_modules/@remix-run/router/dist/router.cjs.js, line 3193
+   Info: Unsanitized input from the request URL flows into replace, where it is used as input for request redirection. This may result in an Open Redirect vulnerability.
+
+ ✗ [MEDIUM] Open Redirect
+   Finding ID: c1771f3c-6bc4-4cfa-aabd-b38d50e81a59
+   Path: mobile-accessories-store/frontend/node_modules/.vite/deps_temp_3b0f899b/react-router-dom.js, line 2152
+   Info: Unsanitized input from the request URL flows into replace, where it is used as input for request redirection. This may result in an Open Redirect vulnerability.
+
+ ✗ [MEDIUM] Open Redirect
+   Finding ID: 478bfba0-eb42-47bc-b505-ac268d840c1a
+   Path: mobile-accessories-store/frontend/node_modules/.vite/deps/react-router-dom.js, line 2152
+   Info: Unsanitized input from the request URL flows into replace, where it is used as input for request redirection. This may result in an Open Redirect vulnerability.
+
+ ✗ [MEDIUM] Open Redirect
+   Finding ID: 1dcb43df-c793-4525-89bc-3d2462300d52
+   Path: mobile-accessories-store/frontend/node_modules/@remix-run/router/dist/router.cjs.js, line 3195
+   Info: Unsanitized input from the request URL flows into assign, where it is used as input for request redirection. This may result in an Open Redirect vulnerability.
+
+ ✗ [MEDIUM] Cleartext Transmission - HTTP Instead of HTTPS
+   Finding ID: 55c386ac-95e0-420d-9879-dbf3cedc4bc9
+   Path: mobile-accessories-store/frontend/node_modules/form-data/lib/form_data.js, line 444
+   Info: http.request uses HTTP which is an insecure protocol and should not be used in code due to cleartext transmission of information. Data in cleartext in a communication channel can be sniffed by unauthorized actors. Consider using the https module instead.
+
+ ✗ [MEDIUM] Cleartext Transmission - HTTP Instead of HTTPS
+   Finding ID: 0c724357-9826-4eb8-a616-e51a0365ae97
+   Path: mobile-accessories-store/backend/node_modules/axios/dist/node/axios.cjs, line 3072
+   Info: request uses HTTP which is an insecure protocol and should not be used in code due to cleartext transmission of information. Data in cleartext in a communication channel can be sniffed by unauthorized actors. Consider using the https module instead.
+
+ ✗ [MEDIUM] Cleartext Transmission - HTTP Instead of HTTPS
+   Finding ID: 63a32344-c72e-451e-8e48-9ac4592926e4
+   Path: mobile-accessories-store/backend/node_modules/form-data/lib/form_data.js, line 444
+   Info: http.request uses HTTP which is an insecure protocol and should not be used in code due to cleartext transmission of information. Data in cleartext in a communication channel can be sniffed by unauthorized actors. Consider using the https module instead.
+
+ ✗ [MEDIUM] Cleartext Transmission - HTTP Instead of HTTPS
+   Finding ID: 207e7d34-1d5e-4a9a-826f-764fa86d068e
+   Path: mobile-accessories-store/backend/node_modules/nodemailer/lib/fetch/index.js, line 140
+   Info: request uses HTTP which is an insecure protocol and should not be used in code due to cleartext transmission of information. Data in cleartext in a communication channel can be sniffed by unauthorized actors. Consider using the https module instead.
+
+ ✗ [MEDIUM] Open Redirect
+   Finding ID: f0a148d8-e434-41fc-83a7-0d939cabde0e
+   Path: mobile-accessories-store/frontend/node_modules/.vite/deps_temp_3b0f899b/react-router-dom.js, line 2154
+   Info: Unsanitized input from the request URL flows into assign, where it is used as input for request redirection. This may result in an Open Redirect vulnerability.
+
+ ✗ [MEDIUM] Cleartext Transmission - HTTP Instead of HTTPS
+   Finding ID: 96dc80bf-df5d-4719-8a22-069e0f1b2414
+   Path: mobile-accessories-store/backend/node_modules/stripe/cjs/net/NodeHttpClient.js, line 37
+   Info: request uses HTTP which is an insecure protocol and should not be used in code due to cleartext transmission of information. Data in cleartext in a communication channel can be sniffed by unauthorized actors. Consider using the https module instead.
+
+ ✗ [MEDIUM] Cleartext Transmission - HTTP Instead of HTTPS
+   Finding ID: 69520b03-0861-4cb2-8ac0-671e3e7572af
+   Path: mobile-accessories-store/frontend/node_modules/axios/dist/node/axios.cjs, line 3072
+   Info: request uses HTTP which is an insecure protocol and should not be used in code due to cleartext transmission of information. Data in cleartext in a communication channel can be sniffed by unauthorized actors. Consider using the https module instead.
+
+ ✗ [MEDIUM] Cleartext Transmission - HTTP Instead of HTTPS
+   Finding ID: a0e25595-604b-45a2-b1f4-644a567b35fd
+   Path: mobile-accessories-store/backend/node_modules/express/lib/application.js, line 634
+   Info: http.createServer uses HTTP which is an insecure protocol and should not be used in code due to cleartext transmission of information. Data in cleartext in a communication channel can be sniffed by unauthorized actors. Consider using the https module instead.
+
+ ✗ [HIGH] Cross-site Scripting (XSS)
+   Finding ID: 521837f4-feae-4de4-b975-7d8477eb9310
+   Path: mobile-accessories-store/backend/src/routes/orders.js, line 111
+   Info: Unsanitized input from the HTTP request body flows into html, where it is used to render an HTML page returned to the user. This may result in a Cross-Site Scripting attack (XSS).
+
+ ✗ [HIGH] Hardcoded Secret
+   Finding ID: 2f0d3ec0-a8a4-42e7-883e-cd5a8c027a01
+   Path: mobile-accessories-store/backend/src/routes/auth.js, line 9
+   Info: Hardcoded value is used as a cipher key (in jsonwebtoken.sign). Generate the value with a cryptographically strong random number generator and do not hardcode it in source code.
+
+ ✗ [HIGH] Arbitrary File Write via Archive Extraction (Zip Slip)
+   Finding ID: 642a8d00-1daa-4895-a467-c394589d6ce2
+   Path: mobile-accessories-store/backend/node_modules/tar-fs/index.js, line 291
+   Info: Unsanitized input from Tar-Stream library flows into createWriteStream, where it is used as a path after been extracted from a zip file. This may result in a Zip Slip vulnerability and allow an attacker to write to arbitrary files.
+
+ ✗ [HIGH] Code Injection
+   Finding ID: 08952d40-4096-41b4-8a07-736603e5d8ea
+   Path: mobile-accessories-store/frontend/node_modules/.vite/deps/react-router-dom.js, line 5931
+   Info: Unsanitized input from the document location flows into setTimeout, where it is executed as JavaScript code. This may result in a Code Injection vulnerability.
+
+ ✗ [HIGH] Regular Expression Denial of Service (ReDoS)
+   Finding ID: f2b7d146-6132-4329-a41f-198582520ed8
+   Path: mobile-accessories-store/backend/node_modules/express/lib/router/index.js, line 585
+   Info: Unsanitized user input from the request URL flows into match, where it is used to build a regular expression. This may result in a Regular expression Denial of Service attack (reDOS).
+
+ ✗ [HIGH] Arbitrary File Write via Archive Extraction (Zip Slip)
+   Finding ID: 63ba4dc9-e185-4b08-b074-e379db52549d
+   Path: mobile-accessories-store/backend/node_modules/tar-fs/index.js, line 266
+   Info: Unsanitized input from Tar-Stream library flows into symlink, where it is used as a path after been extracted from a zip file. This may result in a Zip Slip vulnerability and allow an attacker to read arbitrary files.
+
+ ✗ [HIGH] Arbitrary File Write via Archive Extraction (Zip Slip)
+   Finding ID: e2522252-e2ba-422d-91da-b6633befe810
+   Path: mobile-accessories-store/backend/node_modules/tar-fs/index.js, line 272
+   Info: Unsanitized input from Tar-Stream library flows into unlink, where it is used as a path after been extracted from a zip file. This may result in a Zip Slip vulnerability and allow an attacker to delete arbitrary files.
+
+ ✗ [HIGH] Arbitrary File Write via Archive Extraction (Zip Slip)
+   Finding ID: 02c5f27c-2adb-4191-801f-2caa314231cb
+   Path: mobile-accessories-store/backend/node_modules/tar-fs/index.js, line 262
+   Info: Unsanitized input from Tar-Stream library flows into unlink, where it is used as a path after been extracted from a zip file. This may result in a Zip Slip vulnerability and allow an attacker to delete arbitrary files.
+
+ ✗ [HIGH] Arbitrary File Write via Archive Extraction (Zip Slip)
+   Finding ID: b9adf0ae-737a-4db4-8f99-6f69a353bb27
+   Path: mobile-accessories-store/backend/node_modules/tar-fs/index.js, line 280
+   Info: Unsanitized input from Tar-Stream library flows into createReadStream, where it is used as a path after been extracted from a zip file. This may result in a Zip Slip vulnerability and allow an attacker to read arbitrary files.
+
+ ✗ [HIGH] Arbitrary File Write via Archive Extraction (Zip Slip)
+   Finding ID: 02d60458-67fa-4b80-bea4-166e3a7830c9
+   Path: mobile-accessories-store/backend/node_modules/tar-fs/index.js, line 278
+   Info: Unsanitized input from Tar-Stream library flows into link, where it is used as a path after been extracted from a zip file. This may result in a Zip Slip vulnerability and allow an attacker to overwrite arbitrary files.
+
+ ✗ [HIGH] Arbitrary File Write via Archive Extraction (Zip Slip)
+   Finding ID: e4f4399d-c214-4042-9d32-1284354b6f45
+   Path: mobile-accessories-store/backend/node_modules/tar-stream/sandbox.js, line 10
+   Info: Unsanitized input from Tar-Stream library flows into fs.createWriteStream, where it is used as a path after been extracted from a zip file. This may result in a Zip Slip vulnerability and allow an attacker to write to arbitrary files.
+
+ ✗ [HIGH] Hardcoded Non-Cryptographic Secret
+   Finding ID: 61706d8f-f371-45c9-a2c0-f1d72bfe72a4
+   Path: mobile-accessories-store/backend/src/models/db.js, line 93
+   Info: Avoid hardcoding values that are meant to be secret. Found a hardcoded string used in bcryptjs.hashSync.
+
+ ✗ [HIGH] Hardcoded Non-Cryptographic Secret
+   Finding ID: 147cd483-42f2-4af2-be50-16b2aa39c7e6
+   Path: mobile-accessories-store/frontend/node_modules/.vite/deps/@stripe_react-stripe-js.js, line 250
+   Info: Avoid hardcoding values that are meant to be secret. Found a hardcoded string used in here.
+
+ ✗ [HIGH] Hardcoded Non-Cryptographic Secret
+   Finding ID: a9c18388-63c6-43ae-b579-8b0aaf657fe6
+   Path: mobile-accessories-store/frontend/node_modules/.vite/deps_temp_3b0f899b/@stripe_react-stripe-js.js, line 250
+   Info: Avoid hardcoding values that are meant to be secret. Found a hardcoded string used in here.
+
+ ✗ [HIGH] Hardcoded Non-Cryptographic Secret
+   Finding ID: 2a2d1fbc-acc1-48ca-90d1-dd994fa71244
+   Path: mobile-accessories-store/frontend/node_modules/@stripe/react-stripe-js/dist/react-stripe.umd.js, line 190
+   Info: Avoid hardcoding values that are meant to be secret. Found a hardcoded string used in here.
+
+ ✗ [HIGH] Hardcoded Non-Cryptographic Secret
+   Finding ID: 548f3dc0-a9bc-4918-a5d8-e3d1c9d4309f
+   Path: mobile-accessories-store/frontend/node_modules/prop-types/lib/ReactPropTypesSecret.js, line 10
+   Info: Avoid hardcoding values that are meant to be secret. Found a hardcoded string used in here.
+
+ ✗ [HIGH] Hardcoded Non-Cryptographic Secret
+   Finding ID: 22f6d73d-db79-46be-ae31-f05ee83cc8f9
+   Path: mobile-accessories-store/frontend/node_modules/prop-types/prop-types.js, line 816
+   Info: Avoid hardcoding values that are meant to be secret. Found a hardcoded string used in here.
+
+ ✗ [HIGH] Code Injection
+   Finding ID: ab92e1b0-1d67-48fe-b2d8-d94b80e08316
+   Path: mobile-accessories-store/frontend/node_modules/.vite/deps_temp_3b0f899b/react-router-dom.js, line 5931
+   Info: Unsanitized input from the document location flows into setTimeout, where it is executed as JavaScript code. This may result in a Code Injection vulnerability.
+
+ ✗ [HIGH] Hardcoded Secret
+   Finding ID: 9873051b-0f5b-400c-ab5e-a73616928df5
+   Path: mobile-accessories-store/backend/src/middleware/auth.js, line 13
+   Info: Hardcoded value is used as a cipher key (in jsonwebtoken.verify). Generate the value with a cryptographically strong random number generator and do not hardcode it in source code.
+
+
+
+╭───────────────────────────────────────────────────────────────────────────────╮
+│ Test Summary                                                                  │
+│                                                                               │
+│   Organization:      yusufmarall                                              │
+│   Test type:         Static code analysis                                     │
+│   Project path:      /media/sf_Quality-Assurance-Test/JS_claude_sonnet_4_6    │
+│                                                                               │
+│   Total issues:   95                                                          │
+│   Ignored issues: 0 [ 0 HIGH  0 MEDIUM  0 LOW ]                               │
+│   Open issues:    95 [ 19 HIGH  30 MEDIUM  46 LOW ]                           │
+╰───────────────────────────────────────────────────────────────────────────────╯
+    
+💡 Tip
+
+   To view ignored issues, use the --include-ignores option.
+                                                            
+
