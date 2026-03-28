@@ -1,0 +1,25 @@
+
+Testing /media/sf_Quality-Assurance-Test/C#_gemini_pro_low ...
+
+        
+💡 Tip
+
+   You are currently viewing results with --severity-threshold applied.
+   To view all issues, remove the --severity-threshold flag            
+                                                                       
+
+╭────────────────────────────────────────────────────────────────────────────╮
+│ Test Summary                                                               │
+│                                                                            │
+│   Organization:      yusufmarall                                           │
+│   Test type:         Static code analysis                                  │
+│   Project path:      /media/sf_Quality-Assurance-Test/C#_gemini_pro_low    │
+│                                                                            │
+│   Total issues:   0                                                        │
+╰────────────────────────────────────────────────────────────────────────────╯
+    
+💡 Tip
+
+   To view ignored issues, use the --include-ignores option.
+                                                            
+
