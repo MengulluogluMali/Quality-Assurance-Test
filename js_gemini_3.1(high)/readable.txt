@@ -1,0 +1,1130 @@
+
+Testing /media/sf_Quality-Assurance-Test/js_gemini_3.1(high) ...
+
+Open Issues
+
+ ✗ [MEDIUM] Open Redirect
+   Finding ID: 19bf3859-52bf-4135-a4fe-7745dbb74e1a
+   Path: node_modules/@auth/core/src/lib/actions/signin/send-token.ts, line 45
+   Info: Unsanitized input from the HTTP request body flows into the url argument of redirect, where it is used as input for request redirection. This may result in an Open Redirect vulnerability.
+
+ ✗ [MEDIUM] Cleartext Transmission - HTTP Instead of HTTPS
+   Finding ID: 207e7d34-1d5e-4a9a-826f-764fa86d068e
+   Path: node_modules/next/dist/esm/build/analyze/index.js, line 134
+   Info: node:http.default.createServer uses HTTP which is an insecure protocol and should not be used in code due to cleartext transmission of information. Data in cleartext in a communication channel can be sniffed by unauthorized actors. Consider using the https module instead.
+
+ ✗ [MEDIUM] Information Exposure - X-Powered-By Header
+   Finding ID: df3edd30-85d0-44d9-b5fe-49eda159c47e
+   Path: node_modules/oauth/examples/express-gdata/server.js, line 6
+   Info: Disable X-Powered-By header for your Express app (consider using Helmet middleware), because it exposes information about the used framework to potential attackers.
+
+ ✗ [MEDIUM] Missing Release of Memory after Effective Lifetime
+   Finding ID: 71c78e54-c695-43a7-86a4-1a7380746b99
+   Path: node_modules/bcrypt/src/bcrypt_node.cc, line 239
+   Info: Leaking memory. CompareAsyncWorker is allocated on the heap and never freed
+
+ ✗ [MEDIUM] Cleartext Transmission - HTTP Instead of HTTPS
+   Finding ID: 51005abe-6fda-4aa9-847f-89b74897baa8
+   Path: node_modules/@prisma/streams-local/dist/local/index-vsvg9063.js, line 10444
+   Info: node:http.createServer uses HTTP which is an insecure protocol and should not be used in code due to cleartext transmission of information. Data in cleartext in a communication channel can be sniffed by unauthorized actors. Consider using the https module instead.
+
+ ✗ [MEDIUM] Cleartext Transmission - HTTP Instead of HTTPS
+   Finding ID: bc9d14a0-6b89-4c5d-b2e2-943f81875ce0
+   Path: node_modules/napi-postinstall/lib/index.js, line 19
+   Info: get uses HTTP which is an insecure protocol and should not be used in code due to cleartext transmission of information. Data in cleartext in a communication channel can be sniffed by unauthorized actors. Consider using the https module instead.
+
+ ✗ [MEDIUM] Cleartext Transmission - HTTP Instead of HTTPS
+   Finding ID: 5ebf23f4-8583-4cfe-8a0c-03b888a9c76d
+   Path: node_modules/next/dist/build/analyze/index.js, line 189
+   Info: createServer uses HTTP which is an insecure protocol and should not be used in code due to cleartext transmission of information. Data in cleartext in a communication channel can be sniffed by unauthorized actors. Consider using the https module instead.
+
+ ✗ [MEDIUM] Cross-site Scripting (XSS)
+   Finding ID: 6f681315-1593-4640-9526-e63f6d57625d
+   Path: node_modules/next/dist/esm/server/next-server.js, line 170
+   Info: Unsanitized input from data from a remote resource flows into end, where it is used to render an HTML page returned to the user. This may result in a Cross-Site Scripting attack (XSS).
+
+ ✗ [MEDIUM] Cross-site Scripting (XSS)
+   Finding ID: c2091ecd-6363-4ebf-9fa3-d2456460d4cc
+   Path: node_modules/next/dist/esm/server/api-utils/node/api-resolver.js, line 363
+   Info: Unsanitized input from an exception flows into end, where it is used to render an HTML page returned to the user. This may result in a Cross-Site Scripting attack (XSS).
+
+ ✗ [MEDIUM] Improper Neutralization of Directives in Statically Saved Code
+   Finding ID: b10b6a33-a39a-461c-9256-a89ccbc35812
+   Path: node_modules/ajv/scripts/compile-dots.js, line 42
+   Info: Unsanitized input from a command line argument flows into dot.compile, where it is used to construct a template that gets rendered. This may result in a Server-Side Template Injection vulnerability.
+
+ ✗ [MEDIUM] Code Injection
+   Finding ID: 030bbe84-6266-47f4-bc37-6fcd3aad30ab
+   Path: node_modules/ajv/scripts/bundle.js, line 15
+   Info: Unsanitized input from a command line argument flows into require, where it is executed as JavaScript code. This may result in a Code Injection vulnerability.
+
+ ✗ [MEDIUM] Information Exposure - Server Error Message
+   Finding ID: d4fce30a-35e2-40dc-bb27-5129df566393
+   Path: node_modules/next/dist/esm/server/dev/middleware-turbopack.js, line 326
+   Info: An exception object flows to end and is leaked to the attacker. This may disclose important information about the application to an attacker.
+
+ ✗ [MEDIUM] Information Exposure - Server Error Message
+   Finding ID: 6740708e-8337-4e36-b392-68e77e49ea96
+   Path: node_modules/next/dist/esm/server/dev/middleware-turbopack.js, line 299
+   Info: An exception object flows to end and is leaked to the attacker. This may disclose important information about the application to an attacker.
+
+ ✗ [MEDIUM] Information Exposure - Server Error Message
+   Finding ID: 93cc01ed-8c32-4c28-80c9-59d3122d12ef
+   Path: node_modules/oauth/examples/twitter-example.js, line 53
+   Info: An error object flows to end and is leaked to the attacker. This may disclose important information about the application to an attacker.
+
+ ✗ [MEDIUM] Information Exposure - Server Error Message
+   Finding ID: b23181d4-b99c-4970-ab71-8ab31d5ca60a
+   Path: node_modules/oauth/examples/twitter-example.js, line 40
+   Info: An error object flows to end and is leaked to the attacker. This may disclose important information about the application to an attacker.
+
+ ✗ [MEDIUM] Information Exposure - Server Error Message
+   Finding ID: cfb4511a-956f-4d7b-97b5-f997d4560477
+   Path: node_modules/next/dist/next-devtools/server/middleware-response.js, line 37
+   Info: An error object flows to end and is leaked to the attacker. This may disclose important information about the application to an attacker.
+
+ ✗ [MEDIUM] Information Exposure - Server Error Message
+   Finding ID: 48a065a3-2a2c-40d8-8d73-1b3aab9503c8
+   Path: node_modules/next/dist/esm/server/next-server.js, line 170
+   Info: An error object flows to end and is leaked to the attacker. This may disclose important information about the application to an attacker.
+
+ ✗ [MEDIUM] Information Exposure - Server Error Message
+   Finding ID: d0f88398-cee7-4e6d-bddc-74f08230018f
+   Path: node_modules/next/dist/esm/server/lib/router-utils/setup-dev-bundler.js, line 822
+   Info: An error object flows to end and is leaked to the attacker. This may disclose important information about the application to an attacker.
+
+ ✗ [MEDIUM] Information Exposure - Server Error Message
+   Finding ID: af9e09da-30fa-48b2-b53a-1119ee970231
+   Path: node_modules/next/dist/esm/server/dev/middleware-webpack.js, line 435
+   Info: An error object flows to end and is leaked to the attacker. This may disclose important information about the application to an attacker.
+
+ ✗ [MEDIUM] Information Exposure - Server Error Message
+   Finding ID: 01c8ad3b-ad5a-4466-a02a-4c996940c23c
+   Path: node_modules/next/dist/esm/server/dev/middleware-webpack.js, line 391
+   Info: An error object flows to end and is leaked to the attacker. This may disclose important information about the application to an attacker.
+
+ ✗ [MEDIUM] Information Exposure - Server Error Message
+   Finding ID: d573ec1d-5238-438c-a243-3ca2da851b30
+   Path: node_modules/next/dist/esm/server/dev/middleware-turbopack.js, line 275
+   Info: An error object flows to end and is leaked to the attacker. This may disclose important information about the application to an attacker.
+
+ ✗ [MEDIUM] Information Exposure - Server Error Message
+   Finding ID: 59336a40-c7de-44e3-953f-a430384b5244
+   Path: node_modules/next/dist/esm/server/dev/middleware-turbopack.js, line 261
+   Info: An error object flows to end and is leaked to the attacker. This may disclose important information about the application to an attacker.
+
+ ✗ [MEDIUM] Information Exposure - Server Error Message
+   Finding ID: cde9ed25-c420-453e-90df-6e9d0aab0f19
+   Path: node_modules/next/dist/esm/next-devtools/server/middleware-response.js, line 27
+   Info: An error object flows to end and is leaked to the attacker. This may disclose important information about the application to an attacker.
+
+ ✗ [MEDIUM] Information Exposure - Server Error Message
+   Finding ID: 69f24f64-1651-476b-a03b-e76aab57dd29
+   Path: node_modules/next/dist/esm/build/webpack/plugins/wellknown-errors-plugin/index.js, line 19
+   Info: An error object flows to end and is leaked to the attacker. This may disclose important information about the application to an attacker.
+
+ ✗ [MEDIUM] Information Exposure - Server Error Message
+   Finding ID: 9f053f52-163d-4a5e-a135-5b87e419fe6a
+   Path: node_modules/next-auth/src/next/index.ts, line 68
+   Info: An error object flows to send and is leaked to the attacker. This may disclose important information about the application to an attacker.
+
+ ✗ [MEDIUM] Prototype Pollution
+   Finding ID: 8efb64f6-9fa4-46cd-aa3b-14180b9102ab
+   Path: node_modules/next/dist/esm/shared/lib/router/router.js, line 1424
+   Info: Unsanitized input from the document location flows into a member access and is used to access a property of this object by name. This may allow a malicious user to pollute the Object.prototype and cause a crash, remote code execution or logic bypasses.
+
+ ✗ [MEDIUM] Prototype Pollution
+   Finding ID: 4c7ecc7e-c135-43ea-9298-dd71aaf0179c
+   Path: node_modules/next/dist/esm/shared/lib/router/router.js, line 1324
+   Info: Unsanitized input from the document location flows into a member access and is used to access a property of this object by name. This may allow a malicious user to pollute the Object.prototype and cause a crash, remote code execution or logic bypasses.
+
+ ✗ [MEDIUM] Open Redirect
+   Finding ID: cb271177-ce4d-441d-95a7-de3090f0e13f
+   Path: node_modules/@auth/prisma-adapter/node_modules/@auth/core/src/lib/actions/signin/send-token.ts, line 44
+   Info: Unsanitized input from the HTTP request body flows into redirect, where it is used as input for request redirection. This may result in an Open Redirect vulnerability.
+
+ ✗ [MEDIUM] Prototype Pollution
+   Finding ID: 6387b19c-8f19-4e5c-b300-73be6f269375
+   Path: node_modules/eslint/bin/eslint.js, line 175
+   Info: Unsanitized input from a command line argument flows into a member access and is used to access a property of this object by name. This may allow a malicious user to pollute the Object.prototype and cause a crash, remote code execution or logic bypasses.
+
+ ✗ [MEDIUM] Code Injection
+   Finding ID: 73ac1afe-3ba6-464c-8a8b-b313a693e0ca
+   Path: node_modules/@eslint/eslintrc/lib/config-array-factory.js, line 790
+   Info: Unsanitized input from an exception flows into require, where it is executed as JavaScript code. This may result in a Code Injection vulnerability.
+
+ ✗ [MEDIUM] Code Injection
+   Finding ID: 72def409-d499-4867-a6cc-c6e41dd2394f
+   Path: node_modules/@eslint/eslintrc/lib/config-array-factory.js, line 757
+   Info: Unsanitized input from an exception flows into require, where it is executed as JavaScript code. This may result in a Code Injection vulnerability.
+
+ ✗ [MEDIUM] Code Injection
+   Finding ID: f75b3367-d498-466a-9f3b-230f92543b0e
+   Path: node_modules/@eslint/eslintrc/lib/config-array-factory.js, line 756
+   Info: Unsanitized input from an exception flows into require, where it is executed as JavaScript code. This may result in a Code Injection vulnerability.
+
+ ✗ [MEDIUM] Code Injection
+   Finding ID: 1d1646cb-18c5-4612-96fe-d06526bfb4cf
+   Path: node_modules/@eslint/eslintrc/lib/config-array-factory.js, line 752
+   Info: Unsanitized input from an exception flows into require, where it is executed as JavaScript code. This may result in a Code Injection vulnerability.
+
+ ✗ [MEDIUM] Code Injection
+   Finding ID: 1e7fd6ed-9863-4fbb-a866-8322bd0a88e8
+   Path: node_modules/@eslint/eslintrc/lib/config-array-factory.js, line 694
+   Info: Unsanitized input from an exception flows into require, where it is executed as JavaScript code. This may result in a Code Injection vulnerability.
+
+ ✗ [MEDIUM] Code Injection
+   Finding ID: f0249e22-da8b-468e-ab11-c11a22951091
+   Path: node_modules/@eslint/eslintrc/lib/config-array-factory.js, line 677
+   Info: Unsanitized input from an exception flows into require, where it is executed as JavaScript code. This may result in a Code Injection vulnerability.
+
+ ✗ [MEDIUM] Code Injection
+   Finding ID: fe0673c0-cba0-45f2-bd6a-a7361a30882d
+   Path: node_modules/@eslint/eslintrc/lib/config-array-factory.js, line 356
+   Info: Unsanitized input from an exception flows into require, where it is executed as JavaScript code. This may result in a Code Injection vulnerability.
+
+ ✗ [MEDIUM] Path Traversal
+   Finding ID: 8f8ee226-ddd9-4ee3-9416-2cd97e95a377
+   Path: node_modules/node-addon-api/tools/conversion.js, line 297
+   Info: Unsanitized input from a command line argument flows into fs.writeFile, where it is used as a path. This may result in a Path Traversal vulnerability and allow an attacker to write to arbitrary files.
+
+ ✗ [MEDIUM] Path Traversal
+   Finding ID: 75babc5e-5f50-4707-85d1-ad21166227f4
+   Path: node_modules/node-addon-api/tools/conversion.js, line 292
+   Info: Unsanitized input from a command line argument flows into fs.readFile, where it is used as a path. This may result in a Path Traversal vulnerability and allow an attacker to read arbitrary files.
+
+ ✗ [MEDIUM] Cleartext Transmission - HTTP Instead of HTTPS
+   Finding ID: 0c724357-9826-4eb8-a616-e51a0365ae97
+   Path: node_modules/next/dist/experimental/testmode/proxy/server.js, line 27
+   Info: createServer uses HTTP which is an insecure protocol and should not be used in code due to cleartext transmission of information. Data in cleartext in a communication channel can be sniffed by unauthorized actors. Consider using the https module instead.
+
+ ✗ [MEDIUM] Cleartext Transmission - HTTP Instead of HTTPS
+   Finding ID: 2fef78d2-9f28-41b6-9d3c-332f643b5181
+   Path: node_modules/next/dist/server/lib/start-server.js, line 248
+   Info: createServer uses HTTP which is an insecure protocol and should not be used in code due to cleartext transmission of information. Data in cleartext in a communication channel can be sniffed by unauthorized actors. Consider using the https module instead.
+
+ ✗ [MEDIUM] Cleartext Transmission - HTTP Instead of HTTPS
+   Finding ID: 69520b03-0861-4cb2-8ac0-671e3e7572af
+   Path: node_modules/next/dist/server/lib/worker-utils.js, line 19
+   Info: createServer uses HTTP which is an insecure protocol and should not be used in code due to cleartext transmission of information. Data in cleartext in a communication channel can be sniffed by unauthorized actors. Consider using the https module instead.
+
+ ✗ [MEDIUM] Cleartext Transmission - HTTP Instead of HTTPS
+   Finding ID: d7c9f7d6-43db-4688-9022-a04d587302f0
+   Path: node_modules/next/dist/compiled/webpack/lazy-compilation-node.js, line 20
+   Info: request uses HTTP which is an insecure protocol and should not be used in code due to cleartext transmission of information. Data in cleartext in a communication channel can be sniffed by unauthorized actors. Consider using the https module instead.
+
+ ✗ [MEDIUM] Cleartext Transmission - HTTP Instead of HTTPS
+   Finding ID: 96dc80bf-df5d-4719-8a22-069e0f1b2414
+   Path: node_modules/oauth/lib/oauth.js, line 256
+   Info: request uses HTTP which is an insecure protocol and should not be used in code due to cleartext transmission of information. Data in cleartext in a communication channel can be sniffed by unauthorized actors. Consider using the https module instead.
+
+ ✗ [MEDIUM] Missing Release of Memory after Effective Lifetime
+   Finding ID: 8b9db23c-9fb0-40ce-8b15-2b9a20465a96
+   Path: node_modules/bcrypt/src/bcrypt_node.cc, line 110
+   Info: Leaking memory. SaltAsyncWorker is allocated on the heap and never freed
+
+ ✗ [MEDIUM] Cleartext Transmission - HTTP Instead of HTTPS
+   Finding ID: eb3ad851-9fb3-4a47-a823-3e89f0ad5b83
+   Path: node_modules/next/dist/esm/server/lib/start-server.js, line 180
+   Info: http.default.createServer uses HTTP which is an insecure protocol and should not be used in code due to cleartext transmission of information. Data in cleartext in a communication channel can be sniffed by unauthorized actors. Consider using the https module instead.
+
+ ✗ [MEDIUM] Cleartext Transmission - HTTP Instead of HTTPS
+   Finding ID: 63a32344-c72e-451e-8e48-9ac4592926e4
+   Path: node_modules/next/dist/esm/server/lib/worker-utils.js, line 4
+   Info: http.default.createServer uses HTTP which is an insecure protocol and should not be used in code due to cleartext transmission of information. Data in cleartext in a communication channel can be sniffed by unauthorized actors. Consider using the https module instead.
+
+ ✗ [MEDIUM] Cleartext Transmission - HTTP Instead of HTTPS
+   Finding ID: a0e25595-604b-45a2-b1f4-644a567b35fd
+   Path: node_modules/oauth/examples/github-example.js, line 15
+   Info: http.createServer uses HTTP which is an insecure protocol and should not be used in code due to cleartext transmission of information. Data in cleartext in a communication channel can be sniffed by unauthorized actors. Consider using the https module instead.
+
+ ✗ [MEDIUM] Cleartext Transmission - HTTP Instead of HTTPS
+   Finding ID: 55c386ac-95e0-420d-9879-dbf3cedc4bc9
+   Path: node_modules/oauth/examples/twitter-example.js, line 18
+   Info: http.createServer uses HTTP which is an insecure protocol and should not be used in code due to cleartext transmission of information. Data in cleartext in a communication channel can be sniffed by unauthorized actors. Consider using the https module instead.
+
+ ✗ [MEDIUM] Improper Code Sanitization
+   Finding ID: f35d2969-a896-4bd7-a320-423b2fef494a
+   Path: node_modules/next/dist/esm/build/analyze/index.js, line 45
+   Info: Data that flows into require is incorrectly sanitized with stringify. stringify is inappropriate for defending against this kind of vulnerability, special characters need to be specifically escaped.
+
+ ✗ [MEDIUM] Improper Code Sanitization
+   Finding ID: 784a8955-d6b7-4e16-a9e6-76ef0999a51e
+   Path: node_modules/next/dist/esm/build/index.js, line 300
+   Info: Data that flows into require is incorrectly sanitized with stringify. stringify is inappropriate for defending against this kind of vulnerability, special characters need to be specifically escaped.
+
+ ✗ [MEDIUM] Improper Code Sanitization
+   Finding ID: e9f1d0de-111e-4105-87ac-94d8f3a6419a
+   Path: node_modules/next/dist/esm/build/index.js, line 352
+   Info: Data that flows into require is incorrectly sanitized with stringify. stringify is inappropriate for defending against this kind of vulnerability, special characters need to be specifically escaped.
+
+ ✗ [MEDIUM] Improper Code Sanitization
+   Finding ID: f6ab982c-8dac-49b5-9b92-b0298cde4abe
+   Path: node_modules/next/dist/esm/build/index.js, line 1123
+   Info: Data that flows into require is incorrectly sanitized with stringify. stringify is inappropriate for defending against this kind of vulnerability, special characters need to be specifically escaped.
+
+ ✗ [MEDIUM] Improper Code Sanitization
+   Finding ID: 260d67bc-b11f-44f5-9a07-b74179cf318d
+   Path: node_modules/next/dist/esm/build/index.js, line 1124
+   Info: Data that flows into require is incorrectly sanitized with stringify. stringify is inappropriate for defending against this kind of vulnerability, special characters need to be specifically escaped.
+
+ ✗ [MEDIUM] Improper Code Sanitization
+   Finding ID: c1491fdb-d4f7-4427-9a08-43cb5bae1b66
+   Path: node_modules/next/dist/esm/build/index.js, line 1728
+   Info: Data that flows into require is incorrectly sanitized with stringify. stringify is inappropriate for defending against this kind of vulnerability, special characters need to be specifically escaped.
+
+ ✗ [MEDIUM] Improper Code Sanitization
+   Finding ID: 5c1aa42d-5ade-45a4-9b64-54344f2072b0
+   Path: node_modules/next/dist/esm/build/index.js, line 2538
+   Info: Data that flows into require is incorrectly sanitized with stringify. stringify is inappropriate for defending against this kind of vulnerability, special characters need to be specifically escaped.
+
+ ✗ [MEDIUM] Open Redirect
+   Finding ID: 21e68e1b-34d7-43e0-ae0e-593bd91c2cd5
+   Path: node_modules/@auth/core/lib/actions/signin/send-token.js, line 37
+   Info: Unsanitized input from the HTTP request body flows into the url argument of redirect, where it is used as input for request redirection. This may result in an Open Redirect vulnerability.
+
+ ✗ [MEDIUM] Improper Code Sanitization
+   Finding ID: dcf513c2-b52b-4365-9b3b-25d0a96a8a74
+   Path: node_modules/next/dist/esm/build/turbopack-build/impl.js, line 100
+   Info: Data that flows into require is incorrectly sanitized with stringify. stringify is inappropriate for defending against this kind of vulnerability, special characters need to be specifically escaped.
+
+ ✗ [MEDIUM] Improper Code Sanitization
+   Finding ID: cd91238c-00c3-4e29-9245-ca656c4e267a
+   Path: node_modules/next/dist/esm/build/turbopack-build/impl.js, line 227
+   Info: Data that flows into require is incorrectly sanitized with stringify. stringify is inappropriate for defending against this kind of vulnerability, special characters need to be specifically escaped.
+
+ ✗ [MEDIUM] Improper Code Sanitization
+   Finding ID: a1fa0619-5bed-4fc4-8bf2-c46b1857ded8
+   Path: node_modules/next/dist/esm/build/webpack-build/impl.js, line 96
+   Info: Data that flows into require is incorrectly sanitized with stringify. stringify is inappropriate for defending against this kind of vulnerability, special characters need to be specifically escaped.
+
+ ✗ [MEDIUM] Improper Code Sanitization
+   Finding ID: 96a6bb81-203b-402d-b9cc-10fa8cad7d1b
+   Path: node_modules/next/dist/esm/export/index.js, line 159
+   Info: Data that flows into require is incorrectly sanitized with stringify. stringify is inappropriate for defending against this kind of vulnerability, special characters need to be specifically escaped.
+
+ ✗ [MEDIUM] Improper Code Sanitization
+   Finding ID: fedb7064-ddeb-487d-8026-6f916ec6dce9
+   Path: node_modules/next/dist/esm/export/index.js, line 162
+   Info: Data that flows into require is incorrectly sanitized with stringify. stringify is inappropriate for defending against this kind of vulnerability, special characters need to be specifically escaped.
+
+ ✗ [MEDIUM] Improper Code Sanitization
+   Finding ID: 2360b4ed-ad2c-4333-8f62-14a869802173
+   Path: node_modules/next/dist/esm/export/index.js, line 166
+   Info: Data that flows into require is incorrectly sanitized with stringify. stringify is inappropriate for defending against this kind of vulnerability, special characters need to be specifically escaped.
+
+ ✗ [MEDIUM] Improper Code Sanitization
+   Finding ID: 7740850f-ab22-4960-bae7-f1ab0c139d8d
+   Path: node_modules/next/dist/esm/export/index.js, line 288
+   Info: Data that flows into require is incorrectly sanitized with stringify. stringify is inappropriate for defending against this kind of vulnerability, special characters need to be specifically escaped.
+
+ ✗ [MEDIUM] Improper Code Sanitization
+   Finding ID: 18a7f3c7-5d0a-43ef-99ca-b9fe95dbdc64
+   Path: node_modules/next/dist/esm/export/index.js, line 291
+   Info: Data that flows into require is incorrectly sanitized with stringify. stringify is inappropriate for defending against this kind of vulnerability, special characters need to be specifically escaped.
+
+ ✗ [MEDIUM] Improper Code Sanitization
+   Finding ID: 4e597e81-f2d8-496f-9246-255c5ace47b5
+   Path: node_modules/next/dist/esm/export/index.js, line 341
+   Info: Data that flows into require is incorrectly sanitized with stringify. stringify is inappropriate for defending against this kind of vulnerability, special characters need to be specifically escaped.
+
+ ✗ [MEDIUM] Improper Code Sanitization
+   Finding ID: 25301158-f096-480e-a98f-85db1921e7ce
+   Path: node_modules/next/dist/esm/export/index.js, line 437
+   Info: Data that flows into require is incorrectly sanitized with stringify. stringify is inappropriate for defending against this kind of vulnerability, special characters need to be specifically escaped.
+
+ ✗ [MEDIUM] Improper Code Sanitization
+   Finding ID: e39e0d3e-0f71-4990-a457-6e23c993d814
+   Path: node_modules/next/dist/esm/export/index.js, line 438
+   Info: Data that flows into require is incorrectly sanitized with stringify. stringify is inappropriate for defending against this kind of vulnerability, special characters need to be specifically escaped.
+
+ ✗ [MEDIUM] Improper Code Sanitization
+   Finding ID: 8ab0cdc7-4ec7-4171-9bfb-fa704cdb6867
+   Path: node_modules/next/dist/esm/server/lib/router-server.js, line 87
+   Info: Data that flows into require is incorrectly sanitized with stringify. stringify is inappropriate for defending against this kind of vulnerability, special characters need to be specifically escaped.
+
+ ✗ [MEDIUM] Improper Code Sanitization
+   Finding ID: 7dd339f7-d7c0-4ba8-a5a0-37e4680d20f9
+   Path: node_modules/next/dist/esm/server/next.js, line 142
+   Info: Data that flows into require is incorrectly sanitized with stringify. stringify is inappropriate for defending against this kind of vulnerability, special characters need to be specifically escaped.
+
+ ✗ [MEDIUM] Missing Release of Memory after Effective Lifetime
+   Finding ID: 24ff67ee-292e-4889-b9c3-7618da5733ce
+   Path: node_modules/node-addon-api/napi-inl.deprecated.h, line 16
+   Info: Leaking memory. CbData is allocated on the heap and never freed
+
+ ✗ [MEDIUM] Missing Release of Memory after Effective Lifetime
+   Finding ID: b1d93bcf-53f1-4bf0-8fe6-17a44a69e466
+   Path: node_modules/node-addon-api/napi-inl.deprecated.h, line 45
+   Info: Leaking memory. CbData is allocated on the heap and never freed
+
+ ✗ [MEDIUM] Missing Release of Memory after Effective Lifetime
+   Finding ID: b20a3334-c418-4799-9ea3-e00c4d19a811
+   Path: node_modules/node-addon-api/napi-inl.deprecated.h, line 73
+   Info: Leaking memory. CbData is allocated on the heap and never freed
+
+ ✗ [MEDIUM] Missing Release of Memory after Effective Lifetime
+   Finding ID: 5798c47f-cc98-4d49-812a-4bd657a605fb
+   Path: node_modules/node-addon-api/napi-inl.deprecated.h, line 104
+   Info: Leaking memory. CbData is allocated on the heap and never freed
+
+ ✗ [MEDIUM] Missing Release of Memory after Effective Lifetime
+   Finding ID: 98cce03e-9d51-4fb4-8528-d9caae17dd6f
+   Path: node_modules/node-addon-api/napi-inl.deprecated.h, line 137
+   Info: Leaking memory. CbData is allocated on the heap and never freed
+
+ ✗ [MEDIUM] Missing Release of Memory after Effective Lifetime
+   Finding ID: e0228e70-d8f1-41dd-9ee5-56c88fbabe1b
+   Path: node_modules/node-addon-api/napi-inl.deprecated.h, line 167
+   Info: Leaking memory. CbData is allocated on the heap and never freed
+
+ ✗ [MEDIUM] Command Injection
+   Finding ID: 2b1f0cf3-4149-4965-a562-91561223ef8b
+   Path: node_modules/node-gyp-build/bin.js, line 35
+   Info: Unsanitized input from a command line argument flows into exec, where it is used to build a shell command. Forwarding command-line arguments or file paths from the local environment to a function that executes a system command can change the meaning of the command unexpectedly due to unescaped special characters, which may result in a Indirect Command Injection vulnerability.
+
+ ✗ [MEDIUM] Command Injection
+   Finding ID: cc70c99f-878a-4c03-9d62-094e65a3bf23
+   Path: node_modules/node-gyp-build/bin.js, line 43
+   Info: Unsanitized input from a command line argument flows into exec, where it is used to build a shell command. Forwarding command-line arguments or file paths from the local environment to a function that executes a system command can change the meaning of the command unexpectedly due to unescaped special characters, which may result in a Indirect Command Injection vulnerability.
+
+ ✗ [MEDIUM] Command Injection
+   Finding ID: a3091ff1-ed0f-49d3-942c-2d5de260b206
+   Path: node_modules/node-gyp-build/bin.js, line 52
+   Info: Unsanitized input from a command line argument flows into child_process.spawn, where it is used to build a shell command. Forwarding command-line arguments or file paths from the local environment to a function that executes a system command can change the meaning of the command unexpectedly due to unescaped special characters, which may result in a Indirect Command Injection vulnerability.
+
+ ✗ [MEDIUM] Command Injection
+   Finding ID: fb6785e0-df76-44cf-91db-559e0c721494
+   Path: node_modules/node-gyp-build/bin.js, line 58
+   Info: Unsanitized input from a command line argument flows into child_process.spawn, where it is used to build a shell command. Forwarding command-line arguments or file paths from the local environment to a function that executes a system command can change the meaning of the command unexpectedly due to unescaped special characters, which may result in a Indirect Command Injection vulnerability.
+
+ ✗ [MEDIUM] Use of Cipher Without Integrity Protection
+   Finding ID: b33ad8f1-cb8b-4713-a77e-1b43c22d6540
+   Path: node_modules/@auth/prisma-adapter/node_modules/jose/dist/webapi/lib/content_encryption.js, line 72
+   Info: Cipher Block Chaining mode (used in name) does not provide integrity. Consider using  Galois/Counter mode.
+
+ ✗ [MEDIUM] Use of Cipher Without Integrity Protection
+   Finding ID: 7be4f98d-52f4-4f53-9ad8-a1059eb36995
+   Path: node_modules/@auth/prisma-adapter/node_modules/jose/dist/webapi/lib/content_encryption.js, line 111
+   Info: Cipher Block Chaining mode (used in name) does not provide integrity. Consider using  Galois/Counter mode.
+
+ ✗ [MEDIUM] Missing Release of Memory after Effective Lifetime
+   Finding ID: 15bf0ad9-9f09-434b-acf1-a2f35e09d167
+   Path: node_modules/sharp/src/metadata.cc, line 320
+   Info: Leaking memory. MetadataWorker is allocated on the heap and never freed
+
+ ✗ [MEDIUM] Insecure JWT Verification Method
+   Finding ID: 90530888-376a-4d58-8fda-8d7f60e949ee
+   Path: node_modules/@auth/prisma-adapter/node_modules/@auth/core/lib/actions/callback/oauth/callback.js, line 146
+   Info: A JWT decode() method is used that decodes the token but does not check its validity or integrity. If the JWT has originated from an untrusted source, decoded data could be crafted by an attacker and should not be considered safe to use or process within the application. Always use JWT verification methods to validate the structure and integrity of a token.
+
+ ✗ [MEDIUM] Insecure JWT Verification Method
+   Finding ID: 569bfbaa-a360-41e7-a954-44f40c860500
+   Path: node_modules/@auth/prisma-adapter/node_modules/@auth/core/src/lib/actions/callback/oauth/callback.ts, line 209
+   Info: A JWT decode() method is used that decodes the token but does not check its validity or integrity. If the JWT has originated from an untrusted source, decoded data could be crafted by an attacker and should not be considered safe to use or process within the application. Always use JWT verification methods to validate the structure and integrity of a token.
+
+ ✗ [MEDIUM] Use of Hardcoded Passwords
+   Finding ID: 680b3cd1-4a1c-416d-9e9c-807495e373b2
+   Path: node_modules/@prisma/dev/dist/chunk-YL6J3L2T.js, line 84
+   Info: Do not hardcode passwords in code. Found hardcoded password used in password.
+
+ ✗ [MEDIUM] Allocation of Resources Without Limits or Throttling
+   Finding ID: 6461939c-0c8f-4bd7-963e-ed539129d907
+   Path: node_modules/next/dist/esm/next-devtools/server/devtools-config-middleware.js, line 11
+   Info: Expensive operation (a file system operation) is performed by an endpoint handler which does not use a rate-limiting mechanism. It may enable the attackers to perform Denial-of-service attacks. Consider using a rate-limiting middleware such as express-limit.
+
+ ✗ [MEDIUM] Allocation of Resources Without Limits or Throttling
+   Finding ID: 15e286e0-be9b-4284-9ab5-f370e318b32f
+   Path: node_modules/next/dist/esm/next-devtools/server/font/get-dev-overlay-font-middleware.js, line 18
+   Info: Expensive operation (a file system operation) is performed by an endpoint handler which does not use a rate-limiting mechanism. It may enable the attackers to perform Denial-of-service attacks. Consider using a rate-limiting middleware such as express-limit.
+
+ ✗ [MEDIUM] Allocation of Resources Without Limits or Throttling
+   Finding ID: 993f1671-7ec3-4332-b7a5-8f9acc1c15cd
+   Path: node_modules/next/dist/next-devtools/server/font/get-dev-overlay-font-middleware.js, line 30
+   Info: Expensive operation (a file system operation) is performed by an endpoint handler which does not use a rate-limiting mechanism. It may enable the attackers to perform Denial-of-service attacks. Consider using a rate-limiting middleware such as express-limit.
+
+ ✗ [MEDIUM] Open Redirect
+   Finding ID: 33c949de-befb-4d0b-9dca-f474f3552bc5
+   Path: node_modules/@auth/core/index.js, line 109
+   Info: Unsanitized input from the request URL flows into the url argument of redirect, where it is used as input for request redirection. This may result in an Open Redirect vulnerability.
+
+ ✗ [MEDIUM] Open Redirect
+   Finding ID: 0d693616-0383-4d2a-98f1-7853b2e7d9d4
+   Path: node_modules/@auth/core/lib/index.js, line 11
+   Info: Unsanitized input from the request URL flows into the url argument of redirect, where it is used as input for request redirection. This may result in an Open Redirect vulnerability.
+
+ ✗ [MEDIUM] Open Redirect
+   Finding ID: ab8f4505-0c79-4253-96eb-bc072374d8fc
+   Path: node_modules/@auth/core/src/index.ts, line 162
+   Info: Unsanitized input from the request URL flows into the url argument of redirect, where it is used as input for request redirection. This may result in an Open Redirect vulnerability.
+
+ ✗ [MEDIUM] Open Redirect
+   Finding ID: fff97582-18d6-4f69-94e5-9ebb9b64d0f2
+   Path: node_modules/@auth/core/src/lib/index.ts, line 20
+   Info: Unsanitized input from the request URL flows into the url argument of redirect, where it is used as input for request redirection. This may result in an Open Redirect vulnerability.
+
+ ✗ [MEDIUM] Open Redirect
+   Finding ID: aa1dcd39-7b05-4375-acd8-34d390788511
+   Path: node_modules/@auth/prisma-adapter/node_modules/@auth/core/index.js, line 111
+   Info: Unsanitized input from the request URL flows into the url argument of redirect, where it is used as input for request redirection. This may result in an Open Redirect vulnerability.
+
+ ✗ [MEDIUM] Open Redirect
+   Finding ID: 5190592a-f49a-4da8-a31e-769f337e7c94
+   Path: node_modules/@auth/prisma-adapter/node_modules/@auth/core/lib/index.js, line 13
+   Info: Unsanitized input from the request URL flows into the url argument of redirect, where it is used as input for request redirection. This may result in an Open Redirect vulnerability.
+
+ ✗ [MEDIUM] Open Redirect
+   Finding ID: 1d34e606-0f90-4b02-8415-c3f5ef3caeae
+   Path: node_modules/@auth/prisma-adapter/node_modules/@auth/core/src/index.ts, line 164
+   Info: Unsanitized input from the request URL flows into the url argument of redirect, where it is used as input for request redirection. This may result in an Open Redirect vulnerability.
+
+ ✗ [MEDIUM] Open Redirect
+   Finding ID: 79457495-b638-4908-8ede-cfea906a35f6
+   Path: node_modules/@auth/prisma-adapter/node_modules/@auth/core/src/lib/index.ts, line 23
+   Info: Unsanitized input from the request URL flows into the url argument of redirect, where it is used as input for request redirection. This may result in an Open Redirect vulnerability.
+
+ ✗ [MEDIUM] Open Redirect
+   Finding ID: 041ab3e3-ac3d-48b5-8d5f-e0f2448f7d00
+   Path: node_modules/@auth/core/lib/actions/callback/index.js, line 392
+   Info: Unsanitized input from data from a remote resource flows into redirect, where it is used as input for request redirection. This may result in an Open Redirect vulnerability.
+
+ ✗ [MEDIUM] Open Redirect
+   Finding ID: 7496d1c2-5f7e-4800-b03b-0d84a1f2e49f
+   Path: node_modules/@auth/core/src/lib/actions/callback/index.ts, line 541
+   Info: Unsanitized input from data from a remote resource flows into redirect, where it is used as input for request redirection. This may result in an Open Redirect vulnerability.
+
+ ✗ [MEDIUM] Open Redirect
+   Finding ID: 7f50a45c-2126-4e33-9dc4-7db11f51fd31
+   Path: node_modules/@auth/prisma-adapter/node_modules/@auth/core/lib/actions/callback/index.js, line 408
+   Info: Unsanitized input from data from a remote resource flows into redirect, where it is used as input for request redirection. This may result in an Open Redirect vulnerability.
+
+ ✗ [MEDIUM] Open Redirect
+   Finding ID: 5053e9e3-1d52-4a05-b274-0e5012bfece8
+   Path: node_modules/@auth/prisma-adapter/node_modules/@auth/core/src/lib/actions/callback/index.ts, line 553
+   Info: Unsanitized input from data from a remote resource flows into redirect, where it is used as input for request redirection. This may result in an Open Redirect vulnerability.
+
+ ✗ [MEDIUM] Open Redirect
+   Finding ID: 5f0d08e5-a507-455c-85a0-84ec102645c5
+   Path: node_modules/@auth/core/lib/actions/callback/index.js, line 392
+   Info: Unsanitized input from data from a remote resource flows into the url argument of redirect, where it is used as input for request redirection. This may result in an Open Redirect vulnerability.
+
+ ✗ [MEDIUM] Open Redirect
+   Finding ID: 93a70536-0dcf-4258-ac2f-737f9e990c72
+   Path: node_modules/@auth/core/src/lib/actions/callback/index.ts, line 541
+   Info: Unsanitized input from data from a remote resource flows into the url argument of redirect, where it is used as input for request redirection. This may result in an Open Redirect vulnerability.
+
+ ✗ [MEDIUM] Open Redirect
+   Finding ID: 4e163180-12a5-45c2-bc66-3372e495bcfc
+   Path: node_modules/@auth/prisma-adapter/node_modules/@auth/core/lib/actions/callback/index.js, line 408
+   Info: Unsanitized input from data from a remote resource flows into the url argument of redirect, where it is used as input for request redirection. This may result in an Open Redirect vulnerability.
+
+ ✗ [MEDIUM] Open Redirect
+   Finding ID: d6499036-77c3-4a02-9e8e-8f806c24c774
+   Path: node_modules/@auth/prisma-adapter/node_modules/@auth/core/src/lib/actions/callback/index.ts, line 553
+   Info: Unsanitized input from data from a remote resource flows into the url argument of redirect, where it is used as input for request redirection. This may result in an Open Redirect vulnerability.
+
+ ✗ [MEDIUM] Missing Release of Memory after Effective Lifetime
+   Finding ID: b22a24e6-3cba-40eb-97a7-c4b652854738
+   Path: node_modules/sharp/src/pipeline.cc, line 1805
+   Info: Leaking memory. PipelineWorker is allocated on the heap and never freed
+
+ ✗ [MEDIUM] Open Redirect
+   Finding ID: bad6d4b5-7e92-444e-b108-e21e84efc506
+   Path: node_modules/@auth/core/lib/actions/signin/send-token.js, line 36
+   Info: Unsanitized input from the HTTP request body flows into redirect, where it is used as input for request redirection. This may result in an Open Redirect vulnerability.
+
+ ✗ [MEDIUM] Open Redirect
+   Finding ID: 7b84ab5b-da95-48d9-8abb-f459fe63dea0
+   Path: node_modules/@auth/core/src/lib/actions/signin/send-token.ts, line 44
+   Info: Unsanitized input from the HTTP request body flows into redirect, where it is used as input for request redirection. This may result in an Open Redirect vulnerability.
+
+ ✗ [MEDIUM] Open Redirect
+   Finding ID: 59daf1e1-fa05-46a6-b420-f406d1c2253e
+   Path: node_modules/@auth/prisma-adapter/node_modules/@auth/core/lib/actions/signin/send-token.js, line 36
+   Info: Unsanitized input from the HTTP request body flows into redirect, where it is used as input for request redirection. This may result in an Open Redirect vulnerability.
+
+ ✗ [MEDIUM] Path Traversal
+   Finding ID: 3ccf276b-bb0d-4421-add8-23713aaadeb8
+   Path: node_modules/node-addon-api/tools/conversion.js, line 267
+   Info: Unsanitized input from a command line argument flows into fs.readdirSync, where it is used as a path. This may result in a Path Traversal vulnerability and allow an attacker to list arbitrary directories.
+
+ ✗ [MEDIUM] Improper Code Sanitization
+   Finding ID: 10234a5c-2ed0-41d7-9253-bb9f62951099
+   Path: node_modules/next/dist/esm/build/turbopack-build/impl.js, line 24
+   Info: Data that flows into require is incorrectly sanitized with stringify. stringify is inappropriate for defending against this kind of vulnerability, special characters need to be specifically escaped.
+
+ ✗ [MEDIUM] Missing Release of Memory after Effective Lifetime
+   Finding ID: e0ef29eb-17bc-49c8-b8dc-b93b69bb80a3
+   Path: node_modules/bcrypt/src/bcrypt_node.cc, line 175
+   Info: Leaking memory. EncryptAsyncWorker is allocated on the heap and never freed
+
+ ✗ [MEDIUM] Open Redirect
+   Finding ID: f6c09fc9-8b61-4cd3-adbc-2d76e3aa697d
+   Path: node_modules/@auth/prisma-adapter/node_modules/@auth/core/lib/actions/signin/send-token.js, line 37
+   Info: Unsanitized input from the HTTP request body flows into the url argument of redirect, where it is used as input for request redirection. This may result in an Open Redirect vulnerability.
+
+ ✗ [MEDIUM] Open Redirect
+   Finding ID: 40a2ab9a-1820-4d60-97bd-9a0c772f2afd
+   Path: node_modules/@auth/prisma-adapter/node_modules/@auth/core/src/lib/actions/signin/send-token.ts, line 45
+   Info: Unsanitized input from the HTTP request body flows into the url argument of redirect, where it is used as input for request redirection. This may result in an Open Redirect vulnerability.
+
+ ✗ [MEDIUM] Open Redirect
+   Finding ID: aa8cdcc6-4c7a-4e57-b985-58656ea3dd14
+   Path: node_modules/next-auth/src/next/index.ts, line 35
+   Info: Unsanitized input from the HTTP request body flows into the url argument of redirect, where it is used as input for request redirection. This may result in an Open Redirect vulnerability.
+
+ ✗ [MEDIUM] Open Redirect
+   Finding ID: c1771f3c-6bc4-4cfa-aabd-b38d50e81a59
+   Path: node_modules/@auth/prisma-adapter/node_modules/@auth/core/index.js, line 106
+   Info: Unsanitized input from the request URL flows into redirect, where it is used as input for request redirection. This may result in an Open Redirect vulnerability.
+
+ ✗ [MEDIUM] Open Redirect
+   Finding ID: e2d867a1-dd91-450b-9159-e1c884431401
+   Path: node_modules/@auth/prisma-adapter/node_modules/@auth/core/src/index.ts, line 158
+   Info: Unsanitized input from the request URL flows into redirect, where it is used as input for request redirection. This may result in an Open Redirect vulnerability.
+
+ ✗ [MEDIUM] Open Redirect
+   Finding ID: 72452f54-51d2-4040-adbe-c343a543991f
+   Path: node_modules/next/dist/server/base-server.js, line 483
+   Info: Unsanitized input from the request URL flows into redirect, where it is used as input for request redirection. This may result in an Open Redirect vulnerability.
+
+ ✗ [MEDIUM] Open Redirect
+   Finding ID: bb4bfcde-01ca-49c8-85da-e9269d58ad93
+   Path: node_modules/next/dist/server/base-server.js, line 544
+   Info: Unsanitized input from the request URL flows into redirect, where it is used as input for request redirection. This may result in an Open Redirect vulnerability.
+
+ ✗ [MEDIUM] Open Redirect
+   Finding ID: 0e269c2b-df06-47ab-a366-437d29150580
+   Path: node_modules/next-auth/src/core/index.ts, line 139
+   Info: Unsanitized input from an HTTP header flows into the url argument of redirect, where it is used as input for request redirection. This may result in an Open Redirect vulnerability.
+
+ ✗ [MEDIUM] Open Redirect
+   Finding ID: dccff385-0d66-49f7-9012-4ed0cd2dfbb3
+   Path: node_modules/next-auth/src/next/index.ts, line 84
+   Info: Unsanitized input from an HTTP parameter flows into the url argument of redirect, where it is used as input for request redirection. This may result in an Open Redirect vulnerability.
+
+ ✗ [MEDIUM] Open Redirect
+   Finding ID: 478bfba0-eb42-47bc-b505-ac268d840c1a
+   Path: node_modules/next-auth/src/react/index.tsx, line 231
+   Info: Unsanitized input from data from a remote resource flows into window.location, where it is used as input for request redirection. This may result in an Open Redirect vulnerability.
+
+ ✗ [MEDIUM] Open Redirect
+   Finding ID: 74019f8d-4c6c-44d7-aa68-60e66c9ab31f
+   Path: node_modules/next-auth/src/react/index.tsx, line 236
+   Info: Unsanitized input from data from a remote resource flows into window.location, where it is used as input for request redirection. This may result in an Open Redirect vulnerability.
+
+ ✗ [MEDIUM] Open Redirect
+   Finding ID: cbfa2012-48d8-4cc4-a644-942d37d995eb
+   Path: node_modules/next-auth/src/react/index.tsx, line 271
+   Info: Unsanitized input from data from a remote resource flows into window.location, where it is used as input for request redirection. This may result in an Open Redirect vulnerability.
+
+ ✗ [MEDIUM] Open Redirect
+   Finding ID: ec94155b-af96-4cab-85bc-1f7509b6382e
+   Path: node_modules/next-auth/src/react/index.tsx, line 321
+   Info: Unsanitized input from data from a remote resource flows into window.location, where it is used as input for request redirection. This may result in an Open Redirect vulnerability.
+
+ ✗ [MEDIUM] Open Redirect
+   Finding ID: 1f2f950d-0cab-4680-9930-78b1941a3eca
+   Path: node_modules/next/dist/esm/shared/lib/router/router.js, line 394
+   Info: Unsanitized input from the document location flows into window.location, where it is used as input for request redirection. This may result in an Open Redirect vulnerability.
+
+ ✗ [MEDIUM] Open Redirect
+   Finding ID: fa50f792-f103-42cc-8291-f172f7fb5a89
+   Path: node_modules/next/dist/esm/shared/lib/router/router.js, line 1424
+   Info: Unsanitized input from the document location flows into window.location, where it is used as input for request redirection. This may result in an Open Redirect vulnerability.
+
+ ✗ [MEDIUM] Path Traversal
+   Finding ID: d83b8074-06e3-41c7-b222-9106a7dc1e3d
+   Path: node_modules/@babel/parser/bin/babel-parser.js, line 11
+   Info: Unsanitized input from a command line argument flows into fs.readFileSync, where it is used as a path. This may result in a Path Traversal vulnerability and allow an attacker to read arbitrary files.
+
+ ✗ [MEDIUM] Path Traversal
+   Finding ID: 0a781459-304b-4e22-ab52-7b612723e88c
+   Path: node_modules/ajv/scripts/compile-dots.js, line 16
+   Info: Unsanitized input from a command line argument flows into fs.readFileSync, where it is used as a path. This may result in a Path Traversal vulnerability and allow an attacker to read arbitrary files.
+
+ ✗ [MEDIUM] Path Traversal
+   Finding ID: 00128a3f-7873-4bf7-baad-89f75a1d742e
+   Path: node_modules/ajv/scripts/compile-dots.js, line 41
+   Info: Unsanitized input from a command line argument flows into fs.readFileSync, where it is used as a path. This may result in a Path Traversal vulnerability and allow an attacker to read arbitrary files.
+
+ ✗ [MEDIUM] Path Traversal
+   Finding ID: 9b6e3db6-bd0a-416b-bffb-f532cacb39ac
+   Path: node_modules/browserslist/cli.js, line 116
+   Info: Unsanitized input from a command line argument flows into fs.readFileSync, where it is used as a path. This may result in a Path Traversal vulnerability and allow an attacker to read arbitrary files.
+
+ ✗ [MEDIUM] Path Traversal
+   Finding ID: e1748521-bd71-4821-b30f-82deebf500e7
+   Path: node_modules/ajv/scripts/bundle.js, line 54
+   Info: Unsanitized input from a command line argument flows into fs.writeFileSync, where it is used as a path. This may result in a Path Traversal vulnerability and allow an attacker to write to arbitrary files.
+
+ ✗ [MEDIUM] Path Traversal
+   Finding ID: 16bd681d-dc6f-4ef6-b0a9-ee6edd96be7a
+   Path: node_modules/ajv/scripts/bundle.js, line 55
+   Info: Unsanitized input from a command line argument flows into fs.writeFileSync, where it is used as a path. This may result in a Path Traversal vulnerability and allow an attacker to write to arbitrary files.
+
+ ✗ [MEDIUM] Path Traversal
+   Finding ID: 4afe39f7-7bc5-4833-86ac-996539b8e952
+   Path: node_modules/ajv/scripts/bundle.js, line 56
+   Info: Unsanitized input from a command line argument flows into fs.writeFileSync, where it is used as a path. This may result in a Path Traversal vulnerability and allow an attacker to write to arbitrary files.
+
+ ✗ [MEDIUM] Path Traversal
+   Finding ID: dda1b650-cf40-4900-8510-935546180805
+   Path: node_modules/ajv/scripts/compile-dots.js, line 51
+   Info: Unsanitized input from a command line argument flows into fs.writeFileSync, where it is used as a path. This may result in a Path Traversal vulnerability and allow an attacker to write to arbitrary files.
+
+ ✗ [MEDIUM] Missing Release of Memory after Effective Lifetime
+   Finding ID: 6f38d468-7a24-4b1b-807c-35fb1397b620
+   Path: node_modules/sharp/src/stats.cc, line 178
+   Info: Leaking memory. StatsWorker is allocated on the heap and never freed
+
+ ✗ [MEDIUM] Path Traversal
+   Finding ID: 7ace09d2-b097-4740-9d86-fbe5ccafdd51
+   Path: node_modules/json5/lib/cli.js, line 19
+   Info: Unsanitized input from a command line argument flows into fs.createReadStream, where it is used as a path. This may result in a Path Traversal vulnerability and allow an attacker to read arbitrary files.
+
+ ✗ [MEDIUM] Path Traversal
+   Finding ID: 94b4edf5-a675-4ac0-be5b-ab2b7928c52c
+   Path: node_modules/loose-envify/cli.js, line 8
+   Info: Unsanitized input from a command line argument flows into fs.createReadStream, where it is used as a path. This may result in a Path Traversal vulnerability and allow an attacker to read arbitrary files.
+
+ ✗ [MEDIUM] Path Traversal
+   Finding ID: 1b8b2f11-615c-40f0-9239-3462c37b38fa
+   Path: node_modules/json5/lib/cli.js, line 57
+   Info: Unsanitized input from a command line argument flows into fs.createWriteStream, where it is used as a path. This may result in a Path Traversal vulnerability and allow an attacker to write to arbitrary files.
+
+ ✗ [MEDIUM] Path Traversal
+   Finding ID: ae54a8cc-0528-4cb3-b6cd-4af7b9fa4972
+   Path: node_modules/json5/lib/cli.js, line 59
+   Info: Unsanitized input from a command line argument flows into fs.createWriteStream, where it is used as a path. This may result in a Path Traversal vulnerability and allow an attacker to write to arbitrary files.
+
+ ✗ [MEDIUM] Path Traversal
+   Finding ID: db76576f-a8b6-4475-9637-5ee9c61dc1e4
+   Path: node_modules/node-addon-api/tools/check-napi.js, line 77
+   Info: Unsanitized input from a local file flows into fs.stat, where it is used as a path. This may result in a Path Traversal vulnerability and allow an attacker to change current directory.
+
+ ✗ [MEDIUM] Path Traversal
+   Finding ID: 52eba737-7a6b-4cd4-a179-541024c96e28
+   Path: node_modules/node-addon-api/tools/check-napi.js, line 71
+   Info: Unsanitized input from a command line argument flows into fs.readdir, where it is used as a path. This may result in a Path Traversal vulnerability and allow an attacker to list arbitrary directories.
+
+ ✗ [MEDIUM] Path Traversal
+   Finding ID: e4c3c24d-6346-4f36-b5fe-9f8a8be3a41e
+   Path: node_modules/next/dist/telemetry/detached-flush.js, line 51
+   Info: Unsanitized input from a command line argument flows into unlinkSync, where it is used as a path. This may result in a Path Traversal vulnerability and allow an attacker to delete arbitrary files.
+
+ ✗ [MEDIUM] Path Traversal
+   Finding ID: af6ea1f5-a7f5-41a8-9608-e348b214b0e8
+   Path: node_modules/next/dist/telemetry/detached-flush.js, line 37
+   Info: Unsanitized input from a command line argument flows into readFileSync, where it is used as a path. This may result in a Path Traversal vulnerability and allow an attacker to read arbitrary files.
+
+ ✗ [HIGH] DOM-based Cross-site Scripting (XSS)
+   Finding ID: 87b50b34-e3a3-4ee1-b1c9-2ff072b1e8aa
+   Path: node_modules/@auth/prisma-adapter/node_modules/@auth/core/src/lib/index.ts, line 42
+   Info: Unsanitized input from an HTTP parameter flows into a script 'src' attribute, where it is used to dynamically construct the HTML page on client side. This may result in a DOM Based Cross-Site Scripting attack (DOMXSS).
+
+ ✗ [HIGH] Server-Side Request Forgery (SSRF)
+   Finding ID: 132b8b6d-c1b6-439e-8505-642ccdf47eb9
+   Path: node_modules/@auth/core/index.js, line 109
+   Info: Unsanitized input from the request URL flows into request, where it is used as an URL to perform a request. This may result in a Server-Side Request Forgery vulnerability.
+
+ ✗ [HIGH] Hardcoded Non-Cryptographic Secret
+   Finding ID: a4e07d82-fc74-48b9-a738-7f69ccb72761
+   Path: node_modules/oauth/examples/express-gdata/server.js, line 35
+   Info: Avoid hardcoding values that are meant to be secret. Found a hardcoded string used in oauth.OAuth.
+
+ ✗ [HIGH] Hardcoded Non-Cryptographic Secret
+   Finding ID: 9335fe1c-ee1f-4939-beb9-d3ff4e1f96e2
+   Path: node_modules/oauth/examples/express-gdata/server.js, line 10
+   Info: Avoid hardcoding values that are meant to be secret. Found a hardcoded string used in express.session.
+
+ ✗ [HIGH] Hardcoded Non-Cryptographic Secret
+   Finding ID: 036036d6-a756-4972-b817-15a48e7c58d3
+   Path: node_modules/next/dist/build/webpack/plugins/flight-client-entry-plugin.js, line 724
+   Info: Avoid hardcoding values that are meant to be secret. Found a hardcoded string used in here.
+
+ ✗ [HIGH] Server-Side Request Forgery (SSRF)
+   Finding ID: 7a8747db-64fb-4277-9677-1254235387c4
+   Path: node_modules/next-auth/src/next/index.ts, line 35
+   Info: Unsanitized input from the HTTP request body flows into request, where it is used as an URL to perform a request. This may result in a Server-Side Request Forgery vulnerability.
+
+ ✗ [HIGH] Hardcoded Non-Cryptographic Secret
+   Finding ID: 8303ce65-9cca-4b45-aa89-ffdd6fe0782c
+   Path: node_modules/zod/v4/locales/ur.cjs, line 65
+   Info: Avoid hardcoding values that are meant to be secret. Found a hardcoded string used in here.
+
+ ✗ [HIGH] Hardcoded Non-Cryptographic Secret
+   Finding ID: ba41c8b3-dd19-4f23-b47f-d5310364c762
+   Path: node_modules/zod/v4/locales/th.js, line 39
+   Info: Avoid hardcoding values that are meant to be secret. Found a hardcoded string used in here.
+
+ ✗ [HIGH] Hardcoded Non-Cryptographic Secret
+   Finding ID: 93da9c60-9f86-4071-8665-10195376a885
+   Path: node_modules/zod/v4/locales/th.cjs, line 65
+   Info: Avoid hardcoding values that are meant to be secret. Found a hardcoded string used in here.
+
+ ✗ [HIGH] Hardcoded Non-Cryptographic Secret
+   Finding ID: 9fd963a5-a8d1-4ba8-ba5e-8fd4737d14b7
+   Path: node_modules/zod/src/v4/locales/ur.ts, line 46
+   Info: Avoid hardcoding values that are meant to be secret. Found a hardcoded string used in here.
+
+ ✗ [HIGH] Hardcoded Non-Cryptographic Secret
+   Finding ID: 63503a66-58d8-4321-bd59-f80f34c47d4e
+   Path: node_modules/zod/src/v4/locales/th.ts, line 46
+   Info: Avoid hardcoding values that are meant to be secret. Found a hardcoded string used in here.
+
+ ✗ [HIGH] Hardcoded Non-Cryptographic Secret
+   Finding ID: 22f6d73d-db79-46be-ae31-f05ee83cc8f9
+   Path: node_modules/prop-types/prop-types.js, line 816
+   Info: Avoid hardcoding values that are meant to be secret. Found a hardcoded string used in here.
+
+ ✗ [HIGH] Hardcoded Non-Cryptographic Secret
+   Finding ID: 548f3dc0-a9bc-4918-a5d8-e3d1c9d4309f
+   Path: node_modules/prop-types/lib/ReactPropTypesSecret.js, line 10
+   Info: Avoid hardcoding values that are meant to be secret. Found a hardcoded string used in here.
+
+ ✗ [HIGH] Server-Side Request Forgery (SSRF)
+   Finding ID: bddd6e99-cfc0-4561-877c-707cd105f15c
+   Path: node_modules/@auth/prisma-adapter/node_modules/@auth/core/lib/actions/callback/index.js, line 37
+   Info: Unsanitized input from the HTTP request body flows into request, where it is used as an URL to perform a request. This may result in a Server-Side Request Forgery vulnerability.
+
+ ✗ [HIGH] Hardcoded Non-Cryptographic Secret
+   Finding ID: f2f22c4e-5f5a-4b97-9230-8827cdf8e591
+   Path: node_modules/next/dist/esm/build/webpack/plugins/flight-client-entry-plugin.js, line 710
+   Info: Avoid hardcoding values that are meant to be secret. Found a hardcoded string used in here.
+
+ ✗ [HIGH] Hardcoded Non-Cryptographic Secret
+   Finding ID: 23d9ba8d-2a71-40c1-b978-daa4ef554f48
+   Path: node_modules/effect/src/internal/subscriptionRef.ts, line 16
+   Info: Avoid hardcoding values that are meant to be secret. Found a hardcoded string used in here.
+
+ ✗ [HIGH] Hardcoded Non-Cryptographic Secret
+   Finding ID: 5e66fc02-cf61-4153-b230-2e67e587f94d
+   Path: node_modules/effect/src/internal/stm/tSubscriptionRef.ts, line 15
+   Info: Avoid hardcoding values that are meant to be secret. Found a hardcoded string used in here.
+
+ ✗ [HIGH] Hardcoded Non-Cryptographic Secret
+   Finding ID: 84298515-4df9-43e3-b8fa-7b2601bbc429
+   Path: node_modules/effect/src/internal/secret.ts, line 10
+   Info: Avoid hardcoding values that are meant to be secret. Found a hardcoded string used in here.
+
+ ✗ [HIGH] Hardcoded Non-Cryptographic Secret
+   Finding ID: 38e021b2-1af7-4aff-960d-9ebd861fe7c5
+   Path: node_modules/effect/dist/esm/internal/subscriptionRef.js, line 13
+   Info: Avoid hardcoding values that are meant to be secret. Found a hardcoded string used in here.
+
+ ✗ [HIGH] Hardcoded Non-Cryptographic Secret
+   Finding ID: 78cfe6b8-8e68-4ffe-8a3c-db7d261ce03d
+   Path: node_modules/effect/dist/esm/internal/stm/tSubscriptionRef.js, line 13
+   Info: Avoid hardcoding values that are meant to be secret. Found a hardcoded string used in here.
+
+ ✗ [HIGH] Hardcoded Non-Cryptographic Secret
+   Finding ID: 538ab86f-56bd-4177-995a-83d22ea34d07
+   Path: node_modules/effect/dist/esm/internal/secret.js, line 8
+   Info: Avoid hardcoding values that are meant to be secret. Found a hardcoded string used in here.
+
+ ✗ [HIGH] Hardcoded Non-Cryptographic Secret
+   Finding ID: 275c1c5a-b7a3-4314-9c8c-55e3ce4c7cb2
+   Path: node_modules/effect/dist/cjs/internal/subscriptionRef.js, line 20
+   Info: Avoid hardcoding values that are meant to be secret. Found a hardcoded string used in here.
+
+ ✗ [HIGH] Hardcoded Non-Cryptographic Secret
+   Finding ID: ff535870-d9d5-4744-8ecc-d46c265df60b
+   Path: node_modules/effect/dist/cjs/internal/stm/tSubscriptionRef.js, line 20
+   Info: Avoid hardcoding values that are meant to be secret. Found a hardcoded string used in here.
+
+ ✗ [HIGH] Hardcoded Non-Cryptographic Secret
+   Finding ID: 8240e6ba-e2d9-48ba-92cb-aa55a89f5aef
+   Path: node_modules/effect/dist/cjs/internal/secret.js, line 15
+   Info: Avoid hardcoding values that are meant to be secret. Found a hardcoded string used in here.
+
+ ✗ [HIGH] Hardcoded Non-Cryptographic Secret
+   Finding ID: 147cd483-42f2-4af2-be50-16b2aa39c7e6
+   Path: node_modules/@auth/prisma-adapter/node_modules/preact/debug/src/check-props.js, line 1
+   Info: Avoid hardcoding values that are meant to be secret. Found a hardcoded string used in here.
+
+ ✗ [HIGH] Hardcoded Non-Cryptographic Secret
+   Finding ID: a9c18388-63c6-43ae-b579-8b0aaf657fe6
+   Path: node_modules/@auth/core/node_modules/preact/debug/src/check-props.js, line 1
+   Info: Avoid hardcoding values that are meant to be secret. Found a hardcoded string used in here.
+
+ ✗ [HIGH] DOM-based Cross-site Scripting (XSS)
+   Finding ID: 0ce0e32d-7ebc-4bae-983d-82ab6e46f5b4
+   Path: node_modules/next/dist/esm/shared/lib/router/router.js, line 1424
+   Info: Unsanitized input from the document location flows into a 'src' script element attribute, where it is used to dynamically construct the HTML page on client side. This may result in a DOM Based Cross-Site Scripting attack (DOMXSS).
+
+ ✗ [HIGH] DOM-based Cross-site Scripting (XSS)
+   Finding ID: 593088a5-432b-4185-a290-72f0d9924c52
+   Path: node_modules/next/dist/esm/shared/lib/router/router.js, line 1079
+   Info: Unsanitized input from the document location flows into a 'src' script element attribute, where it is used to dynamically construct the HTML page on client side. This may result in a DOM Based Cross-Site Scripting attack (DOMXSS).
+
+ ✗ [HIGH] DOM-based Cross-site Scripting (XSS)
+   Finding ID: f66c3e88-10cd-4a7a-800f-fc6066bd8d47
+   Path: node_modules/next-auth/src/next/index.ts, line 35
+   Info: Unsanitized input from the HTTP request body flows into a script 'src' attribute, where it is used to dynamically construct the HTML page on client side. This may result in a DOM Based Cross-Site Scripting attack (DOMXSS).
+
+ ✗ [HIGH] DOM-based Cross-site Scripting (XSS)
+   Finding ID: 0e124b54-2b56-4c2b-931c-e7570b6e85bc
+   Path: node_modules/next-auth/src/core/index.ts, line 157
+   Info: Unsanitized input from an HTTP header flows into a script 'src' attribute, where it is used to dynamically construct the HTML page on client side. This may result in a DOM Based Cross-Site Scripting attack (DOMXSS).
+
+ ✗ [HIGH] DOM-based Cross-site Scripting (XSS)
+   Finding ID: c6b38960-d072-4c71-8ad9-6069382d6082
+   Path: node_modules/next-auth/src/next/index.ts, line 84
+   Info: Unsanitized input from an HTTP parameter flows into a script 'src' attribute, where it is used to dynamically construct the HTML page on client side. This may result in a DOM Based Cross-Site Scripting attack (DOMXSS).
+
+ ✗ [HIGH] Hardcoded Non-Cryptographic Secret
+   Finding ID: a0d50fe1-02fc-4682-b4aa-570a20f9108b
+   Path: node_modules/zod/v4/locales/ur.js, line 39
+   Info: Avoid hardcoding values that are meant to be secret. Found a hardcoded string used in here.
+
+ ✗ [HIGH] Server-Side Request Forgery (SSRF)
+   Finding ID: 63b33604-d8c7-4add-b570-c4098e202b05
+   Path: node_modules/@auth/core/src/index.ts, line 162
+   Info: Unsanitized input from the request URL flows into request, where it is used as an URL to perform a request. This may result in a Server-Side Request Forgery vulnerability.
+
+ ✗ [HIGH] Server-Side Request Forgery (SSRF)
+   Finding ID: 4d202579-ea30-4e05-9293-1ec8d2432f5b
+   Path: node_modules/@auth/prisma-adapter/node_modules/@auth/core/index.js, line 111
+   Info: Unsanitized input from the request URL flows into request, where it is used as an URL to perform a request. This may result in a Server-Side Request Forgery vulnerability.
+
+ ✗ [HIGH] Server-Side Request Forgery (SSRF)
+   Finding ID: 2809a9b5-de44-486d-9e97-ee8376690394
+   Path: node_modules/@auth/prisma-adapter/node_modules/@auth/core/src/index.ts, line 164
+   Info: Unsanitized input from the request URL flows into request, where it is used as an URL to perform a request. This may result in a Server-Side Request Forgery vulnerability.
+
+ ✗ [HIGH] Server-Side Request Forgery (SSRF)
+   Finding ID: 63c2f50f-1c60-4f01-9f97-5da3d8d0f456
+   Path: node_modules/@auth/core/lib/actions/callback/index.js, line 27
+   Info: Unsanitized input from the HTTP request body flows into request, where it is used as an URL to perform a request. This may result in a Server-Side Request Forgery vulnerability.
+
+ ✗ [HIGH] Server-Side Request Forgery (SSRF)
+   Finding ID: 90045f2e-747f-4efe-bf53-5faa00c2221e
+   Path: node_modules/@auth/core/src/lib/actions/callback/index.ts, line 77
+   Info: Unsanitized input from the HTTP request body flows into request, where it is used as an URL to perform a request. This may result in a Server-Side Request Forgery vulnerability.
+
+ ✗ [HIGH] Hardcoded Non-Cryptographic Secret
+   Finding ID: 2a2d1fbc-acc1-48ca-90d1-dd994fa71244
+   Path: node_modules/preact/debug/src/check-props.js, line 1
+   Info: Avoid hardcoding values that are meant to be secret. Found a hardcoded string used in here.
+
+ ✗ [HIGH] Hardcoded Secret
+   Finding ID: 891051c6-adac-44ff-9561-62c6d13851e4
+   Path: node_modules/@panva/hkdf/dist/node/esm/runtime/fallback.js, line 3
+   Info: Hardcoded value is used as a cipher key (in crypto.createHmac). Generate the value with a cryptographically strong random number generator and do not hardcode it in source code.
+
+ ✗ [HIGH] Path Traversal
+   Finding ID: 4f07597b-30d6-4df9-a669-f6d4626b3a89
+   Path: node_modules/next/dist/esm/server/dev/middleware-webpack.js, line 202
+   Info: Unsanitized input from the request URL flows into fs/promises.default.readFile, where it is used as a path. This may result in a Path Traversal vulnerability and allow an attacker to read arbitrary files.
+
+ ✗ [HIGH] Server-Side Request Forgery (SSRF)
+   Finding ID: e9deedab-8679-4747-8999-53a0c582e21a
+   Path: node_modules/next-auth/src/react/index.tsx, line 183
+   Info: Unsanitized input from the HTTP request body flows into fetch, where it is used as an URL to perform a request. This may result in a Server-Side Request Forgery vulnerability.
+
+ ✗ [HIGH] Server-Side Request Forgery (SSRF)
+   Finding ID: b1caac18-244c-4616-9a96-a4b1c6ffc023
+   Path: node_modules/next-auth/src/core/index.ts, line 286
+   Info: Unsanitized input from an HTTP header flows into request, where it is used as an URL to perform a request. This may result in a Server-Side Request Forgery vulnerability.
+
+ ✗ [HIGH] Server-Side Request Forgery (SSRF)
+   Finding ID: 8b4f3290-37f9-40d3-a0fa-8bbc1c44aa77
+   Path: node_modules/next-auth/src/next/index.ts, line 84
+   Info: Unsanitized input from an HTTP parameter flows into request, where it is used as an URL to perform a request. This may result in a Server-Side Request Forgery vulnerability.
+
+ ✗ [HIGH] Server-Side Request Forgery (SSRF)
+   Finding ID: 987837b2-b1c4-4c75-86a7-7c8d75ea7c89
+   Path: node_modules/@auth/prisma-adapter/node_modules/@auth/core/src/lib/actions/callback/index.ts, line 83
+   Info: Unsanitized input from the HTTP request body flows into request, where it is used as an URL to perform a request. This may result in a Server-Side Request Forgery vulnerability.
+
+ ✗ [HIGH] Server-Side Request Forgery (SSRF)
+   Finding ID: e3418a2d-31d1-4202-8a12-80c8455b6d20
+   Path: node_modules/next-auth/src/react/index.tsx, line 162
+   Info: Unsanitized input from the HTTP request body flows into fetch, where it is used as an URL to perform a request. This may result in a Server-Side Request Forgery vulnerability.
+
+ ✗ [HIGH] Server-Side Request Forgery (SSRF)
+   Finding ID: 376d8b01-6663-4033-a80c-ea37741c187c
+   Path: node_modules/next-auth/src/core/index.ts, line 204
+   Info: Unsanitized input from an HTTP header flows into request, where it is used as an URL to perform a request. This may result in a Server-Side Request Forgery vulnerability.
+
+ ✗ [HIGH] Server-Side Request Forgery (SSRF)
+   Finding ID: 81d22d95-0c03-4429-94d1-f03bff3938ee
+   Path: node_modules/next-auth/src/react/index.tsx, line 200
+   Info: Unsanitized input from the HTTP request body flows into fetch, where it is used as an URL to perform a request. This may result in a Server-Side Request Forgery vulnerability.
+
+ ✗ [HIGH] Server-Side Request Forgery (SSRF)
+   Finding ID: 8466202a-1109-40b6-8711-895c7fdfecaa
+   Path: node_modules/next-auth/src/react/index.tsx, line 252
+   Info: Unsanitized input from the HTTP request body flows into fetch, where it is used as an URL to perform a request. This may result in a Server-Side Request Forgery vulnerability.
+
+ ✗ [HIGH] Server-Side Request Forgery (SSRF)
+   Finding ID: aab2dd38-8e9b-4c62-a9b0-682eb09ec53c
+   Path: node_modules/next-auth/src/react/index.tsx, line 314
+   Info: Unsanitized input from the HTTP request body flows into fetch, where it is used as an URL to perform a request. This may result in a Server-Side Request Forgery vulnerability.
+
+ ✗ [HIGH] Server-Side Request Forgery (SSRF)
+   Finding ID: 7e4ca5df-ab3e-497c-9f16-71dc306e44c8
+   Path: node_modules/next-auth/src/react/index.tsx, line 474
+   Info: Unsanitized input from the HTTP request body flows into fetch, where it is used as an URL to perform a request. This may result in a Server-Side Request Forgery vulnerability.
+
+ ✗ [HIGH] Server-Side Request Forgery (SSRF)
+   Finding ID: 4961bb8a-f217-49bd-9e17-c0e2aef543c4
+   Path: node_modules/next/dist/esm/server/api-utils/node/api-resolver.js, line 228
+   Info: Unsanitized input from an HTTP header flows into fetch, where it is used as an URL to perform a request. This may result in a Server-Side Request Forgery vulnerability.
+
+ ✗ [HIGH] Server-Side Request Forgery (SSRF)
+   Finding ID: 7821dc85-665e-4a50-bd24-8093346417fd
+   Path: node_modules/next/dist/server/api-utils/node/api-resolver.js, line 243
+   Info: Unsanitized input from an HTTP header flows into fetch, where it is used as an URL to perform a request. This may result in a Server-Side Request Forgery vulnerability.
+
+ ✗ [HIGH] DOM-based Cross-site Scripting (XSS)
+   Finding ID: b3054432-32cf-464a-b6f6-ee7f66319502
+   Path: node_modules/@auth/core/src/lib/index.ts, line 39
+   Info: Unsanitized input from an HTTP parameter flows into a script 'src' attribute, where it is used to dynamically construct the HTML page on client side. This may result in a DOM Based Cross-Site Scripting attack (DOMXSS).
+
+ ✗ [HIGH] Cross-site Scripting (XSS)
+   Finding ID: 90cd04ff-efb7-49c2-aa41-ed6ca2f14bcc
+   Path: node_modules/next-auth/next/index.js, line 45
+   Info: Unsanitized input from the HTTP request body flows into send, where it is used to render an HTML page returned to the user. This may result in a Cross-Site Scripting attack (XSS).
+
+ ✗ [HIGH] Cross-site Scripting (XSS)
+   Finding ID: 672e3ce3-b1a4-451f-9758-4f85c32146f1
+   Path: node_modules/next-auth/src/next/index.ts, line 68
+   Info: Unsanitized input from the request URL flows into send, where it is used to render an HTML page returned to the user. This may result in a Cross-Site Scripting attack (XSS).
+
+ ✗ [HIGH] DOM-based Cross-site Scripting (XSS)
+   Finding ID: e932ae37-3ddd-49b8-9780-a5601fd693a3
+   Path: node_modules/@auth/prisma-adapter/node_modules/@auth/core/src/index.ts, line 164
+   Info: Unsanitized input from the request URL flows into a script 'src' attribute, where it is used to dynamically construct the HTML page on client side. This may result in a DOM Based Cross-Site Scripting attack (DOMXSS).
+
+ ✗ [HIGH] Cross-site Scripting (XSS)
+   Finding ID: 521837f4-feae-4de4-b975-7d8477eb9310
+   Path: node_modules/next/dist/esm/server/lib/router-server.js, line 300
+   Info: Unsanitized input from the request URL flows into end, where it is used to render an HTML page returned to the user. This may result in a Cross-Site Scripting attack (XSS).
+
+ ✗ [HIGH] Cross-site Scripting (XSS)
+   Finding ID: abc4820d-950d-4462-9c8c-e4a43ee70c24
+   Path: node_modules/next/dist/server/lib/router-server.js, line 355
+   Info: Unsanitized input from the request URL flows into end, where it is used to render an HTML page returned to the user. This may result in a Cross-Site Scripting attack (XSS).
+
+ ✗ [HIGH] DOM-based Cross-site Scripting (XSS)
+   Finding ID: f98a983f-c247-4ef2-8758-9d4b993a68ac
+   Path: node_modules/@auth/core/src/index.ts, line 162
+   Info: Unsanitized input from the request URL flows into a script 'src' attribute, where it is used to dynamically construct the HTML page on client side. This may result in a DOM Based Cross-Site Scripting attack (DOMXSS).
+
+ ✗ [HIGH] Regular Expression Denial of Service (ReDoS)
+   Finding ID: 31bf9998-f193-41e5-93e9-65c9dfea873f
+   Path: node_modules/ajv/scripts/compile-dots.js, line 71
+   Info: Unsanitized user input from a command line argument flows into match, where it is used to build a regular expression. This may result in a Regular expression Denial of Service attack (reDOS).
+
+ ✗ [HIGH] Command Injection
+   Finding ID: 473d3537-aa1e-492e-b342-c10f0d877d7b
+   Path: node_modules/next/dist/esm/build/webpack/plugins/wellknown-errors-plugin/parseNotFoundError.js, line 58
+   Info: Unsanitized input from the request URL flows into concat, where it is used to build a shell command. This may result in a Command Injection vulnerability.
+
+ ✗ [HIGH] Command Injection
+   Finding ID: f9fdcb89-03be-4775-a9ac-9e257d58d35b
+   Path: node_modules/next/dist/esm/server/dev/middleware-turbopack.js, line 268
+   Info: Unsanitized input from the request URL flows into concat, where it is used to build a shell command. This may result in a Command Injection vulnerability.
+
+ ✗ [HIGH] Command Injection
+   Finding ID: e74256ff-05d0-4c8f-a2e3-57512195db31
+   Path: node_modules/next/dist/esm/server/dev/middleware-turbopack.js, line 272
+   Info: Unsanitized input from the request URL flows into concat, where it is used to build a shell command. This may result in a Command Injection vulnerability.
+
+ ✗ [HIGH] Command Injection
+   Finding ID: 0641b961-54cf-4325-a041-062520e7be49
+   Path: node_modules/next/dist/esm/server/dev/middleware-webpack.js, line 382
+   Info: Unsanitized input from the request URL flows into concat, where it is used to build a shell command. This may result in a Command Injection vulnerability.
+
+ ✗ [HIGH] Regular Expression Denial of Service (ReDoS)
+   Finding ID: 86df5fc0-61b1-4ecc-ac4b-e7e5407812cb
+   Path: node_modules/next/dist/esm/server/base-server.js, line 418
+   Info: Unsanitized user input from the request URL flows into match, where it is used to build a regular expression. This may result in a Regular expression Denial of Service attack (reDOS).
+
+ ✗ [HIGH] Regular Expression Denial of Service (ReDoS)
+   Finding ID: f2b7d146-6132-4329-a41f-198582520ed8
+   Path: node_modules/next/dist/esm/server/base-server.js, line 549
+   Info: Unsanitized user input from the request URL flows into match, where it is used to build a regular expression. This may result in a Regular expression Denial of Service attack (reDOS).
+
+ ✗ [HIGH] Regular Expression Denial of Service (ReDoS)
+   Finding ID: 3de8faa7-c789-4341-9eb0-5f7f7de6edc4
+   Path: node_modules/next/dist/server/base-server.js, line 483
+   Info: Unsanitized user input from the request URL flows into match, where it is used to build a regular expression. This may result in a Regular expression Denial of Service attack (reDOS).
+
+ ✗ [HIGH] Regular Expression Denial of Service (ReDoS)
+   Finding ID: 0eb34b44-fba3-417d-93c5-79cf3d5f6c36
+   Path: node_modules/next/dist/server/base-server.js, line 614
+   Info: Unsanitized user input from the request URL flows into match, where it is used to build a regular expression. This may result in a Regular expression Denial of Service attack (reDOS).
+
+ ✗ [HIGH] Regular Expression Denial of Service (ReDoS)
+   Finding ID: da67a594-5f1d-4350-8cdd-5818beb375a4
+   Path: node_modules/next/dist/esm/server/base-server.js, line 627
+   Info: Unsanitized user input from the document location flows into RegExp, where it is used to build a regular expression. This may result in a Regular expression Denial of Service attack (reDOS).
+
+ ✗ [HIGH] Regular Expression Denial of Service (ReDoS)
+   Finding ID: b3d8cf22-134a-4c8e-979e-3eef83600ba8
+   Path: node_modules/next/dist/esm/server/lib/router-utils/resolve-routes.js, line 494
+   Info: Unsanitized user input from the document location flows into RegExp, where it is used to build a regular expression. This may result in a Regular expression Denial of Service attack (reDOS).
+
+ ✗ [HIGH] Regular Expression Denial of Service (ReDoS)
+   Finding ID: be5ec849-e806-48b4-a5ac-7e757eedf5ab
+   Path: node_modules/next/dist/esm/server/lib/router-utils/resolve-routes.js, line 538
+   Info: Unsanitized user input from the document location flows into RegExp, where it is used to build a regular expression. This may result in a Regular expression Denial of Service attack (reDOS).
+
+ ✗ [HIGH] Regular Expression Denial of Service (ReDoS)
+   Finding ID: 9770096f-abee-41ef-a82d-53fad6638ebb
+   Path: node_modules/next/dist/esm/shared/lib/router/router.js, line 568
+   Info: Unsanitized user input from the document location flows into RegExp, where it is used to build a regular expression. This may result in a Regular expression Denial of Service attack (reDOS).
+
+ ✗ [HIGH] Regular Expression Denial of Service (ReDoS)
+   Finding ID: 8d408205-4675-49b2-bb3a-c0bf808c3156
+   Path: node_modules/next/dist/esm/server/base-server.js, line 1344
+   Info: Unsanitized user input from the document location flows into match, where it is used to build a regular expression. This may result in a Regular expression Denial of Service attack (reDOS).
+
+ ✗ [HIGH] Regular Expression Denial of Service (ReDoS)
+   Finding ID: 00fa484c-7134-4bcb-bc69-188cc28d8a27
+   Path: node_modules/next/dist/esm/server/lib/router-utils/resolve-routes.js, line 218
+   Info: Unsanitized user input from the document location flows into match, where it is used to build a regular expression. This may result in a Regular expression Denial of Service attack (reDOS).
+
+ ✗ [HIGH] Regular Expression Denial of Service (ReDoS)
+   Finding ID: bd621b87-f14d-45dd-b4cd-471c7c1505d5
+   Path: node_modules/next/dist/esm/server/lib/router-utils/resolve-routes.js, line 242
+   Info: Unsanitized user input from the document location flows into match, where it is used to build a regular expression. This may result in a Regular expression Denial of Service attack (reDOS).
+
+ ✗ [HIGH] Regular Expression Denial of Service (ReDoS)
+   Finding ID: 53d40b6f-2a60-47ea-9981-99b300c921dd
+   Path: node_modules/next/dist/esm/server/lib/router-utils/resolve-routes.js, line 247
+   Info: Unsanitized user input from the document location flows into match, where it is used to build a regular expression. This may result in a Regular expression Denial of Service attack (reDOS).
+
+ ✗ [HIGH] Regular Expression Denial of Service (ReDoS)
+   Finding ID: efdd3321-6226-4cdd-a7dc-589c3436df86
+   Path: node_modules/next/dist/server/base-server.js, line 671
+   Info: Unsanitized user input from an HTTP header flows into match, where it is used to build a regular expression. This may result in a Regular expression Denial of Service attack (reDOS).
+
+
+        
+💡 Tip
+
+   You are currently viewing results with --severity-threshold applied.
+   To view all issues, remove the --severity-threshold flag            
+                                                                       
+
+╭──────────────────────────────────────────────────────────────────────────────╮
+│ Test Summary                                                                 │
+│                                                                              │
+│   Organization:      yusufmarall                                             │
+│   Test type:         Static code analysis                                    │
+│   Project path:      /media/sf_Quality-Assurance-Test/js_gemini_3.1(high)    │
+│                                                                              │
+│   Total issues:   220                                                        │
+│   Ignored issues: 0 [ 0 HIGH  0 MEDIUM  0 LOW ]                              │
+│   Open issues:    220 [ 77 HIGH  143 MEDIUM  0 LOW ]                         │
+╰──────────────────────────────────────────────────────────────────────────────╯
+    
+💡 Tip
+
+   To view ignored issues, use the --include-ignores option.
+                                                            
+
