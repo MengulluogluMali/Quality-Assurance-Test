@@ -1,0 +1,240 @@
+
+Testing /media/sf_Quality-Assurance-Test/P_gemini_3_1_pro_high ...
+
+Open Issues
+
+ ✗ [MEDIUM] Path Traversal
+   Finding ID: 252c1fcf-b981-487a-8f93-35a956470aba
+   Path: venv/Lib/site-packages/pip/_vendor/pyproject_hooks/_in_process/_in_process.py, line 36
+   Info: Unsanitized input from a command line argument flows into open, where it is used as a path. This may result in a Path Traversal vulnerability and allow an attacker to read arbitrary files.
+
+ ✗ [MEDIUM] Path Traversal
+   Finding ID: d4f42607-514e-4b87-86aa-a1aee0d0b398
+   Path: venv/Lib/site-packages/pip/_vendor/pyproject_hooks/_in_process/_in_process.py, line 32
+   Info: Unsanitized input from a command line argument flows into json.dump, where it is used as a path. This may result in a Path Traversal vulnerability and allow an attacker to write arbitrary files.
+
+ ✗ [MEDIUM] Path Traversal
+   Finding ID: dbc4ab52-c024-4dd8-9639-626a5fa440bf
+   Path: venv/Lib/site-packages/pip/_vendor/rich/emoji.py, line 96
+   Info: Unsanitized input from a command line argument flows into open, where it is used as a path. This may result in a Path Traversal vulnerability and allow an attacker to write arbitrary files.
+
+ ✗ [MEDIUM] Command Injection
+   Finding ID: 512d5f63-1db5-4b0f-a2c8-8f16058ab239
+   Path: venv/Lib/site-packages/pip/_internal/commands/configuration.py, line 239
+   Info: Unsanitized input from an environment variable flows into subprocess.check_call, where it is used as a shell command. This may result in a Command Injection vulnerability.
+
+ ✗ [MEDIUM] Command Injection
+   Finding ID: 73003e09-3102-463c-b6d8-0d22bccbc84b
+   Path: venv/Lib/site-packages/setuptools/_distutils/_msvccompiler.py, line 84
+   Info: Unsanitized input from an environment variable flows into subprocess.check_output, where it is used as a shell command. This may result in a Command Injection vulnerability.
+
+ ✗ [MEDIUM] Command Injection
+   Finding ID: 68e38021-e303-43bd-a44a-cd958dfcb7ad
+   Path: venv/Lib/site-packages/werkzeug/_reloader.py, line 275
+   Info: Unsanitized input from a command line argument flows into subprocess.call, where it is used as a shell command. This may result in a Command Injection vulnerability.
+
+ ✗ [MEDIUM] Command Injection
+   Finding ID: 1ab04925-8891-44bc-8d0b-36507c7e82c0
+   Path: venv/Lib/site-packages/click/_termui_impl.py, line 543
+   Info: Unsanitized input from an environment variable flows into subprocess.call, where it is used as a shell command. This may result in a Command Injection vulnerability.
+
+ ✗ [MEDIUM] Insecure Temporary File
+   Finding ID: 0ad2051b-3aad-4572-b150-5de67bcd9867
+   Path: venv/Lib/site-packages/setuptools/_distutils/util.py, line 422
+   Info: Use of tempfile.mktemp is deprecated and poses a security risk
+
+ ✗ [MEDIUM] Jinja auto-escape is set to false.
+   Finding ID: c8c82a76-ec22-47e5-8aa5-23ac8adfc246
+   Path: venv/Lib/site-packages/pip/_vendor/pyparsing/diagram/__init__.py, line 55
+   Info: jinja2.Template is called with no autoescape argument (autoescaping is disabled by default). This increases the risk of Cross-Site Scripting (XSS) attacks.
+
+ ✗ [MEDIUM] Jinja auto-escape is set to false.
+   Finding ID: 18ce931c-e732-4d5b-9bfe-df0fcbf575ca
+   Path: venv/Lib/site-packages/pkg_resources/_vendor/pyparsing/diagram/__init__.py, line 48
+   Info: jinja2.Template is called with no autoescape argument (autoescaping is disabled by default). This increases the risk of Cross-Site Scripting (XSS) attacks.
+
+ ✗ [MEDIUM] Jinja auto-escape is set to false.
+   Finding ID: ea6cbada-fd17-476e-ab24-49c2f1e7b143
+   Path: venv/Lib/site-packages/setuptools/_vendor/pyparsing/diagram/__init__.py, line 48
+   Info: jinja2.Template is called with no autoescape argument (autoescaping is disabled by default). This increases the risk of Cross-Site Scripting (XSS) attacks.
+
+ ✗ [MEDIUM] DOM-based Cross-site Scripting (XSS)
+   Finding ID: 3f76ac20-09a4-4350-82e5-65908c9e932a
+   Path: venv/Lib/site-packages/werkzeug/debug/shared/debugger.js, line 273
+   Info: Unsanitized input from data from a remote resource flows into innerHTML, where it is used to dynamically construct the HTML page on client side. This may result in a DOM Based Cross-Site Scripting attack (DOMXSS).
+
+ ✗ [MEDIUM] Path Traversal
+   Finding ID: ea3fa343-f041-4c92-b66d-3f6c78683e65
+   Path: venv/Lib/site-packages/flask/cli.py, line 963
+   Info: Unsanitized input from an environment variable flows into open, where it is used as a path. This may result in a Path Traversal vulnerability and allow an attacker to read arbitrary files.
+
+ ✗ [MEDIUM] Path Traversal
+   Finding ID: 47b27e8e-bd13-41fc-924e-8c1b4564153c
+   Path: venv/Lib/site-packages/flask/config.py, line 188
+   Info: Unsanitized input from an environment variable flows into open, where it is used as a path. This may result in a Path Traversal vulnerability and allow an attacker to read arbitrary files.
+
+ ✗ [MEDIUM] Path Traversal
+   Finding ID: dbe15bfd-1458-4cd8-b905-90df69c18460
+   Path: venv/Lib/site-packages/pip/_vendor/platformdirs/unix.py, line 43
+   Info: Unsanitized input from an environment variable flows into pathlib.Path, where it is used as a path. This may result in a Path Traversal vulnerability and allow an attacker to write arbitrary files.
+
+ ✗ [MEDIUM] Path Traversal
+   Finding ID: 0366956f-3678-41a9-8b19-acae4f6eb9aa
+   Path: venv/Lib/site-packages/pip/_vendor/platformdirs/unix.py, line 74
+   Info: Unsanitized input from an environment variable flows into pathlib.Path, where it is used as a path. This may result in a Path Traversal vulnerability and allow an attacker to write arbitrary files.
+
+ ✗ [MEDIUM] Path Traversal
+   Finding ID: 46785b1a-9d7e-4633-9bd9-2176e5b02fb4
+   Path: venv/Lib/site-packages/pip/_vendor/platformdirs/unix.py, line 98
+   Info: Unsanitized input from an environment variable flows into pathlib.Path, where it is used as a path. This may result in a Path Traversal vulnerability and allow an attacker to write arbitrary files.
+
+ ✗ [MEDIUM] Path Traversal
+   Finding ID: 73decee3-4aea-47da-a4e6-4d8622880fec
+   Path: venv/Lib/site-packages/pip/_vendor/platformdirs/unix.py, line 114
+   Info: Unsanitized input from an environment variable flows into pathlib.Path, where it is used as a path. This may result in a Path Traversal vulnerability and allow an attacker to write arbitrary files.
+
+ ✗ [MEDIUM] Path Traversal
+   Finding ID: 04e3f054-172e-4f0f-bdae-af43d9086a79
+   Path: venv/Lib/site-packages/pip/_vendor/platformdirs/unix.py, line 167
+   Info: Unsanitized input from an environment variable flows into pathlib.Path, where it is used as a path. This may result in a Path Traversal vulnerability and allow an attacker to write arbitrary files.
+
+ ✗ [MEDIUM] Path Traversal
+   Finding ID: 9b2fc6d5-9942-4d6f-8335-6a627fc2ddab
+   Path: venv/Lib/site-packages/pip/_vendor/pygments/cmdline.py, line 351
+   Info: Unsanitized input from a command line argument flows into open, where it is used as a path. This may result in a Path Traversal vulnerability and allow an attacker to read arbitrary files.
+
+ ✗ [MEDIUM] Missing Release of Memory after Effective Lifetime
+   Finding ID: 0f20358c-0081-409e-b598-35d04ab8fb5d
+   Path: venv/Lib/site-packages/greenlet/PyGreenletUnswitchable.cpp, line 52
+   Info: Leaking memory. greenlet::BrokenGreenlet is allocated on the heap and never freed
+
+ ✗ [MEDIUM] Missing Release of Memory after Effective Lifetime
+   Finding ID: 15bf0ad9-9f09-434b-acf1-a2f35e09d167
+   Path: venv/Lib/site-packages/greenlet/PyGreenlet.cpp, line 62
+   Info: Leaking memory. greenlet::UserGreenlet is allocated on the heap and never freed
+
+ ✗ [MEDIUM] Command Injection
+   Finding ID: 53b4524c-4ac8-4ecb-9bd7-8153a3d54b6c
+   Path: venv/Lib/site-packages/pip/_internal/cli/main_parser.py, line 90
+   Info: Unsanitized input from an environment variable flows into subprocess.run, where it is used as a shell command. This may result in a Command Injection vulnerability.
+
+ ✗ [MEDIUM] Path Traversal
+   Finding ID: 7086a330-82e5-4261-acb9-24c4285f43a7
+   Path: venv/Lib/site-packages/pip/_vendor/rich/json.py, line 135
+   Info: Unsanitized input from a command line argument flows into pathlib.Path, where it is used as a path. This may result in a Path Traversal vulnerability and allow an attacker to read arbitrary files.
+
+ ✗ [MEDIUM] Path Traversal
+   Finding ID: 55658bae-9715-4ef8-9235-f4987899d106
+   Path: venv/Lib/site-packages/pip/_vendor/rich/syntax.py, line 342
+   Info: Unsanitized input from a command line argument flows into pathlib.Path, where it is used as a path. This may result in a Path Traversal vulnerability and allow an attacker to read arbitrary files.
+
+ ✗ [MEDIUM] Path Traversal
+   Finding ID: c8498056-5ad5-4ffe-a353-3e53296d6dc9
+   Path: venv/Lib/site-packages/setuptools/command/easy_install.py, line 617
+   Info: Unsanitized input from an environment variable flows into os.walk, where it is used as a path. This may result in a Path Traversal vulnerability and allow an attacker to read arbitrary files.
+
+ ✗ [MEDIUM] Path Traversal
+   Finding ID: 39c97031-73ff-4729-afff-fbc8b7035028
+   Path: venv/Lib/site-packages/setuptools/command/easy_install.py, line 804
+   Info: Unsanitized input from an environment variable flows into os.walk, where it is used as a path. This may result in a Path Traversal vulnerability and allow an attacker to read arbitrary files.
+
+ ✗ [MEDIUM] Path Traversal
+   Finding ID: 5930baa2-40d6-4e3e-9de3-4625f9284b14
+   Path: venv/Lib/site-packages/setuptools/command/easy_install.py, line 846
+   Info: Unsanitized input from an environment variable flows into os.unlink, where it is used as a path. This may result in a Path Traversal vulnerability and allow an attacker to remove arbitrary files.
+
+ ✗ [MEDIUM] Path Traversal
+   Finding ID: 75a10548-c20f-48ec-a14e-48239355e02a
+   Path: venv/Lib/site-packages/setuptools/command/easy_install.py, line 847
+   Info: Unsanitized input from an environment variable flows into open, where it is used as a path. This may result in a Path Traversal vulnerability and allow an attacker to write arbitrary files.
+
+ ✗ [MEDIUM] Path Traversal
+   Finding ID: d4e27dd1-dec5-44ec-a4ed-6e08657cbe1b
+   Path: venv/Lib/site-packages/setuptools/command/easy_install.py, line 1955
+   Info: Unsanitized input from an environment variable flows into os.chmod, where it is used as a path. This may result in a Path Traversal vulnerability and allow an attacker to manipulate arbitrary files.
+
+ ✗ [MEDIUM] Debug Mode Enabled
+   Finding ID: 7eb6fd0d-91dd-4781-a46f-3b06a1574fab
+   Path: app.py, line 172
+   Info: Running the application in debug mode (debug flag is set to True in run) is a security risk if the application is accessible by untrusted parties.
+
+ ✗ [MEDIUM] Server Information Exposure
+   Finding ID: 8470ade5-6995-47b4-a392-6f2ed435d8c0
+   Path: venv/Lib/site-packages/flask/app.py, line 1173
+   Info: The stack trace from an exception flows into response_class and is leaked to the user. This may disclose sensitive server information to the attackers.
+
+ ✗ [MEDIUM] SQL Injection
+   Finding ID: e3e099d0-17b9-4bb7-9622-d4c4dca00d20
+   Path: venv/Lib/site-packages/sqlalchemy/dialects/mssql/base.py, line 3223
+   Info: Unsanitized input from a database flows into execute, where it is used in an SQL query. This may result in an SQL Injection vulnerability.
+
+ ✗ [MEDIUM] Arbitrary File Write via Archive Extraction (Tar Slip)
+   Finding ID: 225aad02-6d6d-4971-b74a-d66243a37291
+   Path: venv/Lib/site-packages/pip/_vendor/distlib/util.py, line 1310
+   Info: Calling extractall to extract all files from a tar file without sanitization. This may result files outside destination directory to be overwritten, resulting in an arbitrary file write.
+
+ ✗ [MEDIUM] Command Injection
+   Finding ID: 307fde1e-1a76-4bcc-9e35-5d594572109f
+   Path: venv/Lib/site-packages/click/_termui_impl.py, line 607
+   Info: Unsanitized input from an environment variable flows into subprocess.Popen, where it is used as a shell command. This may result in a Command Injection vulnerability.
+
+ ✗ [MEDIUM] Code Injection
+   Finding ID: 5e65ff79-23ea-473e-9cb9-eaa4dded0093
+   Path: venv/Lib/site-packages/flask/cli.py, line 964
+   Info: Unsanitized input from an environment variable flows into eval, where it is executed as Python code. This may result in a Code Injection vulnerability.
+
+ ✗ [MEDIUM] Code Injection
+   Finding ID: 0506363d-d2c1-4783-96e7-ebd518ecf9af
+   Path: venv/Lib/site-packages/flask/config.py, line 189
+   Info: Unsanitized input from an environment variable flows into exec, where it is executed as Python code. This may result in a Code Injection vulnerability.
+
+ ✗ [MEDIUM] Code Injection
+   Finding ID: 58cd8c4f-f869-4a48-9549-fbf9f5883b67
+   Path: venv/Lib/site-packages/pip/_vendor/pyproject_hooks/_in_process/_in_process.py, line 77
+   Info: Unsanitized input from an environment variable flows into importlib.import_module, where it is executed as Python code. This may result in a Code Injection vulnerability.
+
+ ✗ [MEDIUM] Code Injection
+   Finding ID: c127b20e-d5d1-4f6e-ab23-a8affeef77a0
+   Path: venv/Lib/site-packages/setuptools/launch.py, line 32
+   Info: Unsanitized input from a command line argument flows into exec, where it is executed as Python code. This may result in a Code Injection vulnerability.
+
+ ✗ [MEDIUM] Command Injection
+   Finding ID: 2e748afb-592a-44f6-9add-f4899390e8e7
+   Path: venv/Lib/site-packages/click/_termui_impl.py, line 454
+   Info: Unsanitized input from an environment variable flows into subprocess.Popen, where it is used as a shell command. This may result in a Command Injection vulnerability.
+
+ ✗ [HIGH] Selection of Less-Secure Algorithm During Negotiation (SSL instead of TLS)
+   Finding ID: fbd35143-5a44-47b4-81fd-73e1d37a70da
+   Path: venv/Lib/site-packages/pip/_vendor/distlib/util.py, line 1496
+   Info: Consider using TLS instead of SSL (ssl.PROTOCOL_SSLv23 used in ssl.SSLContext).
+
+ ✗ [HIGH] Hardcoded Non-Cryptographic Secret
+   Finding ID: 7eecaf5a-ecca-474f-86d6-c2d70fca2304
+   Path: app.py, line 8
+   Info: Avoid hardcoding values that are meant to be secret. Found a hardcoded string used in here.
+
+
+        
+💡 Tip
+
+   You are currently viewing results with --severity-threshold applied.
+   To view all issues, remove the --severity-threshold flag            
+                                                                       
+
+╭────────────────────────────────────────────────────────────────────────────────╮
+│ Test Summary                                                                   │
+│                                                                                │
+│   Organization:      yusufmarall                                               │
+│   Test type:         Static code analysis                                      │
+│   Project path:      /media/sf_Quality-Assurance-Test/P_gemini_3_1_pro_high    │
+│                                                                                │
+│   Total issues:   42                                                           │
+│   Ignored issues: 0 [ 0 HIGH  0 MEDIUM  0 LOW ]                                │
+│   Open issues:    42 [ 2 HIGH  40 MEDIUM  0 LOW ]                              │
+╰────────────────────────────────────────────────────────────────────────────────╯
+    
+💡 Tip
+
+   To view ignored issues, use the --include-ignores option.
+                                                            
+
