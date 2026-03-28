@@ -1,0 +1,16 @@
+@{
+    ViewData["Title"] = "Order Successful";
+}
+
+<div class="text-center mt-5 mb-5 animate-fade-in">
+    <div class="mb-4">
+        <i class="fa-solid fa-circle-check text-success" style="font-size: 5rem;"></i>
+    </div>
+    <h1 class="display-5 text-white fw-bold">Order Confirmed!</h1>
+    <p class="lead text-muted">Your order <strong>#@ViewBag.OrderId</strong> has been placed successfully.</p>
+    <p class="text-info mt-3"><i class="fa-solid fa-envelope"></i> An email notification has been sent to the admin.</p>
+    
+    <div class="mt-5">
+        <a asp-controller="Home" asp-action="Index" class="btn btn-outline-primary px-4 py-2">Continue Shopping</a>
+    </div>
+</div>

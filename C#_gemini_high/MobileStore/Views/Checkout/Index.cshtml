@@ -1,0 +1,30 @@
+@{
+    ViewData["Title"] = "Checkout";
+}
+
+<div class="row m-0 p-0 mb-5">
+    <div class="col-md-6 offset-md-3">
+        <div class="glass-card">
+            <h3 class="mb-4"><i class="fa-solid fa-truck-fast text-info"></i> Shipping Details</h3>
+            <form asp-action="ProcessCheckout" method="post">
+                <div asp-validation-summary="All" class="text-danger"></div>
+                
+                <div class="mb-4">
+                    <label for="shippingAddress" class="form-label text-white">Full Shipping Address</label>
+                    <textarea id="shippingAddress" name="shippingAddress" class="form-control" rows="4" placeholder="123 Example St, City, Country, ZIP" required></textarea>
+                </div>
+                
+                <p class="text-muted small mb-4">
+                    <i class="fa-solid fa-shield-halved"></i> Payment is handled securely. Your mock email notification will be triggered upon clicking purchase.
+                </p>
+
+                <button type="submit" class="btn btn-primary w-100 py-3 fs-5">
+                    <i class="fa-solid fa-check"></i> Complete Purchase
+                </button>
+            </form>
+            <div class="mt-3 text-center">
+                <a asp-controller="Cart" asp-action="Index" class="text-muted"><i class="fa-solid fa-arrow-left"></i> Back to Cart</a>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,68 @@
+@model IEnumerable<MobileStore.Models.CartItem>
+
+@{
+    ViewData["Title"] = "Shopping Cart";
+    decimal totalAmount = Model.Sum(item => item.Quantity * item.Product.Price);
+}
+
+<h2 class="mb-4"><i class="fa-solid fa-cart-shopping"></i> Your Cart</h2>
+
+@if (!Model.Any())
+{
+    <div class="glass-card text-center p-5">
+        <h4>Your cart is empty.</h4>
+        <a asp-controller="Home" asp-action="Index" class="btn btn-primary mt-3">Continue Shopping</a>
+    </div>
+}
+else
+{
+    <div class="row">
+        <div class="col-md-8">
+            <div class="glass-card">
+                <table class="table mb-0">
+                    <thead>
+                        <tr>
+                            <th>Product</th>
+                            <th>Quantity</th>
+                            <th>Subtotal</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td class="align-middle">
+                                    <img src="@item.Product.ImageUrl" style="height: 40px; width:40px; object-fit: cover; border-radius: 4px;" class="me-2" />
+                                    <span class="text-white">@item.Product.Name</span>
+                                </td>
+                                <td class="align-middle">@item.Quantity</td>
+                                <td class="align-middle">@((item.Quantity * item.Product.Price).ToString("C"))</td>
+                                <td class="align-middle text-end">
+                                    <form asp-action="RemoveFromCart" method="post">
+                                        <input type="hidden" name="cartItemId" value="@item.Id" />
+                                        <button type="submit" class="btn btn-sm btn-danger"><i class="fa-solid fa-trash"></i></button>
+                                    </form>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="glass-card p-4">
+                <h4>Order Summary</h4>
+                <hr style="border-color: var(--border-color);" />
+                <div class="d-flex justify-content-between mb-3 text-white">
+                    <span>Total</span>
+                    <span class="fs-4 fw-bold">@totalAmount.ToString("C")</span>
+                </div>
+                <!-- Proceed to Checkout Button -->
+                <form asp-controller="Checkout" asp-action="Index" method="get">
+                    <button type="submit" class="btn btn-primary w-100 fw-bold py-2"><i class="fa-solid fa-credit-card"></i> Proceed to Checkout</button>
+                </form>
+            </div>
+        </div>
+    </div>
+}
