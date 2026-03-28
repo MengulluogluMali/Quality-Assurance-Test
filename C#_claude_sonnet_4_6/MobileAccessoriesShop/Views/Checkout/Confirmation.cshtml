@@ -1,0 +1,51 @@
+@model MobileAccessoriesShop.Models.Order
+@{
+    ViewData["Title"] = "Order Confirmed";
+}
+
+<div class="confirmation-container">
+    <div class="confirmation-icon">🎉</div>
+    <h1 style="font-size:2rem;font-weight:900;letter-spacing:-1px;margin-bottom:8px;">Order Confirmed!</h1>
+    <p style="color:var(--text-secondary);font-size:16px;margin-bottom:32px;">
+        Thank you for your purchase. We'll send you a confirmation email shortly.
+    </p>
+
+    <div style="background:var(--bg-secondary);border:1px solid var(--border);border-radius:16px;padding:24px;text-align:left;margin-bottom:32px;">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px;">
+            <div>
+                <div style="font-size:12px;color:var(--text-secondary);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:4px;">Order ID</div>
+                <div style="font-size:1.5rem;font-weight:800;color:var(--accent-purple-light);">#@Model.Id</div>
+            </div>
+            <div>
+                <div style="font-size:12px;color:var(--text-secondary);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:4px;">Total</div>
+                <div style="font-size:1.5rem;font-weight:800;color:var(--accent-teal);">$@Model.TotalAmount.ToString("F2")</div>
+            </div>
+        </div>
+
+        <div style="margin-bottom:20px;">
+            <div style="font-size:12px;color:var(--text-secondary);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:8px;">Ships to</div>
+            <div style="font-weight:600;">@Model.ShippingFullName</div>
+            <div style="color:var(--text-secondary);font-size:14px;">@Model.ShippingAddress, @Model.ShippingCity, @Model.ShippingPostalCode, @Model.ShippingCountry</div>
+        </div>
+
+        <div>
+            <div style="font-size:12px;color:var(--text-secondary);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:12px;">Items Ordered</div>
+            @foreach (var item in Model.Items)
+            {
+                <div style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border-subtle);font-size:14px;">
+                    <span>@item.Product?.Name × @item.Quantity</span>
+                    <span style="font-weight:600;">$@((item.Quantity * item.UnitPrice).ToString("F2"))</span>
+                </div>
+            }
+        </div>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:12px;">
+        <a asp-controller="Shop" asp-action="Index" class="btn btn-primary btn-lg btn-block">
+            <i class="fas fa-shopping-bag"></i> Continue Shopping
+        </a>
+        <a asp-controller="Account" asp-action="Profile" class="btn btn-outline btn-block">
+            <i class="fas fa-list"></i> View My Orders
+        </a>
+    </div>
+</div>

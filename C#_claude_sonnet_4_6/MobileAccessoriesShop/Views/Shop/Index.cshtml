@@ -1,0 +1,193 @@
+@model List<MobileAccessoriesShop.Models.Product>
+@{
+    ViewData["Title"] = "Shop";
+    var categories = ViewBag.Categories as List<MobileAccessoriesShop.Models.Category> ?? new();
+    int totalPages = ViewBag.TotalPages ?? 1;
+    int currentPage = ViewBag.CurrentPage ?? 1;
+}
+
+<div class="shop-layout">
+    <!-- SIDEBAR -->
+    <aside class="shop-sidebar">
+        <div class="sidebar-card">
+            <div class="sidebar-title">Categories</div>
+            <a asp-controller="Shop" asp-action="Index"
+               asp-route-search="@ViewBag.Search"
+               class="filter-option @(ViewBag.SelectedCategory == null ? "active" : "")">
+                <i class="fas fa-th" style="width:18px;text-align:center;"></i> All Products
+                <span style="margin-left:auto;font-size:12px;color:var(--text-muted);">@ViewBag.TotalCount</span>
+            </a>
+            @foreach (var cat in categories)
+            {
+                <a asp-controller="Shop" asp-action="Index"
+                   asp-route-category="@cat.Slug"
+                   asp-route-search="@ViewBag.Search"
+                   class="filter-option @(ViewBag.SelectedCategory == cat.Slug ? "active" : "")">
+                    @if (!string.IsNullOrEmpty(cat.IconClass))
+                    {
+                        <i class="@cat.IconClass" style="width:18px;text-align:center;"></i>
+                    }
+                    @cat.Name
+                </a>
+            }
+        </div>
+
+        <div class="sidebar-card">
+            <div class="sidebar-title">Price Range</div>
+            <form asp-controller="Shop" asp-action="Index" method="get">
+                @if (!string.IsNullOrEmpty(ViewBag.SelectedCategory?.ToString()))
+                {
+                    <input type="hidden" name="category" value="@ViewBag.SelectedCategory" />
+                }
+                @if (!string.IsNullOrEmpty(ViewBag.Search?.ToString()))
+                {
+                    <input type="hidden" name="search" value="@ViewBag.Search" />
+                }
+                <div class="form-group">
+                    <label class="form-label">Min Price ($)</label>
+                    <input type="number" name="minPrice" class="form-control" placeholder="0" value="@ViewBag.MinPrice" min="0" step="1" />
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Max Price ($)</label>
+                    <input type="number" name="maxPrice" class="form-control" placeholder="500" value="@ViewBag.MaxPrice" min="0" step="1" />
+                </div>
+                <button type="submit" class="btn btn-primary btn-block btn-sm">Apply Filter</button>
+            </form>
+        </div>
+
+        @if (!string.IsNullOrEmpty(ViewBag.SelectedCategory?.ToString()) || !string.IsNullOrEmpty(ViewBag.Search?.ToString()) || ViewBag.MinPrice != null || ViewBag.MaxPrice != null)
+        {
+            <a asp-controller="Shop" asp-action="Index" class="btn btn-outline btn-block btn-sm">
+                <i class="fas fa-times"></i> Clear Filters
+            </a>
+        }
+    </aside>
+
+    <!-- PRODUCTS -->
+    <div>
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;flex-wrap:wrap;gap:12px;">
+            <div>
+                <h1 style="font-size:1.5rem;font-weight:800;letter-spacing:-0.5px;">
+                    @if (!string.IsNullOrEmpty(ViewBag.SelectedCategory?.ToString()))
+                    {
+                        @(categories.FirstOrDefault(c => c.Slug == ViewBag.SelectedCategory)?.Name ?? "Products")
+                    }
+                    else if (!string.IsNullOrEmpty(ViewBag.Search?.ToString()))
+                    {
+                        <text>Search: "@ViewBag.Search"</text>
+                    }
+                    else
+                    {
+                        <text>All Products</text>
+                    }
+                </h1>
+                <p style="color:var(--text-secondary);font-size:14px;margin-top:4px;">@ViewBag.TotalCount products found</p>
+            </div>
+        </div>
+
+        @if (Model.Any())
+        {
+            <div class="products-grid">
+                @foreach (var product in Model)
+                {
+                    <div class="product-card">
+                        <div class="product-image">
+                            @if (!string.IsNullOrEmpty(product.ImagePath))
+                            {
+                                <img src="@product.ImagePath" alt="@product.Name" loading="lazy" />
+                            }
+                            else
+                            {
+                                <div class="product-image-placeholder">@GetProductEmoji(product)</div>
+                            }
+                            @if (product.DiscountPercent > 0)
+                            {
+                                <span class="product-badge badge-discount">-@product.DiscountPercent%</span>
+                            }
+                            @if (product.StockQuantity == 0)
+                            {
+                                <span class="product-badge" style="top:auto;bottom:12px;left:12px;background:var(--bg-primary);color:var(--text-muted);border:1px solid var(--border);">Out of Stock</span>
+                            }
+                        </div>
+                        <div class="product-body">
+                            <div class="product-category">@product.Category?.Name</div>
+                            <div class="product-name">
+                                <a asp-controller="Shop" asp-action="Details" asp-route-id="@product.Id">@product.Name</a>
+                            </div>
+                            <div class="product-price-row">
+                                <span class="product-price">$@product.Price.ToString("F2")</span>
+                                @if (product.OriginalPrice.HasValue)
+                                {
+                                    <span class="product-original-price">$@product.OriginalPrice.Value.ToString("F2")</span>
+                                }
+                            </div>
+                            <div class="product-actions">
+                                @if (product.StockQuantity > 0)
+                                {
+                                    <form asp-controller="Cart" asp-action="Add" method="post" style="flex:1">
+                                        @Html.AntiForgeryToken()
+                                        <input type="hidden" name="productId" value="@product.Id" />
+                                        <button type="submit" class="btn-add-cart" id="add-cart-@product.Id" onclick="animateCartAdd(this)">
+                                            <i class="fas fa-cart-plus"></i> Add to Cart
+                                        </button>
+                                    </form>
+                                }
+                                else
+                                {
+                                    <button class="btn-add-cart" disabled style="opacity:0.4;cursor:not-allowed;flex:1;">
+                                        <i class="fas fa-times"></i> Out of Stock
+                                    </button>
+                                }
+                                <a asp-controller="Shop" asp-action="Details" asp-route-id="@product.Id"
+                                   class="btn btn-outline btn-sm" title="View Details">
+                                    <i class="fas fa-eye"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+
+            <!-- PAGINATION -->
+            @if (totalPages > 1)
+            {
+                <div class="pagination">
+                    @for (int i = 1; i <= totalPages; i++)
+                    {
+                        <a asp-controller="Shop" asp-action="Index"
+                           asp-route-page="@i"
+                           asp-route-category="@ViewBag.SelectedCategory"
+                           asp-route-search="@ViewBag.Search"
+                           asp-route-minPrice="@ViewBag.MinPrice"
+                           asp-route-maxPrice="@ViewBag.MaxPrice"
+                           class="page-btn @(i == currentPage ? "active" : "")">@i</a>
+                    }
+                </div>
+            }
+        }
+        else
+        {
+            <div class="empty-state">
+                <div class="empty-icon">🔍</div>
+                <h3>No products found</h3>
+                <p>Try adjusting your search or filters.</p>
+                <a asp-controller="Shop" asp-action="Index" class="btn btn-primary">Clear All Filters</a>
+            </div>
+        }
+    </div>
+</div>
+
+@functions {
+    string GetProductEmoji(MobileAccessoriesShop.Models.Product p)
+    {
+        return p.Category?.Slug switch {
+            "phone-cases" => "📱",
+            "chargers-cables" => "⚡",
+            "screen-protectors" => "🛡️",
+            "headphones-earbuds" => "🎧",
+            "power-banks" => "🔋",
+            "stands-holders" => "📐",
+            _ => "🛍️"
+        };
+    }
+}

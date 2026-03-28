@@ -1,0 +1,103 @@
+@model List<MobileAccessoriesShop.Models.Product>
+@{
+    ViewData["Title"] = "Manage Products";
+}
+
+<div style="display:flex;min-height:calc(100vh - 68px);">
+    <aside class="admin-sidebar">
+        <div class="admin-nav-section">Main</div>
+        <a asp-area="Admin" asp-controller="Dashboard" asp-action="Index" class="admin-nav-link"><i class="fas fa-chart-line"></i> Dashboard</a>
+        <div class="admin-nav-section">Catalogue</div>
+        <a asp-area="Admin" asp-controller="Products" asp-action="Index" class="admin-nav-link active"><i class="fas fa-box"></i> Products</a>
+        <a asp-area="Admin" asp-controller="Categories" asp-action="Index" class="admin-nav-link"><i class="fas fa-tags"></i> Categories</a>
+        <div class="admin-nav-section">Sales</div>
+        <a asp-area="Admin" asp-controller="Orders" asp-action="Index" class="admin-nav-link"><i class="fas fa-shopping-bag"></i> All Orders</a>
+        <div class="admin-nav-section">Store</div>
+        <a asp-controller="Home" asp-action="Index" class="admin-nav-link"><i class="fas fa-store"></i> View Store</a>
+    </aside>
+
+    <main class="admin-content">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:32px;">
+            <div>
+                <h1 style="font-size:1.75rem;font-weight:800;letter-spacing:-1px;">Products</h1>
+                <p style="color:var(--text-secondary);margin-top:4px;">@Model.Count total products</p>
+            </div>
+            <a asp-area="Admin" asp-controller="Products" asp-action="Create" class="btn btn-primary" id="add-product-btn">
+                <i class="fas fa-plus"></i> Add Product
+            </a>
+        </div>
+
+        <div style="background:var(--bg-secondary);border:1px solid var(--border);border-radius:16px;overflow:hidden;">
+            <div class="table-responsive">
+                <table class="data-table" id="products-table">
+                    <thead>
+                        <tr>
+                            <th>Image</th>
+                            <th>Name</th>
+                            <th>Category</th>
+                            <th>Price</th>
+                            <th>Stock</th>
+                            <th>Status</th>
+                            <th>Featured</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var p in Model)
+                        {
+                            <tr id="product-row-@p.Id">
+                                <td>
+                                    <div style="width:48px;height:48px;border-radius:8px;background:var(--bg-primary);display:flex;align-items:center;justify-content:center;overflow:hidden;">
+                                        @if (!string.IsNullOrEmpty(p.ImagePath))
+                                        {
+                                            <img src="@p.ImagePath" style="width:100%;height:100%;object-fit:cover;" />
+                                        }
+                                        else { <text>📱</text> }
+                                    </div>
+                                </td>
+                                <td style="font-weight:600;max-width:220px;">
+                                    <div style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">@p.Name</div>
+                                </td>
+                                <td style="color:var(--text-secondary);">@p.Category?.Name</td>
+                                <td style="font-weight:700;">
+                                    $@p.Price.ToString("F2")
+                                    @if (p.OriginalPrice.HasValue)
+                                    {
+                                        <span style="font-size:11px;color:var(--text-muted);text-decoration:line-through;margin-left:4px;">$@p.OriginalPrice.Value.ToString("F2")</span>
+                                    }
+                                </td>
+                                <td>
+                                    <span style="color:@(p.StockQuantity < 5 ? "var(--accent-red)" : p.StockQuantity < 20 ? "var(--accent-amber)" : "var(--accent-green)");font-weight:600;">
+                                        @p.StockQuantity
+                                    </span>
+                                </td>
+                                <td>
+                                    <span class="status-badge @(p.IsActive ? "status-paid" : "status-cancelled")">
+                                        @(p.IsActive ? "Active" : "Hidden")
+                                    </span>
+                                </td>
+                                <td style="text-align:center;">
+                                    @if (p.IsFeatured) { <span style="color:var(--accent-amber);">⭐</span> }
+                                </td>
+                                <td>
+                                    <div style="display:flex;gap:8px;">
+                                        <a asp-area="Admin" asp-controller="Products" asp-action="Edit" asp-route-id="@p.Id" class="btn btn-outline btn-sm">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                        <form asp-area="Admin" asp-controller="Products" asp-action="Delete" asp-route-id="@p.Id" method="post"
+                                              onsubmit="return confirm('Hide this product?')">
+                                            @Html.AntiForgeryToken()
+                                            <button type="submit" class="btn btn-danger btn-sm">
+                                                <i class="fas fa-eye-slash"></i>
+                                            </button>
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+</div>

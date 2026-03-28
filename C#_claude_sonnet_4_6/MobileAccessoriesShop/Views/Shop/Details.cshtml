@@ -1,0 +1,166 @@
+@model MobileAccessoriesShop.Models.Product
+@{
+    ViewData["Title"] = Model.Name;
+    var related = ViewBag.Related as List<MobileAccessoriesShop.Models.Product> ?? new();
+}
+
+<div class="product-detail-layout">
+    <!-- IMAGE -->
+    <div class="product-detail-img">
+        @if (!string.IsNullOrEmpty(Model.ImagePath))
+        {
+            <img src="@Model.ImagePath" alt="@Model.Name" />
+        }
+        else
+        {
+            <span>@GetProductEmoji(Model)</span>
+        }
+    </div>
+
+    <!-- INFO -->
+    <div class="product-detail-info">
+        <div class="breadcrumb">
+            <a asp-controller="Home" asp-action="Index">Home</a>
+            <i class="fas fa-chevron-right" style="font-size:10px;"></i>
+            <a asp-controller="Shop" asp-action="Index">Shop</a>
+            <i class="fas fa-chevron-right" style="font-size:10px;"></i>
+            <a asp-controller="Shop" asp-action="Index" asp-route-category="@Model.Category?.Slug">@Model.Category?.Name</a>
+        </div>
+
+        <h1>@Model.Name</h1>
+
+        <div class="product-detail-price">
+            <span style="background:linear-gradient(135deg,#a78bfa,#38bdf8);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">
+                $@Model.Price.ToString("F2")
+            </span>
+            @if (Model.OriginalPrice.HasValue && Model.OriginalPrice.Value > Model.Price)
+            {
+                <span style="font-size:1.1rem;color:var(--text-muted);text-decoration:line-through;margin-left:12px;-webkit-text-fill-color:var(--text-muted);">
+                    $@Model.OriginalPrice.Value.ToString("F2")
+                </span>
+                <span class="status-badge status-paid" style="margin-left:10px;font-size:14px;">
+                    -@Model.DiscountPercent% OFF
+                </span>
+            }
+        </div>
+
+        <!-- Stock -->
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:24px;">
+            @if (Model.StockQuantity > 0)
+            {
+                <span style="width:8px;height:8px;border-radius:50%;background:var(--accent-green);display:inline-block;"></span>
+                <span style="color:var(--accent-green);font-size:14px;font-weight:600;">In Stock (@Model.StockQuantity available)</span>
+            }
+            else
+            {
+                <span style="width:8px;height:8px;border-radius:50%;background:var(--accent-red);display:inline-block;"></span>
+                <span style="color:var(--accent-red);font-size:14px;font-weight:600;">Out of Stock</span>
+            }
+        </div>
+
+        <p class="product-description">@Model.Description</p>
+
+        @if (Model.StockQuantity > 0)
+        {
+            <form asp-controller="Cart" asp-action="Add" method="post" id="detail-add-form">
+                @Html.AntiForgeryToken()
+                <input type="hidden" name="productId" value="@Model.Id" />
+
+                <div class="qty-picker">
+                    <span style="font-weight:600;font-size:14px;color:var(--text-secondary);">Quantity</span>
+                    <div class="qty-control">
+                        <button type="button" class="qty-btn" onclick="changeQty(-1)">−</button>
+                        <span class="qty-value" id="qty-display">1</span>
+                        <button type="button" class="qty-btn" onclick="changeQty(1)">+</button>
+                    </div>
+                    <input type="hidden" name="quantity" id="qty-input" value="1" />
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-lg btn-block" id="detail-add-btn" onclick="animateCartAdd(this)">
+                    <i class="fas fa-shopping-cart"></i> Add to Cart
+                </button>
+            </form>
+        }
+        else
+        {
+            <button class="btn btn-secondary btn-lg btn-block" disabled style="opacity:0.5;cursor:not-allowed;">
+                <i class="fas fa-times"></i> Out of Stock
+            </button>
+        }
+
+        <div style="margin-top:24px;display:flex;flex-direction:column;gap:10px;">
+            <div style="display:flex;align-items:center;gap:10px;font-size:14px;color:var(--text-secondary);">
+                <i class="fas fa-shield-alt" style="color:var(--accent-teal);"></i> 2-year warranty included
+            </div>
+            <div style="display:flex;align-items:center;gap:10px;font-size:14px;color:var(--text-secondary);">
+                <i class="fas fa-truck" style="color:var(--accent-teal);"></i> Free shipping on orders over $50
+            </div>
+            <div style="display:flex;align-items:center;gap:10px;font-size:14px;color:var(--text-secondary);">
+                <i class="fas fa-undo" style="color:var(--accent-teal);"></i> 30-day hassle-free returns
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- RELATED PRODUCTS -->
+@if (related.Any())
+{
+    <div class="section" style="padding-top:0;">
+        <h2 class="section-title" style="margin-bottom:8px;">You May Also Like</h2>
+        <p class="section-subtitle">More from @Model.Category?.Name</p>
+        <div class="products-grid">
+            @foreach (var p in related)
+            {
+                <div class="product-card">
+                    <div class="product-image">
+                        @if (!string.IsNullOrEmpty(p.ImagePath))
+                        {
+                            <img src="@p.ImagePath" alt="@p.Name" loading="lazy" />
+                        }
+                        else
+                        {
+                            <div class="product-image-placeholder">@GetProductEmoji(p)</div>
+                        }
+                    </div>
+                    <div class="product-body">
+                        <div class="product-name"><a asp-controller="Shop" asp-action="Details" asp-route-id="@p.Id">@p.Name</a></div>
+                        <div class="product-price-row"><span class="product-price">$@p.Price.ToString("F2")</span></div>
+                        <div class="product-actions">
+                            <form asp-controller="Cart" asp-action="Add" method="post" style="flex:1">
+                                @Html.AntiForgeryToken()
+                                <input type="hidden" name="productId" value="@p.Id" />
+                                <button type="submit" class="btn-add-cart" onclick="animateCartAdd(this)">
+                                    <i class="fas fa-cart-plus"></i> Add to Cart
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+}
+
+@section Scripts {
+<script>
+function changeQty(delta) {
+    const input = document.getElementById('qty-input');
+    const display = document.getElementById('qty-display');
+    let val = parseInt(input.value) + delta;
+    if (val < 1) val = 1;
+    if (val > @Model.StockQuantity) val = @Model.StockQuantity;
+    input.value = val;
+    display.textContent = val;
+}
+</script>
+}
+
+@functions {
+    string GetProductEmoji(MobileAccessoriesShop.Models.Product p)
+    {
+        return p.Category?.Slug switch {
+            "phone-cases" => "📱","chargers-cables" => "⚡","screen-protectors" => "🛡️",
+            "headphones-earbuds" => "🎧","power-banks" => "🔋","stands-holders" => "📐",_ => "🛍️"
+        };
+    }
+}

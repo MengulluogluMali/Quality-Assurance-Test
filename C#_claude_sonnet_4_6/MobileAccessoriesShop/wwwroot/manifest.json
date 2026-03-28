@@ -1,0 +1,10 @@
+{
+  "name": "MobileShop",
+  "short_name": "MobileShop",
+  "description": "Premium Mobile Phone Accessories",
+  "start_url": "/",
+  "display": "browser",
+  "theme_color": "#7c3aed",
+  "background_color": "#0d1117",
+  "icons": []
+}
