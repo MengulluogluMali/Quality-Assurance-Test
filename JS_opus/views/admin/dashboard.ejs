@@ -1,0 +1,61 @@
+<div class="container admin-page">
+  <h1>⚙️ Admin Dashboard</h1>
+  <p class="subtitle">Welcome back, admin. Here's your store overview.</p>
+
+  <div class="stats-grid">
+    <div class="stat-card blue fade-in">
+      <div class="stat-card-icon">📦</div>
+      <div class="stat-card-value"><%= stats.totalProducts %></div>
+      <div class="stat-card-label">Total Products</div>
+    </div>
+    <div class="stat-card emerald fade-in fade-in-delay-1">
+      <div class="stat-card-icon">💰</div>
+      <div class="stat-card-value">$<%= stats.totalRevenue.toFixed(2) %></div>
+      <div class="stat-card-label">Total Revenue</div>
+    </div>
+    <div class="stat-card purple fade-in fade-in-delay-2">
+      <div class="stat-card-icon">🛒</div>
+      <div class="stat-card-value"><%= stats.totalOrders %></div>
+      <div class="stat-card-label">Total Orders</div>
+    </div>
+    <div class="stat-card amber fade-in fade-in-delay-3">
+      <div class="stat-card-icon">👥</div>
+      <div class="stat-card-value"><%= stats.totalCustomers %></div>
+      <div class="stat-card-label">Customers</div>
+    </div>
+  </div>
+
+  <div style="display: flex; gap: 1rem; margin-bottom: 2rem; flex-wrap: wrap;">
+    <a href="/admin/products" class="btn btn-primary" id="admin-manage-products">📦 Manage Products</a>
+    <a href="/admin/products/new" class="btn btn-success" id="admin-add-product">➕ Add Product</a>
+    <a href="/admin/orders" class="btn btn-secondary" id="admin-view-orders">📋 View Orders</a>
+  </div>
+
+  <% if (stats.recentOrders && stats.recentOrders.length > 0) { %>
+    <h2 style="margin-bottom: 1rem;">Recent Orders</h2>
+    <div class="admin-table-wrap">
+      <table class="admin-table">
+        <thead>
+          <tr>
+            <th>Order #</th>
+            <th>Customer</th>
+            <th>Total</th>
+            <th>Status</th>
+            <th>Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% stats.recentOrders.forEach(function(order) { %>
+            <tr>
+              <td><strong>#<%= order.id %></strong></td>
+              <td><%= order.customer_name %></td>
+              <td style="color: var(--accent-emerald); font-weight: 600;">$<%= order.total.toFixed(2) %></td>
+              <td><span class="status-badge <%= order.status %>"><%= order.status %></span></td>
+              <td style="color: var(--text-secondary);"><%= new Date(order.created_at).toLocaleDateString() %></td>
+            </tr>
+          <% }); %>
+        </tbody>
+      </table>
+    </div>
+  <% } %>
+</div>

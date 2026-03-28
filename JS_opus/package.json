@@ -1,0 +1,25 @@
+{
+  "name": "mobile-accessories-store",
+  "version": "1.0.0",
+  "description": "Premium e-commerce store for mobile phone accessories",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "seed": "node seed.js"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "dotenv": "^16.4.7",
+    "ejs": "^3.1.10",
+    "express": "^4.21.1",
+    "express-ejs-layouts": "^2.5.1",
+    "express-rate-limit": "^7.4.1",
+    "express-session": "^1.18.1",
+    "helmet": "^8.0.0",
+    "multer": "^1.4.5-lts.1",
+    "nodemailer": "^6.9.16",
+    "sql.js": "^1.11.0",
+    "web-push": "^3.6.7"
+  }
+}

@@ -1,0 +1,81 @@
+<div class="container cart-page">
+  <h1>🛒 Your Cart</h1>
+
+  <% if (items.length === 0) { %>
+    <div class="cart-empty fade-in">
+      <div class="cart-empty-icon">🛒</div>
+      <h2>Your cart is empty</h2>
+      <p>Looks like you haven't added anything yet. Explore our products!</p>
+      <a href="/shop" class="btn btn-primary btn-lg">Start Shopping →</a>
+    </div>
+  <% } else { %>
+    <div id="cart-content">
+      <table class="cart-table">
+        <thead>
+          <tr>
+            <th>Product</th>
+            <th>Price</th>
+            <th>Quantity</th>
+            <th>Subtotal</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody id="cart-items">
+          <% items.forEach(function(item) { %>
+            <tr id="cart-row-<%= item.product_id %>" class="fade-in">
+              <td>
+                <div class="cart-item-info">
+                  <div class="cart-item-image">
+                    <img src="<%= item.image_url %>" alt="<%= item.name %>">
+                  </div>
+                  <span class="cart-item-name"><%= item.name %></span>
+                </div>
+              </td>
+              <td>
+                <span class="cart-item-price">$<%= item.price.toFixed(2) %></span>
+              </td>
+              <td>
+                <div class="cart-qty-controls">
+                  <button onclick="updateCartQty(<%= item.product_id %>, <%= item.quantity - 1 %>)" aria-label="Decrease">−</button>
+                  <span><%= item.quantity %></span>
+                  <button onclick="updateCartQty(<%= item.product_id %>, <%= item.quantity + 1 %>)" aria-label="Increase">+</button>
+                </div>
+              </td>
+              <td>
+                <span class="cart-item-price">$<%= (item.price * item.quantity).toFixed(2) %></span>
+              </td>
+              <td>
+                <button class="cart-remove-btn" onclick="removeCartItem(<%= item.product_id %>)" aria-label="Remove">✕</button>
+              </td>
+            </tr>
+          <% }); %>
+        </tbody>
+      </table>
+
+      <div class="cart-summary">
+        <div class="cart-summary-card">
+          <div class="cart-summary-row">
+            <span>Subtotal (<%= items.length %> items)</span>
+            <span>$<%= total.toFixed(2) %></span>
+          </div>
+          <div class="cart-summary-row">
+            <span>Shipping</span>
+            <span style="color: var(--accent-emerald);">Free</span>
+          </div>
+          <div class="cart-summary-total">
+            <span>Total</span>
+            <span class="price" id="cart-total">$<%= total.toFixed(2) %></span>
+          </div>
+          <a href="/checkout" class="btn btn-success btn-lg form-submit" style="margin-top: 1.5rem;" id="checkout-btn">
+            💳 Proceed to Checkout
+          </a>
+          <a href="/shop" class="btn btn-outline form-submit" style="margin-top: 0.75rem;">
+            ← Continue Shopping
+          </a>
+        </div>
+      </div>
+    </div>
+  <% } %>
+</div>
+
+<script src="/js/cart.js"></script>
