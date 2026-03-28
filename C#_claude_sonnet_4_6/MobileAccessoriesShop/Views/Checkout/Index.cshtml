@@ -1,0 +1,152 @@
+@{
+    ViewData["Title"] = "Checkout";
+    var cartItems = ViewBag.CartItems as List<MobileAccessoriesShop.Models.CartItem> ?? new();
+    var total = (decimal)ViewBag.Total;
+    var user = ViewBag.User as MobileAccessoriesShop.Models.ApplicationUser;
+    var shipping = total >= 50 ? 0m : 5.99m;
+}
+
+<div class="checkout-layout">
+    <!-- FORM SIDE -->
+    <div>
+        <div class="page-header" style="padding:0 0 32px;">
+            <h1>Secure Checkout</h1>
+            <p>Complete your order — all transactions are encrypted.</p>
+        </div>
+
+        <form asp-controller="Checkout" asp-action="PlaceOrder" method="post" id="checkout-form">
+            @Html.AntiForgeryToken()
+            <input type="hidden" name="paymentIntentId" id="paymentIntentId" value="simulated" />
+
+            <!-- SHIPPING -->
+            <div class="checkout-card">
+                <h3>
+                    <span class="step-num">1</span> Shipping Information
+                </h3>
+                <div class="form-group">
+                    <label class="form-label">Full Name</label>
+                    <input class="form-control" name="fullName" required id="fullName"
+                           value="@user?.FullName" placeholder="John Smith" />
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Street Address</label>
+                    <input class="form-control" name="address" required id="address"
+                           value="@user?.Address" placeholder="123 Main St" />
+                </div>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+                    <div class="form-group">
+                        <label class="form-label">City</label>
+                        <input class="form-control" name="city" required id="city"
+                               value="@user?.City" placeholder="New York" />
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Postal Code</label>
+                        <input class="form-control" name="postalCode" required id="postalCode"
+                               value="@user?.PostalCode" placeholder="10001" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Country</label>
+                    <input class="form-control" name="country" required id="country"
+                           value="@(user?.Country ?? "United States")" placeholder="United States" />
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Order Notes (optional)</label>
+                    <textarea class="form-control" name="notes" id="notes" placeholder="Any special delivery instructions…"></textarea>
+                </div>
+            </div>
+
+            <!-- PAYMENT -->
+            <div class="checkout-card">
+                <h3>
+                    <span class="step-num">2</span> Payment
+                    <span style="margin-left:auto;font-size:12px;color:var(--text-secondary);">
+                        <i class="fas fa-lock"></i> Secured by Stripe
+                    </span>
+                </h3>
+
+                @if (!string.IsNullOrEmpty(ViewBag.StripePublishableKey?.ToString()) && ViewBag.StripePublishableKey.ToString() != "pk_test_REPLACE_ME")
+                {
+                    <div id="card-element" style="background:var(--bg-card);border:1px solid var(--border);border-radius:8px;padding:14px;"></div>
+                    <div id="card-errors" style="color:var(--accent-red);font-size:13px;margin-top:8px;"></div>
+                }
+                else
+                {
+                    <!-- Demo mode: no real Stripe -->
+                    <div class="alert alert-info">
+                        <i class="fas fa-info-circle"></i>
+                        <div>
+                            <strong>Demo Mode</strong> — Payment is simulated. Configure your Stripe keys in <code>appsettings.json</code> for real payments.
+                        </div>
+                    </div>
+                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+                        <div class="form-group" style="grid-column:1/-1;">
+                            <label class="form-label">Card Number</label>
+                            <input class="form-control" placeholder="4242 4242 4242 4242" disabled />
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Expiry</label>
+                            <input class="form-control" placeholder="12/28" disabled />
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">CVC</label>
+                            <input class="form-control" placeholder="123" disabled />
+                        </div>
+                    </div>
+                }
+
+                <button type="submit" class="btn btn-primary btn-lg btn-block" id="place-order-btn" style="margin-top:16px;">
+                    <i class="fas fa-lock"></i> Place Order · $@((total + shipping).ToString("F2"))
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <!-- ORDER SUMMARY SIDE -->
+    <div>
+        <div class="cart-summary-card" style="position:sticky;top:88px;">
+            <h3 style="font-size:1rem;font-weight:800;margin-bottom:20px;">Order Summary</h3>
+            @foreach (var item in cartItems)
+            {
+                <div style="display:flex;gap:12px;align-items:center;margin-bottom:16px;">
+                    <div style="width:48px;height:48px;border-radius:8px;background:var(--bg-card);display:flex;align-items:center;justify-content:center;font-size:1.5rem;flex-shrink:0;overflow:hidden;">
+                        @if (!string.IsNullOrEmpty(item.Product?.ImagePath))
+                        {
+                            <img src="@item.Product.ImagePath" style="width:100%;height:100%;object-fit:cover;" />
+                        }
+                        else { <text>📱</text> }
+                    </div>
+                    <div style="flex:1;min-width:0;">
+                        <div style="font-size:13px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">@item.Product?.Name</div>
+                        <div style="font-size:12px;color:var(--text-secondary);">Qty: @item.Quantity</div>
+                    </div>
+                    <div style="font-weight:700;font-size:14px;">$@((item.Quantity * item.Product!.Price).ToString("F2"))</div>
+                </div>
+            }
+            <div class="divider"></div>
+            <div class="cart-summary-row"><span>Subtotal</span><span>$@total.ToString("F2")</span></div>
+            <div class="cart-summary-row">
+                <span>Shipping</span>
+                <span style="color:@(shipping == 0 ? "var(--accent-green)" : "inherit")">@(shipping == 0 ? "FREE" : "$" + shipping.ToString("F2"))</span>
+            </div>
+            <div class="cart-summary-total">
+                <span>Total</span>
+                <span style="background:linear-gradient(135deg,#a78bfa,#38bdf8);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">
+                    $@((total + shipping).ToString("F2"))
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+<script>
+document.getElementById('checkout-form')?.addEventListener('submit', function(e) {
+    const btn = document.getElementById('place-order-btn');
+    if (btn) {
+        btn.disabled = true;
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing…';
+    }
+});
+</script>
+}

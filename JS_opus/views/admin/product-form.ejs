@@ -1,0 +1,91 @@
+<div class="container admin-page">
+  <h1><%= product ? '✏️ Edit Product' : '➕ Add New Product' %></h1>
+  <p class="subtitle"><%= product ? 'Update the product details below.' : 'Fill in the details for your new product.' %></p>
+
+  <% if (errors && errors.length > 0) { %>
+    <% errors.forEach(function(err) { %>
+      <div class="alert alert-error">⚠️ <%= err %></div>
+    <% }); %>
+  <% } %>
+
+  <div style="max-width: 640px;">
+    <div class="checkout-form-card">
+      <form action="<%= product && product.id ? '/admin/products/' + product.id : '/admin/products' %>"
+            method="POST"
+            enctype="multipart/form-data"
+            id="product-form">
+
+        <div class="form-group">
+          <label for="name">Product Name</label>
+          <input type="text" id="name" name="name"
+                 value="<%= product ? product.name : '' %>"
+                 placeholder="e.g. Premium Silicone Case" required>
+        </div>
+
+        <div class="form-group">
+          <label for="description">Description</label>
+          <textarea id="description" name="description"
+                    placeholder="Describe the product in detail..."
+                    required><%= product ? product.description : '' %></textarea>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+          <div class="form-group">
+            <label for="price">Price ($)</label>
+            <input type="number" id="price" name="price" step="0.01" min="0.01"
+                   value="<%= product ? product.price : '' %>"
+                   placeholder="29.99" required>
+          </div>
+
+          <div class="form-group">
+            <label for="stock">Stock Quantity</label>
+            <input type="number" id="stock" name="stock" min="0"
+                   value="<%= product ? product.stock : '' %>"
+                   placeholder="100" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="category">Category</label>
+          <select id="category" name="category" required>
+            <option value="">Select a category</option>
+            <% ['Cases', 'Chargers', 'Screen Protectors', 'Earbuds', 'Cables', 'Stands', 'Power Banks', 'Other'].forEach(function(cat) { %>
+              <option value="<%= cat %>" <%= product && product.category === cat ? 'selected' : '' %>><%= cat %></option>
+            <% }); %>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="image">Product Image</label>
+          <input type="file" id="image" name="image" accept="image/*"
+                 style="padding: 0.5rem;">
+          <% if (product && product.image_url) { %>
+            <div style="margin-top: 0.75rem;">
+              <img src="<%= product.image_url %>" alt="Current image"
+                   style="width: 120px; height: 80px; object-fit: cover; border-radius: var(--radius-sm); border: 1px solid var(--border-color);">
+              <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.25rem;">Current image</p>
+            </div>
+          <% } %>
+        </div>
+
+        <% if (product && product.id) { %>
+          <div class="form-group" style="display: flex; align-items: center; gap: 1rem;">
+            <label style="margin: 0;">Active (visible in store)</label>
+            <label class="toggle-switch">
+              <input type="checkbox" name="is_active" id="is_active" value="1"
+                     <%= !product || product.is_active ? 'checked' : '' %>>
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+        <% } %>
+
+        <div style="display: flex; gap: 1rem; margin-top: 1.5rem;">
+          <button type="submit" class="btn btn-primary btn-lg" id="save-product-btn">
+            💾 <%= product && product.id ? 'Update Product' : 'Create Product' %>
+          </button>
+          <a href="/admin/products" class="btn btn-secondary btn-lg">Cancel</a>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

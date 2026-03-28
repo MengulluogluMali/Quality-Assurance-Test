@@ -1,0 +1,71 @@
+<div class="container checkout-page">
+  <h1 style="margin-bottom: 2rem;">💳 Checkout</h1>
+
+  <% if (errors && errors.length > 0) { %>
+    <% errors.forEach(function(err) { %>
+      <div class="alert alert-error">⚠️ <%= err %></div>
+    <% }); %>
+  <% } %>
+
+  <div class="checkout-grid">
+    <div class="checkout-form-card fade-in">
+      <h2>📦 Shipping Information</h2>
+      <form action="/checkout" method="POST" id="checkout-form">
+        <div class="form-group">
+          <label for="name">Full Name</label>
+          <input type="text" id="name" name="name" value="<%= shipping.name || '' %>" placeholder="John Doe" required>
+        </div>
+
+        <div class="form-group">
+          <label for="address">Street Address</label>
+          <input type="text" id="address" name="address" value="<%= shipping.address || '' %>" placeholder="123 Main Street, Apt 4" required>
+        </div>
+
+        <div class="form-group">
+          <label for="city">City / State / ZIP</label>
+          <input type="text" id="city" name="city" value="<%= shipping.city || '' %>" placeholder="New York, NY 10001" required>
+        </div>
+
+        <div class="form-group">
+          <label for="phone">Phone Number</label>
+          <input type="tel" id="phone" name="phone" value="<%= shipping.phone || '' %>" placeholder="+1 (555) 123-4567" required>
+        </div>
+
+        <button type="submit" class="btn btn-success btn-lg form-submit" id="place-order-btn">
+          ✅ Place Order — $<%= total.toFixed(2) %>
+        </button>
+      </form>
+    </div>
+
+    <div class="order-summary-card fade-in fade-in-delay-1">
+      <h2>📋 Order Summary</h2>
+      <% items.forEach(function(item) { %>
+        <div class="order-item">
+          <div class="order-item-image">
+            <img src="<%= item.image_url %>" alt="<%= item.name %>">
+          </div>
+          <div class="order-item-details">
+            <div class="order-item-name"><%= item.name %></div>
+            <div class="order-item-qty">Qty: <%= item.quantity %></div>
+          </div>
+          <div class="order-item-price">$<%= (item.price * item.quantity).toFixed(2) %></div>
+        </div>
+      <% }); %>
+
+      <div style="margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid var(--border-color);">
+        <div class="cart-summary-row">
+          <span>Subtotal</span>
+          <span>$<%= total.toFixed(2) %></span>
+        </div>
+        <div class="cart-summary-row">
+          <span>Shipping</span>
+          <span style="color: var(--accent-emerald);">Free</span>
+        </div>
+        <div class="cart-summary-total">
+          <span>Total</span>
+          <span class="price">$<%= total.toFixed(2) %></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

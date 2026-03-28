@@ -1,0 +1,66 @@
+<div class="container">
+  <div class="product-detail">
+    <div class="product-detail-image fade-in">
+      <img src="<%= product.image_url %>" alt="<%= product.name %>">
+    </div>
+
+    <div class="product-detail-info fade-in fade-in-delay-1">
+      <span class="product-detail-category"><%= product.category %></span>
+      <h1><%= product.name %></h1>
+
+      <div class="product-detail-stock">
+        <% if (product.stock > 10) { %>
+          <span class="stock-dot in-stock"></span>
+          <span style="color: var(--accent-emerald);">In Stock (<%= product.stock %> available)</span>
+        <% } else if (product.stock > 0) { %>
+          <span class="stock-dot low-stock"></span>
+          <span style="color: var(--accent-amber);">Low Stock — Only <%= product.stock %> left!</span>
+        <% } else { %>
+          <span class="stock-dot out-of-stock"></span>
+          <span style="color: var(--accent-rose);">Out of Stock</span>
+        <% } %>
+      </div>
+
+      <div class="product-detail-price">$<%= product.price.toFixed(2) %></div>
+
+      <p class="product-detail-desc"><%= product.description %></p>
+
+      <% if (product.stock > 0) { %>
+        <div class="quantity-selector">
+          <label for="quantity">Quantity:</label>
+          <input type="number" id="quantity" value="1" min="1" max="<%= product.stock %>" />
+        </div>
+
+        <div class="product-detail-actions">
+          <button class="btn btn-primary btn-lg" onclick="addToCartDetail(<%= product.id %>)" id="add-cart-detail">
+            🛒 Add to Cart
+          </button>
+          <a href="/shop" class="btn btn-secondary btn-lg">← Continue Shopping</a>
+        </div>
+      <% } else { %>
+        <div class="product-detail-actions">
+          <button class="btn btn-secondary btn-lg" disabled>Out of Stock</button>
+          <a href="/shop" class="btn btn-outline btn-lg">← Continue Shopping</a>
+        </div>
+      <% } %>
+    </div>
+  </div>
+
+  <% if (related.length > 0) { %>
+    <div class="section-header">
+      <h2>Related <span>Products</span></h2>
+    </div>
+    <div class="product-grid">
+      <% related.forEach(function(product) { %>
+        <%- include('../partials/product-card', { product }) %>
+      <% }); %>
+    </div>
+  <% } %>
+</div>
+
+<script>
+function addToCartDetail(productId) {
+  const quantity = parseInt(document.getElementById('quantity').value) || 1;
+  addToCart(productId, quantity);
+}
+</script>

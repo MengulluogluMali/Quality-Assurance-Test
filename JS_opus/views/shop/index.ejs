@@ -1,0 +1,81 @@
+<% if (!selectedCategory && !search) { %>
+<!-- Hero Section -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-content">
+      <h1 class="fade-in">
+        Elevate Your
+        <span class="gradient-text">Mobile Experience</span>
+      </h1>
+      <p class="fade-in fade-in-delay-1">
+        Discover premium accessories crafted for your device. From sleek cases to powerful chargers — we've got everything you need.
+      </p>
+      <div class="hero-actions fade-in fade-in-delay-2">
+        <a href="/shop" class="btn btn-primary btn-lg" id="hero-shop-btn">🛍️ Shop Now</a>
+        <a href="#products" class="btn btn-secondary btn-lg" id="hero-browse-btn">Browse Collection</a>
+      </div>
+    </div>
+  </div>
+</section>
+<% } %>
+
+<div class="container">
+  <!-- Search Bar -->
+  <div style="margin-top: 2rem;">
+    <form class="search-bar" action="/shop" method="GET" id="search-form">
+      <input
+        type="text"
+        name="search"
+        placeholder="🔍 Search for cases, chargers, earbuds..."
+        value="<%= search %>"
+        id="search-input"
+      >
+      <button type="submit" class="btn btn-primary" id="search-btn">Search</button>
+    </form>
+  </div>
+
+  <!-- Category Filter -->
+  <div class="category-bar">
+    <a href="/shop" class="category-chip <%= !selectedCategory ? 'active' : '' %>" id="cat-all">All Products</a>
+    <% categories.forEach(function(cat) { %>
+      <a href="/shop?category=<%= encodeURIComponent(cat) %>"
+         class="category-chip <%= selectedCategory === cat ? 'active' : '' %>"
+         id="cat-<%= cat.toLowerCase().replace(/\s+/g, '-') %>">
+        <%= cat %>
+      </a>
+    <% }); %>
+  </div>
+
+  <!-- Products Section -->
+  <div id="products">
+    <div class="section-header">
+      <h2>
+        <% if (selectedCategory) { %>
+          <%= selectedCategory %>
+        <% } else if (search) { %>
+          Results for "<%= search %>"
+        <% } else { %>
+          Featured <span>Products</span>
+        <% } %>
+      </h2>
+      <span style="color: var(--text-secondary); font-size: 0.9rem;">
+        <%= products.length %> product<%= products.length !== 1 ? 's' : '' %>
+      </span>
+    </div>
+
+    <% if (products.length === 0) { %>
+      <div class="empty-state">
+        <div class="empty-state-icon">🔍</div>
+        <h3>No products found</h3>
+        <p>Try a different search term or browse all categories.</p>
+        <a href="/shop" class="btn btn-primary">View All Products</a>
+      </div>
+    <% } else { %>
+      <div class="product-grid">
+        <% products.forEach(function(product) { %>
+          <%- include('../partials/product-card', { product }) %>
+        <% }); %>
+      </div>
+    <% } %>
+  </div>
+</div>

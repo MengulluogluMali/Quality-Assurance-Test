@@ -1,0 +1,38 @@
+<nav class="navbar">
+  <div class="container">
+    <a href="/" class="navbar-brand">
+      <span>📱</span> MobileGear
+    </a>
+
+    <button class="mobile-toggle" id="mobile-toggle" aria-label="Toggle menu">☰</button>
+
+    <ul class="navbar-nav" id="navbar-nav">
+      <li><a href="/" id="nav-home">🏠 Home</a></li>
+      <li><a href="/shop" id="nav-shop">🛍️ Shop</a></li>
+      <% if (user) { %>
+        <li>
+          <a href="/cart" id="nav-cart" class="cart-badge">
+            🛒 Cart
+            <span class="cart-count" id="cart-count">0</span>
+          </a>
+        </li>
+        <% if (isAdmin) { %>
+          <li><a href="/admin" id="nav-admin">⚙️ Admin</a></li>
+        <% } %>
+        <li>
+          <a href="/auth/logout" id="nav-logout" style="color: var(--text-muted);">
+            👋 Logout
+          </a>
+        </li>
+        <li>
+          <span style="padding: 0.6rem 1rem; color: var(--accent-blue); font-weight: 600; font-size: 0.85rem;">
+            Hi, <%= user.name.split(' ')[0] %>
+          </span>
+        </li>
+      <% } else { %>
+        <li><a href="/auth/login" id="nav-login">🔑 Sign In</a></li>
+        <li><a href="/auth/register" id="nav-register" class="btn btn-primary btn-sm">Create Account</a></li>
+      <% } %>
+    </ul>
+  </div>
+</nav>

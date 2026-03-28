@@ -1,0 +1,11 @@
+@{
+    ViewData["Title"] = "Checkout";
+}
+<h2 class="page-title">Checkout</h2>
+<form action="/Checkout/Process" method="post" class="checkout-form">
+    <div class="form-group">
+        <label>Shipping Address:</label>
+        <input type="text" name="address" required />
+    </div>
+    <button type="submit" class="btn hero-btn">Place Order</button>
+</form>\n

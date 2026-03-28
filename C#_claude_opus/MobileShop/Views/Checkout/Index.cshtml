@@ -1,0 +1,112 @@
+@model MobileShop.Models.ViewModels.CheckoutViewModel
+@{
+    ViewData["Title"] = "Checkout";
+}
+
+<div class="checkout-section">
+    <div class="container">
+        <div class="page-header" style="border-bottom:none; padding-bottom:0;">
+            <h1 class="page-title"><i class="bi bi-lock me-2"></i>Checkout</h1>
+            <div class="page-breadcrumb">
+                <a asp-controller="Home" asp-action="Index">Home</a>
+                <i class="bi bi-chevron-right"></i>
+                <a asp-controller="Cart" asp-action="Index">Cart</a>
+                <i class="bi bi-chevron-right"></i>
+                <span>Checkout</span>
+            </div>
+        </div>
+
+        <form asp-controller="Checkout" asp-action="PlaceOrder" method="post">
+            <div class="row g-4 mt-2">
+                <div class="col-lg-7">
+                    <div class="glass-card p-4 mb-4">
+                        <h5 style="font-weight:700; margin-bottom:1.5rem;">
+                            <i class="bi bi-geo-alt me-2 text-accent"></i>Shipping Information
+                        </h5>
+                        <div class="mb-3">
+                            <label asp-for="FullName" class="form-label"></label>
+                            <input asp-for="FullName" class="form-control glass-input" placeholder="John Doe" />
+                            <span asp-validation-for="FullName" class="text-danger"></span>
+                        </div>
+                        <div class="mb-3">
+                            <label asp-for="ShippingAddress" class="form-label"></label>
+                            <input asp-for="ShippingAddress" class="form-control glass-input" placeholder="123 Main Street, Apt 4" />
+                            <span asp-validation-for="ShippingAddress" class="text-danger"></span>
+                        </div>
+                        <div class="row g-3">
+                            <div class="col-md-6 mb-3">
+                                <label asp-for="City" class="form-label"></label>
+                                <input asp-for="City" class="form-control glass-input" placeholder="New York" />
+                                <span asp-validation-for="City" class="text-danger"></span>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label asp-for="ZipCode" class="form-label"></label>
+                                <input asp-for="ZipCode" class="form-control glass-input" placeholder="10001" />
+                                <span asp-validation-for="ZipCode" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label asp-for="Phone" class="form-label"></label>
+                            <input asp-for="Phone" class="form-control glass-input" placeholder="+1 (555) 123-4567" />
+                            <span asp-validation-for="Phone" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="glass-card p-4">
+                        <h5 style="font-weight:700; margin-bottom:1rem;">
+                            <i class="bi bi-credit-card me-2 text-accent"></i>Payment
+                        </h5>
+                        <div class="p-3 text-center" style="background: rgba(0,212,255,0.05); border: 1px dashed var(--border-glow); border-radius: var(--radius-md);">
+                            <i class="bi bi-info-circle text-accent" style="font-size:1.5rem;"></i>
+                            <p class="mb-0 mt-2" style="color:var(--text-secondary); font-size:0.9rem;">
+                                <strong>Demo Mode</strong> — Payment is simulated. No real charges will be made.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-5">
+                    <div class="order-summary-card">
+                        <h5 style="font-weight:700; margin-bottom:1.5rem;">
+                            <i class="bi bi-receipt me-2 text-accent"></i>Order Summary
+                        </h5>
+                        @if (Model.Cart != null)
+                        {
+                            @foreach (var item in Model.Cart.Items)
+                            {
+                                <div class="d-flex align-items-center gap-3 mb-3 pb-3" style="border-bottom: 1px solid var(--border-glass);">
+                                    <img src="@(item.ProductImage ?? "https://via.placeholder.com/50")"
+                                         alt="@item.ProductName" style="width:50px;height:50px;object-fit:cover;border-radius:var(--radius-sm);" />
+                                    <div class="flex-grow-1">
+                                        <div style="font-weight:600; font-size:0.9rem;">@item.ProductName</div>
+                                        <div style="font-size:0.8rem; color:var(--text-muted);">Qty: @item.Quantity</div>
+                                    </div>
+                                    <div style="font-weight:600;">$@item.LineTotal.ToString("F2")</div>
+                                </div>
+                            }
+                            <div class="cart-summary-row">
+                                <span>Subtotal</span>
+                                <span>$@Model.Cart.Subtotal.ToString("F2")</span>
+                            </div>
+                            <div class="cart-summary-row">
+                                <span>Tax (8%)</span>
+                                <span>$@Model.Cart.Tax.ToString("F2")</span>
+                            </div>
+                            <div class="cart-summary-row">
+                                <span>Shipping</span>
+                                <span style="color:var(--success);">Free</span>
+                            </div>
+                            <div class="cart-summary-row total">
+                                <span>Total</span>
+                                <span class="amount">$@Model.Cart.Total.ToString("F2")</span>
+                            </div>
+                        }
+                        <button type="submit" class="btn btn-glow w-100 mt-3 btn-lg">
+                            <i class="bi bi-check-circle me-2"></i>Place Order
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

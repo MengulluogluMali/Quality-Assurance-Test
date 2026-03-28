@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - MobileStore</title>
+    <link rel="stylesheet" href="~/css/index.css" asp-append-version="true" />
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="logo">MobileStore</div>
+            <ul class="nav-links">
+                <li><a href="/">Home</a></li>
+                <li><a href="/Products">Products</a></li>
+                <li><a href="/Cart">Cart</a></li>
+                <li><a href="/Identity/Account/Login">Login</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main role="main" class="container">
+        @RenderBody()
+    </main>
+    <footer>
+        <p>&copy; 2026 - MobileStore - Premium Mobile Accessories</p>
+    </footer>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>\n

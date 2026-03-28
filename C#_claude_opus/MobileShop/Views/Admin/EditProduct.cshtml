@@ -1,0 +1,97 @@
+@model MobileShop.Models.ViewModels.ProductViewModel
+@{
+    ViewData["Title"] = "Edit Product";
+    var categories = ViewBag.Categories as List<MobileShop.Models.Category> ?? new List<MobileShop.Models.Category>();
+}
+
+<div class="page-header">
+    <div class="container">
+        <h1 class="page-title"><i class="bi bi-pencil me-2"></i>Edit Product</h1>
+        <div class="page-breadcrumb">
+            <a asp-controller="Admin" asp-action="Dashboard">Dashboard</a>
+            <i class="bi bi-chevron-right"></i>
+            <a asp-controller="Admin" asp-action="Products">Products</a>
+            <i class="bi bi-chevron-right"></i>
+            <span>Edit</span>
+        </div>
+    </div>
+</div>
+
+<div class="container pb-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="glass-card p-4 fade-in">
+                <form asp-controller="Admin" asp-action="EditProduct" asp-route-id="@Model.Id" method="post">
+                    <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                    <div class="mb-3">
+                        <label asp-for="Name" class="form-label"></label>
+                        <input asp-for="Name" class="form-control glass-input" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Description" class="form-label"></label>
+                        <textarea asp-for="Description" class="form-control glass-input" rows="4"></textarea>
+                        <span asp-validation-for="Description" class="text-danger"></span>
+                    </div>
+
+                    <div class="row g-3">
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="Price" class="form-label"></label>
+                            <div class="input-group">
+                                <span class="input-group-text" style="background:var(--bg-glass);border:1px solid var(--border-glass);color:var(--accent-primary);">$</span>
+                                <input asp-for="Price" class="form-control glass-input" step="0.01" />
+                            </div>
+                            <span asp-validation-for="Price" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="Stock" class="form-label"></label>
+                            <input asp-for="Stock" class="form-control glass-input" type="number" />
+                            <span asp-validation-for="Stock" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="row g-3">
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="CategoryId" class="form-label"></label>
+                            <select asp-for="CategoryId" class="form-select glass-select">
+                                <option value="">— Select Category —</option>
+                                @foreach (var cat in categories)
+                                {
+                                    <option value="@cat.Id">@cat.Name</option>
+                                }
+                            </select>
+                            <span asp-validation-for="CategoryId" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-6 mb-3 d-flex align-items-end">
+                            <div class="form-check form-switch" style="padding-bottom:0.75rem;">
+                                <input asp-for="IsActive" class="form-check-input" />
+                                <label asp-for="IsActive" class="form-check-label" style="color:var(--text-secondary);">Active</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <label asp-for="ImageUrl" class="form-label"></label>
+                        <input asp-for="ImageUrl" class="form-control glass-input" />
+                        <span asp-validation-for="ImageUrl" class="text-danger"></span>
+                        @if (!string.IsNullOrEmpty(Model.ImageUrl))
+                        {
+                            <div class="mt-2">
+                                <img src="@Model.ImageUrl" alt="Current image" style="max-height:100px;border-radius:var(--radius-sm); border:1px solid var(--border-glass);" />
+                            </div>
+                        }
+                    </div>
+
+                    <div class="d-flex gap-3">
+                        <button type="submit" class="btn btn-glow btn-lg">
+                            <i class="bi bi-check-circle me-2"></i>Save Changes
+                        </button>
+                        <a asp-controller="Admin" asp-action="Products" class="btn btn-glass btn-lg">Cancel</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

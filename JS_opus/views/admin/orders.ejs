@@ -1,0 +1,44 @@
+<div class="container admin-page">
+  <div class="admin-header-bar">
+    <div>
+      <h1>📋 Orders</h1>
+      <p class="subtitle">All customer orders.</p>
+    </div>
+    <a href="/admin" class="btn btn-secondary">← Back to Dashboard</a>
+  </div>
+
+  <% if (orders.length === 0) { %>
+    <div class="empty-state">
+      <div class="empty-state-icon">📋</div>
+      <h3>No orders yet</h3>
+      <p>Orders will appear here when customers make purchases.</p>
+    </div>
+  <% } else { %>
+    <div class="admin-table-wrap">
+      <table class="admin-table">
+        <thead>
+          <tr>
+            <th>Order #</th>
+            <th>Customer</th>
+            <th>Email</th>
+            <th>Total</th>
+            <th>Status</th>
+            <th>Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% orders.forEach(function(order) { %>
+            <tr>
+              <td><strong>#<%= order.id %></strong></td>
+              <td><%= order.customer_name %></td>
+              <td style="color: var(--text-secondary);"><%= order.customer_email %></td>
+              <td style="color: var(--accent-emerald); font-weight: 600;">$<%= order.total.toFixed(2) %></td>
+              <td><span class="status-badge <%= order.status %>"><%= order.status %></span></td>
+              <td style="color: var(--text-secondary);"><%= new Date(order.created_at).toLocaleDateString() %></td>
+            </tr>
+          <% }); %>
+        </tbody>
+      </table>
+    </div>
+  <% } %>
+</div>

@@ -1,0 +1,33 @@
+<div class="product-card fade-in">
+  <a href="/shop/<%= product.id %>">
+    <div class="product-card-image">
+      <img src="<%= product.image_url %>" alt="<%= product.name %>" loading="lazy">
+      <span class="product-card-category"><%= product.category %></span>
+    </div>
+  </a>
+  <div class="product-card-body">
+    <div class="product-card-name">
+      <a href="/shop/<%= product.id %>"><%= product.name %></a>
+    </div>
+    <p class="product-card-desc"><%= product.description %></p>
+    <div class="product-card-footer">
+      <span class="product-card-price">$<%= product.price.toFixed(2) %></span>
+      <% if (product.stock > 10) { %>
+        <span class="product-card-stock in-stock">✓ In Stock</span>
+      <% } else if (product.stock > 0) { %>
+        <span class="product-card-stock low-stock">⚡ Only <%= product.stock %> left</span>
+      <% } else { %>
+        <span class="product-card-stock out-of-stock">✗ Out of Stock</span>
+      <% } %>
+    </div>
+    <button
+      class="add-to-cart-btn"
+      data-product-id="<%= product.id %>"
+      onclick="addToCart(<%= product.id %>)"
+      <%= product.stock <= 0 ? 'disabled' : '' %>
+      id="add-cart-<%= product.id %>"
+    >
+      🛒 <span><%= product.stock > 0 ? 'Add to Cart' : 'Out of Stock' %></span>
+    </button>
+  </div>
+</div>

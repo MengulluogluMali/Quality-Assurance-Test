@@ -1,0 +1,21 @@
+<div class="success-page">
+  <div class="success-card fade-in">
+    <div class="success-icon">✓</div>
+    <h1>Order Confirmed!</h1>
+    <p>Thank you for your purchase. Your order has been placed successfully.</p>
+    <div class="success-order-id">Order #<%= order.id %></div>
+    <p style="margin-bottom: 0.25rem;"><strong>Total:</strong> $<%= order.total.toFixed(2) %></p>
+    <p style="margin-bottom: 2rem; font-size: 0.85rem;">
+      <%= order.items.length %> item<%= order.items.length !== 1 ? 's' : '' %> • Free shipping
+    </p>
+
+    <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+      <a href="/shop" class="btn btn-primary btn-lg">🛍️ Continue Shopping</a>
+      <a href="/" class="btn btn-secondary btn-lg">🏠 Go Home</a>
+    </div>
+
+    <p style="margin-top: 2rem; font-size: 0.8rem; color: var(--text-muted);">
+      📧 An email notification has been sent to the store admin.
+    </p>
+  </div>
+</div>

@@ -1,0 +1,129 @@
+@model List<MobileAccessoriesShop.Models.CartItem>
+@{
+    ViewData["Title"] = "Shopping Cart";
+    var total = Model.Sum(i => i.Quantity * i.Product!.Price);
+    var shipping = total >= 50 ? 0 : 5.99m;
+}
+
+<div class="page-header">
+    <h1>🛒 Your Cart</h1>
+    <p>@Model.Sum(i => i.Quantity) item(s) in your cart</p>
+</div>
+
+@if (!Model.Any())
+{
+    <div class="empty-state" style="padding:80px 40px;">
+        <div class="empty-icon">🛒</div>
+        <h3>Your cart is empty</h3>
+        <p>Looks like you haven't added anything yet.</p>
+        <a asp-controller="Shop" asp-action="Index" class="btn btn-primary">
+            <i class="fas fa-shopping-bag"></i> Start Shopping
+        </a>
+    </div>
+}
+else
+{
+    <div class="cart-layout">
+        <!-- CART ITEMS -->
+        <div id="cart-items">
+            @foreach (var item in Model)
+            {
+                <div class="cart-item-row" id="cart-row-@item.Id">
+                    <div class="cart-item-img">
+                        @if (!string.IsNullOrEmpty(item.Product?.ImagePath))
+                        {
+                            <img src="@item.Product.ImagePath" alt="@item.Product.Name" />
+                        }
+                        else
+                        {
+                            <text>📱</text>
+                        }
+                    </div>
+                    <div style="flex:1;">
+                        <div class="cart-item-name">@item.Product?.Name</div>
+                        <div style="font-size:13px;color:var(--text-secondary);margin-top:4px;">@item.Product?.Category?.Name</div>
+                        <div class="cart-item-price" style="margin-top:8px;">$@item.Product?.Price.ToString("F2")</div>
+                    </div>
+                    <div class="qty-control">
+                        <button class="qty-btn" onclick="updateQty(@item.Id, @(item.Quantity - 1))">−</button>
+                        <span class="qty-value" id="qty-@item.Id">@item.Quantity</span>
+                        <button class="qty-btn" onclick="updateQty(@item.Id, @(item.Quantity + 1))">+</button>
+                    </div>
+                    <div style="text-align:right;min-width:80px;">
+                        <div style="font-weight:800;font-size:16px;" id="subtotal-@item.Id">
+                            $@((item.Quantity * item.Product!.Price).ToString("F2"))
+                        </div>
+                    </div>
+                    <form asp-controller="Cart" asp-action="Remove" method="post">
+                        @Html.AntiForgeryToken()
+                        <input type="hidden" name="cartItemId" value="@item.Id" />
+                        <button type="submit" class="btn btn-danger btn-sm" title="Remove">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </form>
+                </div>
+            }
+        </div>
+
+        <!-- ORDER SUMMARY -->
+        <div>
+            <div class="cart-summary-card">
+                <h3 style="font-size:1.1rem;font-weight:800;margin-bottom:24px;">Order Summary</h3>
+
+                <div class="cart-summary-row">
+                    <span>Subtotal</span>
+                    <span id="summary-subtotal">$@total.ToString("F2")</span>
+                </div>
+                <div class="cart-summary-row">
+                    <span>Shipping</span>
+                    <span style="color:@(shipping == 0 ? "var(--accent-green)" : "inherit")">
+                        @(shipping == 0 ? "FREE" : "$" + shipping.ToString("F2"))
+                    </span>
+                </div>
+                @if (shipping > 0)
+                {
+                    <div style="font-size:12px;color:var(--text-secondary);padding:8px 0;">
+                        Add $@((50 - total).ToString("F2")) more for free shipping!
+                    </div>
+                }
+                <div class="cart-summary-total">
+                    <span>Total</span>
+                    <span id="summary-total" style="background:linear-gradient(135deg,#a78bfa,#38bdf8);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">
+                        $@((total + shipping).ToString("F2"))
+                    </span>
+                </div>
+
+                <a asp-controller="Checkout" asp-action="Index" class="btn btn-primary btn-block btn-lg" style="margin-top:24px;">
+                    <i class="fas fa-lock"></i> Proceed to Checkout
+                </a>
+                <a asp-controller="Shop" asp-action="Index" class="btn btn-outline btn-block btn-sm" style="margin-top:10px;">
+                    <i class="fas fa-arrow-left"></i> Continue Shopping
+                </a>
+            </div>
+        </div>
+    </div>
+}
+
+@section Scripts {
+<script>
+async function updateQty(cartItemId, newQty) {
+    const token = document.querySelector('input[name="__RequestVerificationToken"]')?.value ?? '';
+    const res = await fetch('/Cart/Update', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'RequestVerificationToken': token },
+        body: JSON.stringify({ cartItemId, quantity: newQty })
+    });
+    if (res.ok) {
+        const data = await res.json();
+        if (newQty <= 0) {
+            document.getElementById('cart-row-' + cartItemId)?.remove();
+        } else {
+            const qtyEl = document.getElementById('qty-' + cartItemId);
+            if (qtyEl) qtyEl.textContent = newQty;
+        }
+        document.getElementById('cart-count').textContent = data.count;
+        location.reload(); // reload to recalculate totals neatly
+    }
+}
+</script>
+}

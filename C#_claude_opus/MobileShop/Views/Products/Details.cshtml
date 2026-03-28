@@ -1,0 +1,128 @@
+@model MobileShop.Models.Product
+@{
+    ViewData["Title"] = Model.Name;
+    var relatedProducts = ViewBag.RelatedProducts as List<MobileShop.Models.Product> ?? new List<MobileShop.Models.Product>();
+}
+
+<div class="product-detail-section">
+    <div class="container">
+        <div class="page-breadcrumb mb-4">
+            <a asp-controller="Home" asp-action="Index">Home</a>
+            <i class="bi bi-chevron-right"></i>
+            <a asp-controller="Products" asp-action="Index">Products</a>
+            <i class="bi bi-chevron-right"></i>
+            <a asp-controller="Products" asp-action="Index" asp-route-category="@Model.CategoryId">@Model.Category?.Name</a>
+            <i class="bi bi-chevron-right"></i>
+            <span>@Model.Name</span>
+        </div>
+
+        <div class="row g-5">
+            <div class="col-lg-6 fade-in">
+                <img src="@(Model.ImageUrl ?? "https://via.placeholder.com/600x500?text=No+Image")"
+                     alt="@Model.Name" class="product-detail-img" />
+            </div>
+            <div class="col-lg-6 fade-in">
+                <div class="product-card-category mb-2">@Model.Category?.Name</div>
+                <h1 class="product-detail-title">@Model.Name</h1>
+                <div class="product-detail-price">$@Model.Price.ToString("F2")</div>
+
+                <div class="d-flex align-items-center gap-3 mb-3">
+                    @if (Model.Stock > 10)
+                    {
+                        <span class="status-badge status-delivered"><i class="bi bi-check-circle"></i> In Stock (@Model.Stock available)</span>
+                    }
+                    else if (Model.Stock > 0)
+                    {
+                        <span class="status-badge status-pending"><i class="bi bi-exclamation-circle"></i> Only @Model.Stock left!</span>
+                    }
+                    else
+                    {
+                        <span class="status-badge status-cancelled"><i class="bi bi-x-circle"></i> Out of Stock</span>
+                    }
+                </div>
+
+                <p class="product-detail-desc">@Model.Description</p>
+
+                @if (Model.Stock > 0)
+                {
+                    <div class="d-flex align-items-center gap-3 mb-4">
+                        <div class="quantity-control">
+                            <button onclick="changeDetailQty(-1)"><i class="bi bi-dash"></i></button>
+                            <input type="number" id="detail-qty" value="1" min="1" max="@Model.Stock" readonly />
+                            <button onclick="changeDetailQty(1)"><i class="bi bi-plus"></i></button>
+                        </div>
+                        <button class="btn btn-glow btn-lg flex-grow-1" onclick="addToCart(@Model.Id, getDetailQty())" id="add-to-cart-btn">
+                            <i class="bi bi-cart-plus me-2"></i>Add to Cart
+                        </button>
+                    </div>
+                }
+
+                <div class="glass-card p-3">
+                    <div class="d-flex align-items-center gap-3 mb-2">
+                        <i class="bi bi-truck text-accent" style="font-size:1.2rem;"></i>
+                        <div>
+                            <div style="font-weight:600; font-size:0.9rem;">Free Shipping</div>
+                            <div style="font-size:0.8rem; color:var(--text-muted);">On orders over $25</div>
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-center gap-3 mb-2">
+                        <i class="bi bi-arrow-counterclockwise text-accent" style="font-size:1.2rem;"></i>
+                        <div>
+                            <div style="font-weight:600; font-size:0.9rem;">30-Day Returns</div>
+                            <div style="font-size:0.8rem; color:var(--text-muted);">Easy hassle-free returns</div>
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-center gap-3">
+                        <i class="bi bi-shield-check text-accent" style="font-size:1.2rem;"></i>
+                        <div>
+                            <div style="font-weight:600; font-size:0.9rem;">1-Year Warranty</div>
+                            <div style="font-size:0.8rem; color:var(--text-muted);">Against manufacturing defects</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Related Products -->
+        @if (relatedProducts.Any())
+        {
+            <div class="mt-5 pt-4">
+                <h3 class="section-title mb-4">Related Products</h3>
+                <div class="row g-4">
+                    @foreach (var rp in relatedProducts)
+                    {
+                        <div class="col-sm-6 col-lg-3">
+                            <div class="product-card stagger-item">
+                                <div class="product-card-img-wrapper">
+                                    <img src="@(rp.ImageUrl ?? "https://via.placeholder.com/400x300?text=No+Image")"
+                                         alt="@rp.Name" class="product-card-img" loading="lazy" />
+                                </div>
+                                <div class="product-card-body">
+                                    <h3 class="product-card-title">
+                                        <a asp-controller="Products" asp-action="Details" asp-route-id="@rp.Id">@rp.Name</a>
+                                    </h3>
+                                    <div class="product-card-price">$@rp.Price.ToString("F2")</div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+@section Scripts {
+    <form id="cart-form" asp-controller="Cart" asp-action="AddToCart" method="post" style="display:none;"></form>
+    <script>
+        function changeDetailQty(delta) {
+            const input = document.getElementById('detail-qty');
+            let val = parseInt(input.value) + delta;
+            val = Math.max(1, Math.min(val, parseInt(input.max)));
+            input.value = val;
+        }
+        function getDetailQty() {
+            return parseInt(document.getElementById('detail-qty')?.value || 1);
+        }
+    </script>
+}

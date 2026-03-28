@@ -1,0 +1,107 @@
+@model MobileShop.Models.ViewModels.AdminDashboardViewModel
+@{
+    ViewData["Title"] = "Admin Dashboard";
+}
+
+<div class="page-header">
+    <div class="container">
+        <h1 class="page-title"><i class="bi bi-speedometer2 me-2"></i>Admin Dashboard</h1>
+        <div class="page-breadcrumb">
+            <a asp-controller="Home" asp-action="Index">Home</a>
+            <i class="bi bi-chevron-right"></i>
+            <span>Admin Dashboard</span>
+        </div>
+    </div>
+</div>
+
+<div class="container pb-5">
+    <!-- Stats Cards -->
+    <div class="row g-4 mb-4">
+        <div class="col-sm-6 col-xl-3">
+            <div class="stat-card fade-in">
+                <div class="stat-card-icon blue"><i class="bi bi-cart-check"></i></div>
+                <div class="stat-card-value">@Model.TotalOrders</div>
+                <div class="stat-card-label">Total Orders</div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-xl-3">
+            <div class="stat-card fade-in">
+                <div class="stat-card-icon green"><i class="bi bi-currency-dollar"></i></div>
+                <div class="stat-card-value">$@Model.TotalRevenue.ToString("N2")</div>
+                <div class="stat-card-label">Total Revenue</div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-xl-3">
+            <div class="stat-card fade-in">
+                <div class="stat-card-icon purple"><i class="bi bi-box-seam"></i></div>
+                <div class="stat-card-value">@Model.TotalProducts</div>
+                <div class="stat-card-label">Total Products</div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-xl-3">
+            <div class="stat-card fade-in">
+                <div class="stat-card-icon orange"><i class="bi bi-clock-history"></i></div>
+                <div class="stat-card-value">@Model.PendingOrders</div>
+                <div class="stat-card-label">Pending Orders</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick Actions -->
+    <div class="d-flex gap-3 mb-4 flex-wrap">
+        <a asp-controller="Admin" asp-action="Products" class="btn btn-glass">
+            <i class="bi bi-box-seam me-2"></i>Manage Products
+        </a>
+        <a asp-controller="Admin" asp-action="CreateProduct" class="btn btn-glow">
+            <i class="bi bi-plus-circle me-2"></i>Add New Product
+        </a>
+        <a asp-controller="Admin" asp-action="Orders" class="btn btn-glass">
+            <i class="bi bi-receipt me-2"></i>Manage Orders
+        </a>
+    </div>
+
+    <!-- Recent Orders -->
+    <div class="glass-card p-4">
+        <h5 style="font-weight:700; margin-bottom:1.5rem;">
+            <i class="bi bi-clock-history me-2 text-accent"></i>Recent Orders
+        </h5>
+        @if (Model.RecentOrders.Any())
+        {
+            <div class="table-responsive">
+                <table class="glass-table">
+                    <thead>
+                        <tr>
+                            <th>Order ID</th>
+                            <th>Customer</th>
+                            <th>Items</th>
+                            <th>Total</th>
+                            <th>Status</th>
+                            <th>Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var order in Model.RecentOrders)
+                        {
+                            <tr>
+                                <td><strong>#@order.Id</strong></td>
+                                <td>@order.User?.Email</td>
+                                <td>@order.OrderItems.Count item(s)</td>
+                                <td style="font-weight:600;">$@order.TotalAmount.ToString("F2")</td>
+                                <td>
+                                    <span class="status-badge status-@order.Status.ToString().ToLower()">
+                                        @order.Status
+                                    </span>
+                                </td>
+                                <td style="color:var(--text-muted); font-size:0.85rem;">@order.OrderDate.ToString("MMM dd, HH:mm")</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+        else
+        {
+            <p style="color:var(--text-muted); text-align:center; padding:2rem;">No orders yet.</p>
+        }
+    </div>
+</div>

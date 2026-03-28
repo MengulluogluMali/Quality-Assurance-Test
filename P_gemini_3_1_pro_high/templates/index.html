@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="store-hero" style="text-align: center; padding: 2rem 0; margin-bottom: 2rem;">
+    <h2>Premium Mobile Accessories</h2>
+    <p style="color: var(--secondary-text);">Upgrade your everyday gear.</p>
+</div>
+
+<div class="product-grid">
+    {% for product in products %}
+    <div class="product-card">
+        <div class="product-image">
+            <span style="font-size: 3rem;">📱</span>
+        </div>
+        <div class="product-info">
+            <h3 class="product-title">{{ product.name }}</h3>
+            <p style="color: var(--secondary-text); font-size: 0.9rem;">{{ product.description }}</p>
+            <div style="flex: 1;"></div>
+            <div class="product-price">${{ "%.2f"|format(product.price) }}</div>
+            <a href="{{ url_for('add_to_cart', product_id=product.id) }}" class="btn" style="text-align: center;">Add to Cart</a>
+        </div>
+    </div>
+    {% else %}
+    <p style="grid-column: 1 / -1; text-align: center; color: var(--secondary-text);">Check back soon for new accessories!</p>
+    {% endfor %}
+</div>
+{% endblock %}

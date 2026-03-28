@@ -1,0 +1,184 @@
+@{
+    ViewData["Title"] = "Premium Phone Accessories";
+    var featured = ViewBag.FeaturedProducts as List<MobileAccessoriesShop.Models.Product> ?? new();
+    var categories = ViewBag.Categories as List<MobileAccessoriesShop.Models.Category> ?? new();
+}
+
+<!-- HERO -->
+<section class="hero">
+    <div class="hero-grid"></div>
+    <div class="hero-content">
+        <div class="hero-badge">
+            <i class="fas fa-bolt"></i> New Arrivals Just Dropped
+        </div>
+        <h1>
+            Accessories That<br/>
+            <span class="gradient-text">Elevate Your Phone</span>
+        </h1>
+        <p>
+            Discover premium cases, ultra-fast chargers, noise-cancelling earbuds,
+            and more — all crafted for the modern mobile lifestyle.
+        </p>
+        <div class="hero-buttons">
+            <a asp-controller="Shop" asp-action="Index" class="btn btn-primary btn-lg" id="hero-shop-btn">
+                <i class="fas fa-shopping-bag"></i> Shop Now
+            </a>
+            <a asp-controller="Shop" asp-action="Index" asp-route-category="phone-cases" class="btn btn-secondary btn-lg">
+                <i class="fas fa-mobile-alt"></i> View Cases
+            </a>
+        </div>
+        <div class="hero-stats">
+            <div class="hero-stat">
+                <strong>500+</strong>
+                <span>Products</span>
+            </div>
+            <div class="hero-stat">
+                <strong>50K+</strong>
+                <span>Happy Customers</span>
+            </div>
+            <div class="hero-stat">
+                <strong>4.9★</strong>
+                <span>Average Rating</span>
+            </div>
+            <div class="hero-stat">
+                <strong>Free</strong>
+                <span>Shipping &gt; $50</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CATEGORY PILLS -->
+<div class="category-pills">
+    <a asp-controller="Shop" asp-action="Index" class="category-pill @(ViewBag.SelectedCategory == null ? "active" : "")">
+        <i class="fas fa-th"></i> All Products
+    </a>
+    @foreach (var cat in categories)
+    {
+        <a asp-controller="Shop" asp-action="Index" asp-route-category="@cat.Slug"
+           class="category-pill @(ViewBag.SelectedCategory == cat.Slug ? "active" : "")">
+            @if (!string.IsNullOrEmpty(cat.IconClass))
+            {
+                <i class="@cat.IconClass"></i>
+            }
+            @cat.Name
+        </a>
+    }
+</div>
+
+<!-- FEATURED PRODUCTS -->
+<section class="section">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:40px;">
+        <div>
+            <h2 class="section-title">⚡ Featured Products</h2>
+            <p class="section-subtitle">Hand-picked bestsellers loved by our community</p>
+        </div>
+        <a asp-controller="Shop" asp-action="Index" class="btn btn-outline">
+            View All <i class="fas fa-arrow-right"></i>
+        </a>
+    </div>
+
+    @if (featured.Any())
+    {
+        <div class="products-grid">
+            @foreach (var product in featured)
+            {
+                <div class="product-card">
+                    <div class="product-image">
+                        @if (!string.IsNullOrEmpty(product.ImagePath))
+                        {
+                            <img src="@product.ImagePath" alt="@product.Name" loading="lazy" />
+                        }
+                        else
+                        {
+                            <div class="product-image-placeholder">@GetProductEmoji(product)</div>
+                        }
+                        @if (product.DiscountPercent > 0)
+                        {
+                            <span class="product-badge badge-discount">-@product.DiscountPercent%</span>
+                        }
+                        else if (product.IsFeatured)
+                        {
+                            <span class="product-badge badge-featured">⭐ Featured</span>
+                        }
+                    </div>
+                    <div class="product-body">
+                        <div class="product-category">@product.Category?.Name</div>
+                        <div class="product-name">
+                            <a asp-controller="Shop" asp-action="Details" asp-route-id="@product.Id">@product.Name</a>
+                        </div>
+                        <div class="product-price-row">
+                            <span class="product-price">$@product.Price.ToString("F2")</span>
+                            @if (product.OriginalPrice.HasValue)
+                            {
+                                <span class="product-original-price">$@product.OriginalPrice.Value.ToString("F2")</span>
+                            }
+                        </div>
+                        <div class="product-actions">
+                            <form asp-controller="Cart" asp-action="Add" method="post" style="flex:1">
+                                @Html.AntiForgeryToken()
+                                <input type="hidden" name="productId" value="@product.Id" />
+                                <button type="submit" class="btn-add-cart" id="add-to-cart-@product.Id" onclick="animateCartAdd(this)">
+                                    <i class="fas fa-shopping-cart"></i> Add to Cart
+                                </button>
+                            </form>
+                            <a asp-controller="Shop" asp-action="Details" asp-route-id="@product.Id"
+                               class="btn btn-outline btn-sm" title="View Details">
+                                <i class="fas fa-eye"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <div class="empty-state">
+            <div class="empty-icon">📦</div>
+            <h3>Coming Soon</h3>
+            <p>We're stocking up. Check back shortly!</p>
+        </div>
+    }
+</section>
+
+<!-- VALUE PROPS -->
+<section style="background:var(--bg-secondary);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:60px 40px;">
+    <div style="max-width:1200px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:40px;">
+        <div style="text-align:center;">
+            <div style="font-size:2.5rem;margin-bottom:16px;">🚚</div>
+            <h3 style="font-weight:700;margin-bottom:8px;">Free Shipping</h3>
+            <p style="color:var(--text-secondary);font-size:14px;">On all orders over $50. Delivered in 3–5 business days.</p>
+        </div>
+        <div style="text-align:center;">
+            <div style="font-size:2.5rem;margin-bottom:16px;">🛡️</div>
+            <h3 style="font-weight:700;margin-bottom:8px;">2-Year Warranty</h3>
+            <p style="color:var(--text-secondary);font-size:14px;">All our products come with a 2-year manufacturer warranty.</p>
+        </div>
+        <div style="text-align:center;">
+            <div style="font-size:2.5rem;margin-bottom:16px;">↩️</div>
+            <h3 style="font-weight:700;margin-bottom:8px;">Easy Returns</h3>
+            <p style="color:var(--text-secondary);font-size:14px;">Not happy? Return within 30 days for a full refund.</p>
+        </div>
+        <div style="text-align:center;">
+            <div style="font-size:2.5rem;margin-bottom:16px;">💬</div>
+            <h3 style="font-weight:700;margin-bottom:8px;">24/7 Support</h3>
+            <p style="color:var(--text-secondary);font-size:14px;">Our team is always ready to help you out.</p>
+        </div>
+    </div>
+</section>
+
+@functions {
+    string GetProductEmoji(MobileAccessoriesShop.Models.Product p)
+    {
+        return p.Category?.Slug switch {
+            "phone-cases" => "📱",
+            "chargers-cables" => "⚡",
+            "screen-protectors" => "🛡️",
+            "headphones-earbuds" => "🎧",
+            "power-banks" => "🔋",
+            "stands-holders" => "📐",
+            _ => "🛍️"
+        };
+    }
+}

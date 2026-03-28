@@ -1,0 +1,38 @@
+@model IEnumerable<MobileStore.Models.Product>
+
+@{
+    ViewData["Title"] = "Admin - Manage Products";
+}
+
+<h2 class="mb-4"><i class="fa-solid fa-boxes-stacked"></i> Manage Products</h2>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary"><i class="fa-solid fa-plus"></i> Add New Product</a>
+</p>
+
+<div class="glass-card">
+    <table class="table mb-0">
+        <thead>
+            <tr>
+                <th>Image</th>
+                <th>Name</th>
+                <th>Category</th>
+                <th>Price</th>
+                <th>Stock</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model) {
+                <tr>
+                    <td>
+                        <img src="@item.ImageUrl" alt="@item.Name" style="height: 50px; width: 50px; object-fit: cover; border-radius: 4px;" />
+                    </td>
+                    <td>@item.Name</td>
+                    <td><span class="badge bg-secondary">@item.Category</span></td>
+                    <td>@item.Price.ToString("C")</td>
+                    <td>@item.Stock</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
